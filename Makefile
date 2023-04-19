@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/04/19 14:09:01 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/04/19 18:42:58 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ LIB			= $(addprefix $(LIB_DIR), $(LIB_FILES))
 all: $(NAME)
 
 $(NAME): $(OUT_DIR) $(OBJS) $(LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB) -o $(NAME) -lreadline
 	@echo $(COMP_MSG)
 	@norminette | awk '$$NF!="OK!" {print "$(RED)" $$0 "$(WHITE)"}'
 
@@ -78,7 +78,7 @@ $(OUT_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: $(OUT_DIR) $(BNS_OBJS) $(LIB)
-	$(CC) $(CFLAGS) $(BNS_OBJS) $(LIB) -o $(NAME)_bonus
+	$(CC) $(CFLAGS) $(BNS_OBJS) $(LIB) -o $(NAME)_bonus -lreadline
 	@echo $(COMP_BNS_MSG)
 	@norminette | awk '$$NF!="OK!" {print "$(RED)" $$0 "$(WHITE)"}'
 
@@ -86,12 +86,12 @@ $(OUT_DIR)%.o : $(SRC_DIR)%.c Makefile $(BNS_HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) clean -C ./lib/
+	$(MAKE) clean -C ./lib/$(MYLIB_DIR)
 	$(RM) $(OUT_DIR)
 	@echo $(CLEAN_MSG)
 
 fclean:
-	$(MAKE) fclean -C ./lib/
+	$(MAKE) fclean -C ./lib/$(MYLIB_DIR)
 	$(RM) $(NAME) $(OUT_DIR)
 	echo $(CLEAN_MSG)
 	echo $(FULL_CLEAN_MSG)
