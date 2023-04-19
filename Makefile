@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/04/18 20:43:38 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/04/19 14:09:01 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OUT_DIR	= build/
 SRC_DIR	= src/
 INC_DIR	= include/
 LIB_DIR	= lib/
-NAME	= ...
+NAME	= minishell
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra -I $(INC_DIR) #-g3 -fsanitize=address
 RM		= rm -rf
@@ -39,9 +39,10 @@ CLEAN_MSG		= "$(RED)Cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shell date +'%Y-
 FULL_CLEAN_MSG	= "$(PURPLE)Full cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shell date +'%Y-%m-%d %H:%M:%S')$(WHITE)"
 
 #Sources
-..._DIR = ../
-..._FILES = ..
-ALL_FILES = $(addprefix $(..._DIR), $(..._FILES))
+#..._DIR = ../
+#..._FILES = ..
+#ALL_FILES = $(addprefix $(..._DIR), $(..._FILES))
+ALL_FILES = main.c
 
 INC_FILES	= $(NAME).h
 
@@ -49,19 +50,19 @@ OBJS		= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
 HEADERS		= $(addprefix $(INC_DIR), $(INC_FILES))
 
 #Sources bonus
-..._DIR	= ../
-..._FILES	= ..
-ALL_BNS_FILES	= $(addprefix $(..._DIR), $(..._FILES))
-
-BNS_INC_FILES	= $(NAME)_bonus.h
-
-BNS_OBJS	= $(addprefix $(OUT_DIR), $(ALL_BNS_FILES:.c=.o))
-BNS_HEADERS	= $(addprefix $(INC_DIR), $(BNS_INC_FILES))
+#..._DIR	= ../
+#..._FILES	= ..
+#ALL_BNS_FILES	= $(addprefix $(..._DIR), $(..._FILES))
+#
+#BNS_INC_FILES	= $(NAME)_bonus.h
+#
+#BNS_OBJS	= $(addprefix $(OUT_DIR), $(ALL_BNS_FILES:.c=.o))
+#BNS_HEADERS	= $(addprefix $(INC_DIR), $(BNS_INC_FILES))
 
 #Lib
-..._DIR = ../
-..._FILES = ..
-LIB_FILES = $(addprefix $(..._DIR), $(..._FILES))
+MYLIB_DIR	= mylib/
+MYLIB_FILES	= mylib.a
+LIB_FILES	= $(addprefix $(MYLIB_DIR), $(MYLIB_FILES))
 
 LIB			= $(addprefix $(LIB_DIR), $(LIB_FILES))
 
@@ -98,7 +99,7 @@ fclean:
 force:
 
 $(LIB): force
-	$(MAKE) -C ./lib/
+	$(MAKE) -C ./lib/$(MYLIB_DIR)
 
 $(OUT_DIR): force
 	mkdir -p $(shell find $(SRC_DIR) -type d | awk -F "$(SRC_DIR)" '$$NF!="$(SRC_DIR)" {print "$(OUT_DIR)"$$(NF)}')
