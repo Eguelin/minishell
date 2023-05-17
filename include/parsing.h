@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/16 18:37:39 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/16 17:36:05 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/16 18:11:00 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "parsing.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#ifndef PARSING_H
+# define PARSING_H
 
-typedef struct s_minishell
+typedef struct s_file
 {
-	t_list	*env;
-	t_pipe	*pipe;
-}	t_minishell;
+	char			*name;
+	int				type;
+	struct s_file	*next;
+}	t_file;
 
-void	ft_init_minishell(t_minishell *data, char **env);
+typedef struct s_pipe
+{
+	char			**cmd;
+	t_file			*in;
+	t_file			*out;
+	struct s_pipe	*next;
+}	t_pipe;
+
 
 #endif
