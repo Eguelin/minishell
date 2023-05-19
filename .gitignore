@@ -5,3 +5,4 @@ a.out*
 *.a
 build
 minishell
+valgrind*

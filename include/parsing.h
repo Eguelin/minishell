@@ -6,12 +6,14 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:36:05 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/16 18:11:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/19 20:00:58 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
+# include "../lib/mylib/include/mylib.h"
 
 typedef struct s_file
 {
@@ -28,5 +30,14 @@ typedef struct s_pipe
 	struct s_pipe	*next;
 }	t_pipe;
 
+////////// [ pars_line.c ] //////////
+t_dlist	*ft_cut_line(char *line);
+
+////////// [ token.c ] //////////
+void	ft_token_chevron(t_dlist **lst, char *str, size_t *start, size_t *end);
+void	ft_token_quote(t_dlist **lst, char *str, size_t *start, size_t *end);
+void	ft_token_pipe(t_dlist **lst, char *str, size_t *start, size_t *end);
+void	ft_token_space(t_dlist **lst, char *str, size_t *start, size_t *end);
+void	ft_token(t_dlist **lst, char *str, size_t start, size_t end);
 
 #endif
