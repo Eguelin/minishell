@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/19 19:04:04 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/20 16:52:25 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ int	main(int argc, char **argv, char **env)
 char	*ft_prompt(int i)
 {
 	if (i)
-		return ("\033[1;35mMinishell \033[1;31m$> \033[0m");
+		return ("\033[1;31m➜  \033[1;36mminishell \033[1;34m"\
+		"git:(\033[1;31mparsing-testing\033[1;34m) \033[1;33m✗ \033[0m");
 	else
-		return ("\033[1;35mMinishell \033[1;32m$> \033[0m");
+		return ("\033[1;32m➜  \033[1;36mminishell \033[1;34m"\
+		"git:(\033[1;31mparsing-testing\033[1;34m) \033[1;33m✗ \033[0m");
 }
