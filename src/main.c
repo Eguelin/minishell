@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/20 16:52:25 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/21 18:28:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	main(int argc, char **argv, char **env)
 	t_dlist		*lst;
 	t_dlist		*tmp;
 	char		*line;
+	int			i;
 
 	(void)argc;
 	(void)argv;
 	lst = NULL;
+	i = 0;
 	ft_init_minishell(&data, env);
 	ft_lstclear(&data.env, free);
 	while (1)
@@ -42,7 +44,7 @@ int	main(int argc, char **argv, char **env)
 			tmp = lst;
 			while (tmp)
 			{
-				printf("%s\n", (char *)tmp->content);
+				printf("%d : %s\n", i++, (char *)tmp->content);
 				tmp = tmp->next;
 			}
 			ft_dlstclear(&lst, free);
@@ -55,9 +57,7 @@ int	main(int argc, char **argv, char **env)
 char	*ft_prompt(int i)
 {
 	if (i)
-		return ("\033[1;31m➜  \033[1;36mminishell \033[1;34m"\
-		"git:(\033[1;31mparsing-testing\033[1;34m) \033[1;33m✗ \033[0m");
+		return ("\033[1;31m➜  \033[1;36mminishell \033[0m");
 	else
-		return ("\033[1;32m➜  \033[1;36mminishell \033[1;34m"\
-		"git:(\033[1;31mparsing-testing\033[1;34m) \033[1;33m✗ \033[0m");
+		return ("\033[1;32m➜  \033[1;36mminishell \033[0m");
 }
