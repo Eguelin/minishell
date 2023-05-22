@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 12:47:38 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/22 16:21:50 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,6 @@ int	ft_token_space(t_dlist **dlst, char *str, size_t *start, size_t *end)
 
 int	ft_token_dollar(t_dlist **dlst, char *str, size_t *start, size_t *end)
 {
-	char	c;
-
-	c = str[*end];
 	if (ft_dup_token(dlst, str, *start, *end - *start))
 		return (130);
 	*start = *end;

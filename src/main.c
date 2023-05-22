@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/21 18:28:15 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/22 15:30:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ char	*ft_prompt(int i);
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	data;
-	t_dlist		*lst;
+	t_dlist		*dlst;
 	t_dlist		*tmp;
 	char		*line;
 	int			i;
 
 	(void)argc;
 	(void)argv;
-	lst = NULL;
+	dlst = NULL;
 	i = 0;
 	ft_init_minishell(&data, env);
 	ft_lstclear(&data.env, free);
@@ -40,14 +40,14 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			lst = ft_cut_line(line);
-			tmp = lst;
+			dlst = ft_lexer(line);
+			tmp = dlst;
 			while (tmp)
 			{
 				printf("%d : %s\n", i++, (char *)tmp->content);
 				tmp = tmp->next;
 			}
-			ft_dlstclear(&lst, free);
+			ft_dlstclear(&dlst, free);
 		}
 		free(line);
 	}
