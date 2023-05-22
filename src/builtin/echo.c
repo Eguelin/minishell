@@ -6,9 +6,11 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:51:19 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/16 15:33:48 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/05/18 11:14:26 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 static int	check_option(char *str)
 {
@@ -44,17 +46,18 @@ void	ft_echo(char **cmd)
 
 	i = 1;
 	if (!cmd[i])
+	{
+		printf("\n");
 		return ;
+	}
 	if (check_option(cmd[i]))
 	{
 		while (cmd[i] && check_option(cmd[i]))
 			i++;
 		if (cmd[i])
 			ft_writestr(cmd + i);
+		return ;
 	}
-	else
-	{
-		ft_writestr(cmd + i);
-		printf("\n");
-	}
+	ft_writestr(cmd + i);
+	printf("\n");
 }

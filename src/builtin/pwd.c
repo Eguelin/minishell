@@ -6,24 +6,16 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:59:00 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/15 18:15:49 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/05/18 10:50:25 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-void	ft_pwd(char **env)
+void	ft_pwd(void)
 {
-	int	i;
+	char	cwd[PATH_MAX];
 
-	i = 0;
-	while (env[i])
-	{
-		if (!ft_strncmp(env[i], "PWD=", 4))
-		{
-			ft_putstr_fd(env[i] + 4, 1);
-			return ;
-		}
-		i++;
-	}
+	ft_putstr_fd(getcwd(cwd, sizeof(cwd)), 1);
+	printf("\n");
 }

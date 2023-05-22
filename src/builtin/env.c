@@ -6,9 +6,11 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/16 15:36:27 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/05/17 14:02:56 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 void	ft_env(char **env)
 {
@@ -17,7 +19,8 @@ void	ft_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		if (strchr(env[i], '='))
+			printf("%s\n", env[i]);
 		i++;
 	}
 }
