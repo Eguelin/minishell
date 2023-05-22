@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/16 17:49:41 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
+/*   Updated: 2023/05/18 10:41:54 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "exec.h"
-# include "../lib/mylib/include/mylib.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+int	ft_export(t_list **env, char **cmd)
 {
-	t_list	*env;
-}	t_minishell;
+	t_list	*new;
+	char	*str;
+	int		i;
 
-void	ft_init_minishell(t_minishell *data, char **env);
+	if (cmd[1])
+	{
+		str = ft_strdup(cmd[1]);
+		if (!str)
+			return (1);
+		new = ft_lstnew(str);
+		ft_lstadd_back(env, new);
+	}
+	i = 1;
+	while (i <= 177)
+	{
+		i++;
+	}
+	return (0);
+}
 
-#endif
+// Check si la variable existe deja
+// indexage par croissance selon la table ascii
