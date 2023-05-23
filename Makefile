@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/23 16:08:40 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/05/23 16:16:22 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,11 +58,11 @@ PIPE_DIR = pipe/
 PIPE_FILES = ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
 ALL_FILES += $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
 
-PARS_DIR = parsing/
-PARS_FILES = pars_line.c ft_token.c ft_token2.c
+PARS_DIR = lexer/
+PARS_FILES = ft_lexer.c ft_token.c ft_token2.c
 ALL_FILES += $(addprefix $(PARS_DIR), $(PARS_FILES))
 
-INC_FILES	= $(NAME).h lst.h parsing.h
+INC_FILES	= $(NAME).h lexer.h lst.h
 
 OBJS		= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
 HEADERS		= $(addprefix $(INC_DIR), $(INC_FILES))
