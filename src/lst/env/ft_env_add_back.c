@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_envadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/23 16:07:04 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 20:04:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include "parsing.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+void	ft_env_add_back(t_env **env, t_env *new)
 {
-	t_list	*env;
-	t_pipe	*pipe;
-}	t_minishell;
+	t_env	*env_last;
 
-void	ft_init_minishell(t_minishell *data, char **env);
-
-#endif
+	if (!env || !new)
+		return ;
+	if (*env)
+	{
+		env_last = ft_env_last(*env);
+		env_last->next = new;
+		new->previous = env_last;
+	}
+	else
+		*env = new;
+}

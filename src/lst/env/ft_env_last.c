@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_envlast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/23 16:07:04 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 20:19:26 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 16:31:41 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include "parsing.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+t_env	*ft_env_last(t_env *env)
 {
-	t_list	*env;
-	t_pipe	*pipe;
-}	t_minishell;
-
-void	ft_init_minishell(t_minishell *data, char **env);
-
-#endif
+	if (!env)
+		return (NULL);
+	while (env->next)
+		env = env->next;
+	return (env);
+}
