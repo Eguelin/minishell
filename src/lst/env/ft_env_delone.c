@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_envdelone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/23 15:10:13 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 21:03:04 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 16:31:54 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+void	ft_env_delone(t_env *env, void (*del)(void*))
 {
-	t_list	*env;
-}	t_minishell;
-
-void	ft_init_minishell(t_minishell *data, char **env);
-
-#endif
+	if (!env || !del)
+		return ;
+	if (env->previous)
+		env->previous->next = env->next;
+	if (env->next)
+		env->next->previous = env->previous;
+	del(env->name);
+	del(env->content);
+	free(env);
+}
