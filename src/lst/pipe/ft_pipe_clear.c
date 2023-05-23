@@ -12,16 +12,16 @@
 
 #include "minishell.h"
 
-void	ft_pipe_clear(t_pipe **pipe, void (*del)(void*))
+void	ft_pipe_clear(t_pipe **pipe)
 {
 	t_pipe	*tmp;
 
-	if (!pipe || !del)
+	if (!pipe)
 		return ;
 	while (*pipe)
 	{
 		tmp = (*pipe)->next;
-		ft_pipe_delone(*pipe, del);
+		ft_pipe_delone(*pipe);
 		*pipe = tmp;
 	}
 }

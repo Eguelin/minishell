@@ -39,8 +39,8 @@ typedef struct s_pipe
 ////////// [ env ] //////////
 void	ft_env_add_back(t_env **env, t_env *new);
 void	ft_env_add_front(t_env **env, t_env *new);
-void	ft_env_clear(t_env **env, void (*del)(void*));
-void	ft_env_delone(t_env *env, void (*del)(void*));
+void	ft_env_clear(t_env **env);
+void	ft_env_delone(t_env *env);
 t_env	*ft_env_first(t_env *env);
 t_env	*ft_env_last(t_env *env);
 t_env	*ft_env_new(char *name, char *content);
@@ -50,14 +50,14 @@ int		ft_env_size(t_env *env);
 t_file	*ft_file_new(char *name, int type);
 void	ft_file_add_back(t_file **file, t_file *new);
 t_file	*ft_file_last(t_file *file);
-void	ft_file_clear(t_file **file, void (*del)(void*));
-void	ft_file_delone(t_file *file, void (*del)(void*));
+void	ft_file_clear(t_file **file);
+void	ft_file_delone(t_file *file);
 
 ////////// [ pipe ] //////////
 t_pipe	*ft_pipe_new(void);
 void	ft_pipe_add_back(t_pipe **pipe, t_pipe *new);
 t_pipe	*ft_pipe_last(t_pipe *pipe);
-void	ft_pipe_clear(t_pipe **pipe, void (*del)(void*));
-void	ft_pipe_delone(t_pipe *pipe, void (*del)(void*));
+void	ft_pipe_clear(t_pipe **pipe);
+void	ft_pipe_delone(t_pipe *pipe);
 
 #endif

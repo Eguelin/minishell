@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-void	ft_env_clear(t_env **env, void (*del)(void*))
+void	ft_env_clear(t_env **env)
 {
 	t_env	*tmp;
 
-	if (!env || !del)
+	if (!env)
 		return ;
 	*env = ft_env_first(*env);
 	while (*env)
 	{
 		tmp = (*env)->next;
-		ft_env_delone(*env, del);
+		ft_env_delone(*env);
 		*env = tmp;
 	}
 }

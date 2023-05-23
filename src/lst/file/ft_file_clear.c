@@ -12,16 +12,16 @@
 
 #include "minishell.h"
 
-void	ft_file_clear(t_file **file, void (*del)(void*))
+void	ft_file_clear(t_file **file)
 {
 	t_file	*tmp;
 
-	if (!file || !del)
+	if (!file)
 		return ;
 	while (*file)
 	{
 		tmp = (*file)->next;
-		ft_file_delone(*file, del);
+		ft_file_delone(*file);
 		*file = tmp;
 	}
 }
