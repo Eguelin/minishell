@@ -18,7 +18,7 @@ t_env	*ft_env_new(char *name, char *content)
 
 	env_new = malloc(sizeof(t_env));
 	if (!env_new)
-		return (NULL);
+		return (free(name), free(content), NULL);
 	env_new->name = name;
 	env_new->content = content;
 	env_new->previous = NULL;

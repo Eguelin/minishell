@@ -12,15 +12,15 @@
 
 #include "minishell.h"
 
-void	ft_env_delone(t_env *env, void (*del)(void*))
+void	ft_env_delone(t_env *env)
 {
-	if (!env || !del)
+	if (!env)
 		return ;
 	if (env->previous)
 		env->previous->next = env->next;
 	if (env->next)
 		env->next->previous = env->previous;
-	del(env->name);
-	del(env->content);
+	free(env->name);
+	free(env->content);
 	free(env);
 }

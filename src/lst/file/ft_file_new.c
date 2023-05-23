@@ -18,7 +18,7 @@ t_file	*ft_file_new(char *name, int type)
 
 	file_new = malloc(sizeof(t_file));
 	if (!file_new)
-		return (NULL);
+		return (free(name), NULL);
 	file_new->name = name;
 	file_new->type = type;
 	file_new->next = NULL;

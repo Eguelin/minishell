@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-void	ft_file_delone(t_file *file, void (*del)(void*))
+void	ft_file_delone(t_file *file)
 {
-	if (!file || !del)
+	if (!file)
 		return ;
-	del(file->name);
+	free(file->name);
 	free(file);
 }

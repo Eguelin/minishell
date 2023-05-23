@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-void	ft_pipe_delone(t_pipe *pipe, void (*del)(void*))
+void	ft_pipe_delone(t_pipe *pipe)
 {
-	if (!pipe || !del)
+	if (!pipe)
 		return ;
 	ft_free_split(pipe->cmd);
-	ft_file_clear(&pipe->in, del);
-	ft_file_clear(&pipe->out, del);
+	ft_file_clear(&pipe->in);
+	ft_file_clear(&pipe->out);
 	free(pipe);
 }
