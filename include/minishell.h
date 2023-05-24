@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/23 15:10:13 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/24 13:28:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_minishell
 {
-	t_list	*env;
+	t_env	*env;
 }	t_minishell;
 
 void	ft_init_minishell(t_minishell *data, char **env);

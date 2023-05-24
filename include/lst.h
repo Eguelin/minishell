@@ -45,6 +45,8 @@ t_env	*ft_env_first(t_env *env);
 t_env	*ft_env_last(t_env *env);
 t_env	*ft_env_new(char *name, char *content);
 int		ft_env_size(t_env *env);
+t_env	*ft_get_env_var(char *env_var);
+t_env	*ft_set_env(char **env);
 
 ////////// [ file ] //////////
 t_file	*ft_file_new(char *name, int type);
