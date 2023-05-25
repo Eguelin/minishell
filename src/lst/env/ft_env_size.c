@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_envsize(t_env *env)
+int	ft_env_size(t_env *env)
 {
 	int	n;
 

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 15:30:40 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/25 11:30:34 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv, char **env)
 	dlst = NULL;
 	i = 0;
 	ft_init_minishell(&data, env);
-	ft_lstclear(&data.env, free);
 	while (1)
 	{
 		line = readline(ft_prompt(0));
@@ -51,6 +50,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		free(line);
 	}
+	ft_env_clear(&data.env);
 	return (0);
 }
 
