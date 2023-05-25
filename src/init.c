@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/16 16:40:25 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/16 18:40:46 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	ft_set_env(t_list	**new_env, char **env)
 
 static void	ft_default_env(t_list	**new_env)
 {
-	char cwd[PATH_MAX];
-	char *env[3];
+	char	cwd[PATH_MAX];
+	char	*env[3];
 
 	env[0] = ft_strjoin("PWD=", getcwd(cwd, sizeof(cwd)));
 	if (!env[0])
