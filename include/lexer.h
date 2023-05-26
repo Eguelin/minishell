@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:36:05 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/26 14:27:08 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/26 15:19:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 # include "../lib/mylib/include/mylib.h"
 
-////////// [ ft_lexer.c ] //////////
+////////// [ lexer] //////////
 int	ft_lexer(t_dlist **dlst, char *line);
 
-////////// [ ft_token ] //////////
+////////// [ token ] //////////
 int	ft_add_token(t_dlist **dlst, char *str, size_t start, size_t size);
 int	ft_get_token(t_dlist **lst, char *str, size_t *start, size_t *end);
 int	ft_token_chevron(t_dlist **lst, char *str, size_t *start, size_t *end);

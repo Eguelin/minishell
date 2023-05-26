@@ -6,13 +6,51 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/26 15:16:42 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/26 19:19:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	*ft_prompt(int i);
+
+void	ft_scip_expend(t_dlist **dlst, int i);
+
+t_dlist	*ft_chr_expend(t_dlist *dlst, int i)
+{
+	while (dlst)
+	{
+		ft_scip_expend(&dlst, i);
+		if (dlst && ((char *)dlst->content)[0] == '$')
+			return (dlst);
+		else if (dlst)
+			dlst = dlst->next;
+	}
+	return (NULL);
+}
+
+void	ft_scip_expend(t_dlist **dlst, int i)
+{
+	if (!ft_strncmp((*dlst)->content, "<<", 3))
+	{
+		while ((*dlst) && ft_strncmp((*dlst)->content, " ", 2))
+			(*dlst) = (*dlst)->next;
+	}
+	else if (!ft_strncmp((*dlst)->content, "\'", 2))
+	{
+		(*dlst) = (*dlst)->next;
+		while ((*dlst) && ft_strncmp((*dlst)->content, "\'", 2))
+			(*dlst) = (*dlst)->next;
+	}
+	else if (!i && !ft_strncmp((*dlst)->content, "\"", 2))
+	{
+		(*dlst) = (*dlst)->next;
+		while ((*dlst) && ft_strncmp((*dlst)->content, "\"", 2))
+			(*dlst) = (*dlst)->next;
+	}
+	else if (!ft_strncmp((*dlst)->content, "$", 2))
+		(*dlst) = (*dlst)->next;
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -28,7 +66,6 @@ int	main(int argc, char **argv, char **env)
 	ft_init_minishell(&data, env);
 	while (1)
 	{
-		i = 1;
 		line = readline(ft_prompt(0));
 		if (!line)
 			exit(0);
@@ -42,6 +79,7 @@ int	main(int argc, char **argv, char **env)
 			if (ft_lexer(&dlst, line))
 				ft_dlstclear(&dlst, free);
 			tmp = dlst;
+			i = 1;
 			while (tmp)
 			{
 				printf("%d\t: %s\n", i++, (char *)tmp->content);
