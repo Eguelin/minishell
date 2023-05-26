@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/25 11:30:34 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/26 15:16:42 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	dlst = NULL;
-	i = 0;
 	ft_init_minishell(&data, env);
 	while (1)
 	{
+		i = 1;
 		line = readline(ft_prompt(0));
 		if (!line)
 			exit(0);
@@ -39,16 +39,17 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 		{
-			dlst = ft_lexer(line);
+			if (ft_lexer(&dlst, line))
+				ft_dlstclear(&dlst, free);
 			tmp = dlst;
 			while (tmp)
 			{
-				printf("%d : %s\n", i++, (char *)tmp->content);
+				printf("%d\t: %s\n", i++, (char *)tmp->content);
 				tmp = tmp->next;
 			}
 			ft_dlstclear(&dlst, free);
 		}
-		free(line);
+		add_history(line);
 	}
 	ft_env_clear(&data.env);
 	return (0);

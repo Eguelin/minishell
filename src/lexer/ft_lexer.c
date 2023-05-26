@@ -6,29 +6,39 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 17:00:02 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/26 14:28:33 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_dlist	*ft_lexer(char *line)
+int	ft_syntax_error(int i);
+
+int	ft_lexer(t_dlist **dlst, char *line)
 {
-	t_dlist	*dlst;
 	size_t	start;
 	size_t	end;
+	int		i;
 
-	dlst = NULL;
-	start = 0;
 	end = 0;
+	while (line[end] == ' ')
+		end++;
+	start = end;
 	while (line[end])
 	{
-		if (ft_split_token(&dlst, line, &start, &end))
-		{
-			ft_dlstclear(&dlst, free);
-			return (NULL);
-		}
+		i = 0;
+		i = ft_get_token(dlst, line, &start, &end);
+		if (i)
+			return (ft_syntax_error(i));
 	}
-	ft_dup_token(&dlst, line, start, end - start);
-	return (dlst);
+	return (0);
+}
+
+int	ft_syntax_error(int i)
+{
+	if (i < 127)
+		printf("minishell: syntax error near unexpected token `%c'\n", i);
+	else if (i == 131)
+		printf("minishell: syntax error near unexpected token `newline'\n");
+	return (i);
 }

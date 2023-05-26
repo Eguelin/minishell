@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token.c                                         :+:      :+:    :+:   */
+/*   ft_get_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 17:00:38 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/26 13:44:31 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_split_token(t_dlist **dlst, char *line, size_t *start, size_t *end)
+int	ft_get_token(t_dlist **dlst, char *line, size_t *start, size_t *end)
 {
 	int	i;
 
@@ -28,31 +28,6 @@ int	ft_split_token(t_dlist **dlst, char *line, size_t *start, size_t *end)
 	else if (line[*end] == '$')
 		i = ft_token_dollar(dlst, line, start, end);
 	else
-		(*end)++;
-	if (i && i < 127)
-		printf("minishell: syntax error near unexpected token `%c'\n", i);
-	else if (i)
-		printf("minishell: syntax error near unexpected token `newline'\n");
+		i = ft_token_word(dlst, line, start, end);
 	return (i);
-}
-
-int	ft_dup_token(t_dlist **dlst, char *str, size_t start, size_t size)
-{
-	t_dlist	*new;
-	char	*str_2;
-
-	printf("start = %ld, size = %ld;\n", start, size);
-	if (size == 0)
-		return (0);
-	str_2 = ft_substr(str, start, size);
-	if (!str_2)
-		return (130);
-	new = ft_dlstnew(str_2);
-	if (!new)
-	{
-		free(str_2);
-		return (130);
-	}
-	ft_dlstadd_back(dlst, new);
-	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/25 11:29:28 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/05/26 13:41:54 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,13 @@ PIPE_DIR = pipe/
 PIPE_FILES = ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
 ALL_FILES += $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
 
-PARS_DIR = lexer/
-PARS_FILES = ft_lexer.c ft_token.c ft_token2.c
-ALL_FILES += $(addprefix $(PARS_DIR), $(PARS_FILES))
+LEXER_DIR = lexer/
+LEXER_FILES = ft_lexer.c
+ALL_FILES += $(addprefix $(LEXER_DIR), $(LEXER_FILES))
+
+TOKEN_DIR = token/
+TOKEN_FILES = ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
+ALL_FILES += $(addprefix $(LEXER_DIR)$(TOKEN_DIR), $(TOKEN_FILES))
 
 INC_FILES	= $(NAME).h lexer.h lst.h
 

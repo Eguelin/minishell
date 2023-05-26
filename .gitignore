@@ -6,3 +6,4 @@ a.out*
 build
 minishell
 valgrind*
+.nfs*

@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_token_dollar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/25 16:53:19 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/26 13:40:28 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include "lexer.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+int	ft_token_dollar(t_dlist **dlst, char *str, size_t *start, size_t *end)
 {
-	t_env	*env;
-	t_pipe	*pipe;
-}	t_minishell;
-
-void	ft_init_minishell(t_minishell *data, char **env);
-
-#endif
+	(*end)++;
+	while (ft_isalnum(str[*end]) || str[*end] == '_')
+		(*end)++;
+	if (ft_add_token(dlst, str, *start, *end - *start))
+		return (130);
+	*start = *end;
+	return (0);
+}
