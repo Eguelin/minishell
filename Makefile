@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/27 17:14:02 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/05/28 14:44:21 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,13 +50,13 @@ ENV_DIR = env/
 ENV_FILES = ft_env_add_back.c ft_env_add_front.c ft_env_chr.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env_var.c ft_set_env.c
 ALL_FILES += $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
 
-FILE_DIR = file/
-FILE_FILES = ft_file_add_back.c ft_file_clear.c ft_file_delone.c ft_file_last.c ft_file_new.c
-ALL_FILES += $(addprefix $(LST_DIR)$(FILE_DIR), $(FILE_FILES))
-
 PIPE_DIR = pipe/
 PIPE_FILES = ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
 ALL_FILES += $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
+
+TOK_DIR = token/
+TOK_FILES = ft_token_add_back.c ft_token_add_front.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c ft_token_size.c
+ALL_FILES += $(addprefix $(LST_DIR)$(TOK_DIR), $(TOK_FILES))
 
 LEXER_DIR = lexer/
 LEXER_FILES = ft_lexer.c

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/26 14:28:33 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/28 19:16:12 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 int	ft_syntax_error(int i);
 
-int	ft_lexer(t_dlist **dlst, char *line)
+int	ft_lexer(t_token **token, char *line)
 {
-	size_t	start;
-	size_t	end;
-	int		i;
+	t_data_token	data;
+	int				i;
 
-	end = 0;
-	while (line[end] == ' ')
-		end++;
-	start = end;
-	while (line[end])
+	data.token = token;
+	data.line = line;
+	data.end = 0;
+	while (line[data.end] == ' ')
+		(data.end)++;
+	data.start = 0;
+	data.type = 0;
+	while (line[data.end])
 	{
-		i = 0;
-		i = ft_get_token(dlst, line, &start, &end);
+		i = ft_get_token(&data);
 		if (i)
 			return (ft_syntax_error(i));
 	}

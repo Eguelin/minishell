@@ -6,31 +6,31 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/26 15:35:12 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/28 19:16:31 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_add_token(t_dlist **dlst, char *str, size_t start, size_t size)
+int	ft_add_token(t_data_token *data)
 {
-	t_dlist	*new;
-	char	*str_2;
+	t_token	*new;
+	char	*str;
 
-	if (size == 0)
+	if (data->end - data->start == 0)
 		return (0);
 	else
 	{
-		str_2 = ft_substr(str, start, size);
-		if (!str_2)
+		str = ft_substr(data->line, data->start, data->end - data->start);
+		if (!str)
 			return (130);
 	}
-	new = ft_dlstnew(str_2);
+	new = ft_token_new(str, data->type);
 	if (!new)
 	{
-		free(str_2);
+		free(str);
 		return (130);
 	}
-	ft_dlstadd_back(dlst, new);
+	ft_token_add_back(data->token, new);
 	return (0);
 }
