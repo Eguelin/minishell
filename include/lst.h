@@ -21,18 +21,19 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_file
+typedef struct s_token
 {
-	char			*name;
+	char			*content;
 	int				type;
-	struct s_file	*next;
-}	t_file;
+	struct s_token	*previous;
+	struct s_token	*next;
+}	t_token;
 
 typedef struct s_pipe
 {
 	char			**cmd;
-	t_file			*in;
-	t_file			*out;
+	t_token			*in;
+	t_token			*out;
 	struct s_pipe	*next;
 }	t_pipe;
 
@@ -49,18 +50,21 @@ int		ft_env_size(t_env *env);
 t_env	*ft_get_env_var(char *env_var);
 t_env	*ft_set_env(char **env);
 
-////////// [ file ] //////////
-t_file	*ft_file_new(char *name, int type);
-void	ft_file_add_back(t_file **file, t_file *new);
-t_file	*ft_file_last(t_file *file);
-void	ft_file_clear(t_file **file);
-void	ft_file_delone(t_file *file);
-
 ////////// [ pipe ] //////////
-t_pipe	*ft_pipe_new(void);
 void	ft_pipe_add_back(t_pipe **pipe, t_pipe *new);
-t_pipe	*ft_pipe_last(t_pipe *pipe);
 void	ft_pipe_clear(t_pipe **pipe);
 void	ft_pipe_delone(t_pipe *pipe);
+t_pipe	*ft_pipe_new(void);
+t_pipe	*ft_pipe_last(t_pipe *pipe);
+
+////////// [ token ] //////////
+void	ft_token_add_back(t_token **token, t_token *new);
+void	ft_token_add_front(t_token **token, t_token *new);
+void	ft_token_clear(t_token **token);
+void	ft_token_delone(t_token *token);
+t_token	*ft_token_first(t_token *token);
+t_token	*ft_token_last(t_token *token);
+t_token	*ft_token_new(char *content, int type);
+int		ft_token_size(t_token *token);
 
 #endif
