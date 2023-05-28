@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_new.c                                      :+:      :+:    :+:   */
+/*   ft_token_size.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 14:40:19 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 19:27:39 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 14:23:14 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pipe	*ft_pipe_new(void)
+int	ft_token_size(t_token *token)
 {
-	t_pipe	*pipe_new;
+	int	n;
 
-	pipe_new = malloc(sizeof(t_pipe));
-	if (!pipe_new)
-		return (NULL);
-	pipe_new->cmd = NULL;
-	pipe_new->in = NULL;
-	pipe_new->out = NULL;
-	pipe_new->next = NULL;
-	return (pipe_new);
+	n = 0;
+	token = ft_token_first(token);
+	while (token)
+	{
+		token = token->next;
+		n++;
+	}
+	return (n);
 }

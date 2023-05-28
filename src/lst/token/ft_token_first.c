@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_new.c                                      :+:      :+:    :+:   */
+/*   ft_token_first.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 14:40:19 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 20:19:26 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 14:23:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pipe	*ft_pipe_new(void)
+t_token	*ft_token_first(t_token *token)
 {
-	t_pipe	*pipe_new;
-
-	pipe_new = malloc(sizeof(t_pipe));
-	if (!pipe_new)
+	if (!token)
 		return (NULL);
-	pipe_new->cmd = NULL;
-	pipe_new->in = NULL;
-	pipe_new->out = NULL;
-	pipe_new->next = NULL;
-	return (pipe_new);
+	while (token->previous)
+		token = token->previous;
+	return (token);
 }

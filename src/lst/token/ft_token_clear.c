@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_file_ copy 2.c                               :+:      :+:    :+:   */
+/*   ft_token_clear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 19:43:16 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 21:32:26 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 14:23:32 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_file	*ft_file_new(char *name, int type)
+void	ft_token_clear(t_token **token)
 {
-	t_file	*file_new;
+	t_token	*tmp;
 
-	file_new = malloc(sizeof(t_file));
-	if (!file_new)
-		return (NULL);
-	file_new->name = name;
-	file_new->type = type;
-	file_new->next = NULL;
-	return (file_new);
+	if (!token)
+		return ;
+	*token = ft_token_first(*token);
+	while (*token)
+	{
+		tmp = (*token)->next;
+		ft_token_delone(*token);
+		*token = tmp;
+	}
 }

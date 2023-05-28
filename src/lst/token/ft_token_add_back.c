@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_new.c                                      :+:      :+:    :+:   */
+/*   ft_token_add_back.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 14:40:19 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/28 14:23:54 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pipe	*ft_pipe_new(void)
+void	ft_token_add_back(t_token **token, t_token *new)
 {
-	t_pipe	*pipe_new;
+	t_token	*token_last;
 
-	pipe_new = malloc(sizeof(t_pipe));
-	if (!pipe_new)
-		return (NULL);
-	pipe_new->cmd = NULL;
-	pipe_new->in = NULL;
-	pipe_new->out = NULL;
-	pipe_new->next = NULL;
-	return (pipe_new);
+	if (!token || !new)
+		return ;
+	if (*token)
+	{
+		token_last = ft_token_last(*token);
+		token_last->next = new;
+		new->previous = token_last;
+	}
+	else
+		*token = new;
 }

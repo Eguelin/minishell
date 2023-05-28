@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_file_ copy.c                                 :+:      :+:    :+:   */
+/*   ft_token_new.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 19:44:36 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 16:49:23 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 14:37:05 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_file_clear(t_file **file)
+t_token	*ft_token_new(char *content, int type)
 {
-	t_file	*tmp;
+	t_token	*token_new;
 
-	if (!file)
-		return ;
-	while (*file)
-	{
-		tmp = (*file)->next;
-		ft_file_delone(*file);
-		*file = tmp;
-	}
+	token_new = malloc(sizeof(t_token));
+	if (!token_new)
+		return (NULL);
+	token_new->content = content;
+	token_new->type = type;
+	token_new->previous = NULL;
+	token_new->next = NULL;
+	return (token_new);
 }
