@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/26 13:44:31 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/27 18:50:37 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_get_token(t_dlist **dlst, char *line, size_t *start, size_t *end)
 {
 	int	i;
 
-	i = 0;
 	if (ft_strchr("<>", line[*end]))
 		i = ft_token_chevron(dlst, line, start, end);
 	else if (ft_strchr("\"'", line[*end]))

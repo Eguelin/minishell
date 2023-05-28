@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_expend.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 12:25:32 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 11:51:31 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_prompt(int i);
+int	ft_expend_quote(t_dlist *var, char *content);
+int	ft_expend_classic(t_dlist **top, t_dlist **var, char *content);
+int	ft_expend_var(t_dlist **top, t_dlist **var, t_env *env, int i);
 
-int		ft_expend_quote(t_dlist *var, char *content);
-int		ft_expend_classic(t_dlist **top, t_dlist **var, char *content);
-int		ft_expend_var(t_dlist **top, t_dlist **var, t_env *env, int i);
-
-/*int	ft_expend(t_dlist **top, t_env *env)
+int	ft_expend(t_dlist **top, t_env *env)
 {
 	t_dlist	*var;
 
@@ -40,7 +38,7 @@ int		ft_expend_var(t_dlist **top, t_dlist **var, t_env *env, int i);
 			var = var->next;
 	}
 	return (0);
-}*/
+}
 
 int	ft_expend_var(t_dlist **top, t_dlist **var, t_env *env, int i)
 {
@@ -94,65 +92,4 @@ int	ft_expend_classic(t_dlist **top, t_dlist **var, char *content)
 	*top = ft_dlstfirst(*var);
 	*var = next;
 	return (0);
-}
-
-int	main(int argc, char **argv, char **env)
-{
-	t_minishell	data;
-	t_dlist		*dlst;
-	t_dlist		*tmp;
-	char		*line;
-	int			i;
-
-	(void)argc;
-	(void)argv;
-	dlst = NULL;
-	ft_init_minishell(&data, env);
-	while (1)
-	{
-		line = readline(ft_prompt(0));
-		if (!line)
-			exit(0);
-		if (!ft_strncmp(line, "exit", 5))
-		{
-			free(line);
-			ft_env_clear(&data.env);
-			exit(0);
-		}
-		else
-		{
-			if (ft_lexer(&dlst, line))
-				ft_dlstclear(&dlst, free);
-			tmp = dlst;
-			i = 1;
-			while (tmp)
-			{
-				printf("%d\t: %s\n", i++, (char *)tmp->content);
-				tmp = tmp->next;
-			}
-			//ft_expend(&dlst, data.env);
-			tmp = dlst;
-			ft_expend_var(&dlst, &tmp, data.env, 0);
-			printf("\n");
-			tmp = dlst;
-			i = 1;
-			while (tmp)
-			{
-				printf("%d\t: %s\n", i++, (char *)tmp->content);
-				tmp = tmp->next;
-			}
-			ft_dlstclear(&dlst, free);
-		}
-		add_history(line);
-	}
-	ft_env_clear(&data.env);
-	return (0);
-}
-
-char	*ft_prompt(int i)
-{
-	if (i)
-		return ("\033[1;31m➜  \033[1;36mminishell \033[0m");
-	else
-		return ("\033[1;32m➜  \033[1;36mminishell \033[0m");
 }

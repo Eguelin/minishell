@@ -39,6 +39,7 @@ typedef struct s_pipe
 ////////// [ env ] //////////
 void	ft_env_add_back(t_env **env, t_env *new);
 void	ft_env_add_front(t_env **env, t_env *new);
+t_env	*ft_env_chr(t_env *env, char *name);
 void	ft_env_clear(t_env **env);
 void	ft_env_delone(t_env *env);
 t_env	*ft_env_first(t_env *env);

@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/26 17:27:31 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/05/27 17:14:02 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ ALL_FILES = main.c init.c
 LST_DIR = lst/
 
 ENV_DIR = env/
-ENV_FILES = ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env_var.c ft_set_env.c
+ENV_FILES = ft_env_add_back.c ft_env_add_front.c ft_env_chr.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env_var.c ft_set_env.c
 ALL_FILES += $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
 
 FILE_DIR = file/
@@ -108,12 +108,12 @@ $(OUT_DIR)%.o : $(SRC_DIR)%.c Makefile $(BNS_HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) clean -C ./lib/$(MYLIB_DIR)
+	$(MAKE) clean -sC ./lib/$(MYLIB_DIR)
 	$(RM) $(OUT_DIR)
 	@echo $(CLEAN_MSG)
 
 fclean:
-	$(MAKE) fclean -C ./lib/$(MYLIB_DIR)
+	$(MAKE) fclean -sC ./lib/$(MYLIB_DIR)
 	$(RM) $(NAME) $(OUT_DIR)
 	echo $(CLEAN_MSG)
 	echo $(FULL_CLEAN_MSG)
@@ -121,7 +121,7 @@ fclean:
 force:
 
 $(LIB): force
-	$(MAKE) -C ./lib/$(MYLIB_DIR)
+	$(MAKE) -sC ./lib/$(MYLIB_DIR)
 
 $(OUT_DIR): force
 	mkdir -p $(shell find $(SRC_DIR) -type d | awk -F "$(SRC_DIR)" '$$NF!="$(SRC_DIR)" {print "$(OUT_DIR)"$$(NF)}')
