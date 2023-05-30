@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_space.c                                   :+:      :+:    :+:   */
+/*   ft_expend copy.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 19:07:42 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/30 16:28:36 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_token_space(t_data_token *data)
+int	ft_expend_quote(t_data_token *data, char *content)
 {
-	char	c;
+	t_token	*new;
+	char	*str;
 
-	c = data->line[data->end];
-	(data->end)++;
-	if (ft_add_token(data))
-		return (130);
-	while (data->line[data->end] == c)
-		(data->end)++;
-	data->start = data->end;
+	if (data->end - data->start == 0)
+		return (0);
+	else
+	{
+		str = ft_strdup(content);
+		if (!str)
+			return (1);
+	}
+	new = ft_token_new(str, data->type);
+	if (!new)
+	{
+		free(str);
+		return (1);
+	}
+	ft_token_add_back(data->token, new);
 	return (0);
 }

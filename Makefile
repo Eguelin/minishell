@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/28 14:44:21 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/05/30 16:52:04 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,19 +54,25 @@ PIPE_DIR = pipe/
 PIPE_FILES = ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
 ALL_FILES += $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
 
-TOK_DIR = token/
-TOK_FILES = ft_token_add_back.c ft_token_add_front.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c ft_token_size.c
-ALL_FILES += $(addprefix $(LST_DIR)$(TOK_DIR), $(TOK_FILES))
+TOKEN_DIR = token/
+TOKEN_FILES = ft_token_add_back.c ft_token_add_front.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c ft_token_size.c
+ALL_FILES += $(addprefix $(LST_DIR)$(TOKEN_DIR), $(TOKEN_FILES))
+
+PARS_DIR = parsing/
+
+EXPEND_DIR = expend/
+EXPEND_FILES = ft_expend.c ft_expend_classic.c ft_expend_quote.c
+ALL_FILES += $(addprefix  $(PARS_DIR)$(EXPEND_DIR), $(EXPEND_FILES))
 
 LEXER_DIR = lexer/
 LEXER_FILES = ft_lexer.c
-ALL_FILES += $(addprefix $(LEXER_DIR), $(LEXER_FILES))
+ALL_FILES += $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
 
-TOKEN_DIR = token/
-TOKEN_FILES = ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
-ALL_FILES += $(addprefix $(LEXER_DIR)$(TOKEN_DIR), $(TOKEN_FILES))
+TOKEN_P_DIR = token/
+TOKEN_P_FILES = ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
+ALL_FILES += $(addprefix $(PARS_DIR)$(TOKEN_P_DIR), $(TOKEN_P_FILES))
 
-INC_FILES	= $(NAME).h lexer.h lst.h
+INC_FILES	= $(NAME).h parsing.h lst.h
 
 OBJS		= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
 HEADERS		= $(addprefix $(INC_DIR), $(INC_FILES))

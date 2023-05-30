@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_expend.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 16:43:15 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/30 16:29:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include "parsing.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+int	ft_expend(t_data_token *data, t_env *env, char *name, int i)
 {
-	t_env	*env;
-	t_pipe	*pipe;
-}	t_minishell;
+	t_token	*new;
 
-void	ft_init_minishell(t_minishell *data, char **env);
-
-#endif
+	env = ft_env_chr(env, name);
+	if (!env)
+	{
+		new = ft_token_new(NULL, data->type);
+		if (!new)
+			return (1);
+		ft_token_add_back(data->token, new);
+	}
+	else if (i && ft_expend_quote(data, env->content))
+		return (1);
+	else if (!i && ft_expend_classic(data, env->content))
+		return (1);
+	return (0);
+}

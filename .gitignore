@@ -7,3 +7,4 @@ build
 minishell
 valgrind*
 .nfs*
+type
