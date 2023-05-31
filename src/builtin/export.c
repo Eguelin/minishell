@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/18 10:41:54 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/05/25 17:22:02 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ int	ft_export(t_list **env, char **cmd)
 }
 
 // Check si la variable existe deja
-// indexage par croissance selon la table ascii
+// Indexage par croissance selon la table ascii
+// Plusieurs export peuvent etre fait en une commande
