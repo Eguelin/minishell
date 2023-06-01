@@ -6,13 +6,13 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 15:40:09 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/01 20:02:38 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_syntax_error(int i);
+int		ft_syntax_error(int i);
 
 int	ft_lexer(t_token **token, t_env *env, char *line)
 {
@@ -32,6 +32,7 @@ int	ft_lexer(t_token **token, t_env *env, char *line)
 		if (i)
 			return (ft_syntax_error(i));
 	}
+	ft_fusion_line(token);
 	return (0);
 }
 

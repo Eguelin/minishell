@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 19:16:31 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/01 19:11:14 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@ int	ft_add_token(t_data_token *data)
 	t_token	*new;
 	char	*str;
 
-	if (data->end - data->start == 0)
-		return (0);
-	else
-	{
-		str = ft_substr(data->line, data->start, data->end - data->start);
-		if (!str)
-			return (130);
-	}
+	str = ft_substr(data->line, data->start, data->end - data->start);
+	if (!str)
+		return (130);
 	new = ft_token_new(str, data->type);
 	if (!new)
 	{

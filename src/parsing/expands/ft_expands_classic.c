@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expend copy.c                                   :+:      :+:    :+:   */
+/*   ft_expands_classic.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 16:28:36 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/01 16:24:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_expend_quote(t_data_token *data, char *content)
+int	ft_expands_classic(t_data_token *data, char *content)
 {
-	t_token	*new;
-	char	*str;
+	t_data_token	data_var;
 
-	if (data->end - data->start == 0)
-		return (0);
-	else
+	data_var.token = data->token;
+	data_var.line = content;
+	data_var.end = 0;
+	data_var.start = 0;
+	data_var.type = data->type;
+	while (content[data_var.end])
 	{
-		str = ft_strdup(content);
-		if (!str)
+		if (content[data_var.end] == ' ' && ft_token_space(&data_var))
+			return (1);
+		else if (ft_token_word(&data_var))
 			return (1);
 	}
-	new = ft_token_new(str, data->type);
-	if (!new)
-	{
-		free(str);
-		return (1);
-	}
-	ft_token_add_back(data->token, new);
 	return (0);
 }

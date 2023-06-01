@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 17:10:18 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/01 15:54:42 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@ static int	ft_var_nane(t_data_token *data, t_env *env, int i);
 
 int	ft_token_dollar(t_data_token *data, t_env *env, int i)
 {
-	t_token	*new;
-
+	if (!data->type)
+		data->type = 1;
 	(data->end)++;
-	if (data->type >= HERE_DOC_EX && ft_add_token(data))
-		return (130);
-	else if (ft_isdigit(data->line[data->end]))
+	if (data->type < HERE_DOC_EX && ft_isdigit(data->line[data->end]))
 	{
-		new = ft_token_new(NULL, data->type);
-		if (!new)
-			return (1);
-		ft_token_add_back(data->token, new);
+		data->start = data->end;
+		if (ft_add_token(data))
+			return (130);
 		(data->end)++;
 	}
-	else if (ft_var_nane(data, env, i))
+	else if (data->type < HERE_DOC_EX && ft_var_nane(data, env, i))
+		return (130);
+	else if (data->type >= HERE_DOC_EX && ft_add_token(data))
 		return (130);
 	data->start = data->end;
 	return (0);
@@ -46,7 +45,7 @@ static int	ft_var_nane(t_data_token *data, t_env *env, int i)
 		name = ft_substr(data->line, data->start, data->end - data->start);
 		if (!name)
 			return (130);
-		if (ft_expend(data, env, name + 1, i))
+		if (ft_expands(data, env, name + 1, i))
 		{
 			free(name);
 			return (130);

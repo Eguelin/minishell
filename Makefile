@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/30 16:52:04 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/01 20:05:57 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,12 +60,12 @@ ALL_FILES += $(addprefix $(LST_DIR)$(TOKEN_DIR), $(TOKEN_FILES))
 
 PARS_DIR = parsing/
 
-EXPEND_DIR = expend/
-EXPEND_FILES = ft_expend.c ft_expend_classic.c ft_expend_quote.c
-ALL_FILES += $(addprefix  $(PARS_DIR)$(EXPEND_DIR), $(EXPEND_FILES))
+EXPANDS_DIR = expands/
+EXPANDS_FILES = ft_expands.c ft_expands_classic.c ft_expands_quote.c
+ALL_FILES += $(addprefix  $(PARS_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 LEXER_DIR = lexer/
-LEXER_FILES = ft_lexer.c
+LEXER_FILES = ft_fusion_line.c ft_lexer.c
 ALL_FILES += $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
 
 TOKEN_P_DIR = token/

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:36:05 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 16:43:47 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/01 20:04:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # define PIPE -1
 # define ISOLATOR 0
 # define WORD 1
-# define IN 2
-# define OUT 3
-# define APP_END 4
-# define HERE_DOC_EX 5
-# define HERE_DOC_NO 6
+# define IN 3
+# define OUT 5
+# define APP_END 7
+# define HERE_DOC_EX 8
+# define HERE_DOC_NO 9
 
 typedef struct s_data_token
 {
@@ -34,12 +34,13 @@ typedef struct s_data_token
 	int		type;
 }	t_data_token;
 
-////////// [ expend ] //////////
-int	ft_expend_quote(t_data_token *data, char *content);
-int	ft_expend_classic(t_data_token *data, char *content);
-int	ft_expend(t_data_token *data, t_env *env, char *name, int i);
+////////// [ expands ] //////////
+int	ft_expands_quote(t_data_token *data, char *content);
+int	ft_expands_classic(t_data_token *data, char *content);
+int	ft_expands(t_data_token *data, t_env *env, char *name, int i);
 
 ////////// [ lexer ] //////////
+int	ft_fusion_line(t_token **token);
 int	ft_lexer(t_token **token, t_env *env, char *line);
 
 ////////// [ token ] //////////
