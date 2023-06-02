@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/01 20:05:57 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/02 14:31:34 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_DIR	= include/
 LIB_DIR	= lib/
 NAME	= minishell
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -I $(INC_DIR) #-g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -I $(INC_DIR) -g3 #-fsanitize=address
 RM		= rm -rf
 ARC		= ar rcs
 
