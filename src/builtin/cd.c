@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/06 14:39:25 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/06 14:53:19 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	change_pwd(t_env **env, char *path, char *cwd)
 	}
 }
 
-static int	check_path(t_env **env, char *cmd)
+int	ft_cd(t_env **env, char **cmd)
 {
 	char	*oldpath;
 	t_env	*temp;
@@ -53,18 +53,10 @@ static int	check_path(t_env **env, char *cmd)
 		oldpath = ft_strdup(temp->content);
 	else
 		oldpath = ft_strdup(cwd);
-	if (chdir(cmd) != 0)
+	if (chdir(cmd[1]) != 0)
 		return (free(oldpath), 1);
 	getcwd(cwd, sizeof(cwd));
 	change_pwd(env, oldpath, cwd);
 	free(oldpath);
 	return (0);
 }
-
-int	ft_cd(t_env **env, char **cmd)
-{
-	if (check_path(env, cmd[1]) == 1)
-		return (1);
-	return (0);
-}
-
