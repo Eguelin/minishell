@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_envclear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 21:32:26 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 20:07:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_env *env)
+void	ft_env_clear(t_env **env)
 {
-	while (env)
+	t_env	*tmp;
+
+	if (!env)
+		return ;
+	*env = ft_env_first(*env);
+	while (*env)
 	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
-		env = env->next;
+		tmp = (*env)->next;
+		ft_env_delone(*env);
+		*env = tmp;
 	}
 }

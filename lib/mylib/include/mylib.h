@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:54:43 by eguelin           #+#    #+#             */
-/*   Updated: 2023/04/18 18:36:35 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/05/17 20:07:47 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,30 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct s_double_list
+{
+	void					*content;
+	struct s_double_list	*previous;
+	struct s_double_list	*next;
+}	t_dlist;
+
+////////// [ dlst ] //////////
+void	ft_dlstadd_back(t_dlist **dlst, t_dlist *new);
+void	ft_dlstadd_front(t_dlist **dlst, t_dlist *new);
+void	ft_dlstclear(t_dlist **dlst, void (*del)(void*));
+void	ft_dlstdelone(t_dlist *dlst, void (*del)(void*));
+t_dlist	*ft_dlstfirst(t_dlist *dlst);
+t_dlist	*ft_dlstlast(t_dlist *dlst);
+t_dlist	*ft_dlstnew(void *content);
+int		ft_dlstsize(t_dlist *dlst);
+
 ////////// [ get ] //////////
 char	*get_next_line(int fd);
 
 ////////// [ is ] //////////
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
-int		ft_isascii( int c );
+int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
 

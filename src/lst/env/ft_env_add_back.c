@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_envadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 20:04:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_env *env)
+void	ft_env_add_back(t_env **env, t_env *new)
 {
-	while (env)
+	t_env	*env_last;
+
+	if (!env || !new)
+		return ;
+	if (*env)
 	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
-		env = env->next;
+		env_last = ft_env_last(*env);
+		env_last->next = new;
+		new->previous = env_last;
 	}
+	else
+		*env = new;
 }

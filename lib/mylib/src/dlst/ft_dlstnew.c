@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 16:49:23 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 16:35:04 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-void	ft_env(t_env *env)
+t_dlist	*ft_dlstnew(void *content)
 {
-	while (env)
-	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
-		env = env->next;
-	}
+	t_dlist	*dlstnew;
+
+	dlstnew = malloc(sizeof(t_dlist));
+	if (!dlstnew)
+		return (NULL);
+	dlstnew->content = content;
+	dlstnew->previous = NULL;
+	dlstnew->next = NULL;
+	return (dlstnew);
 }

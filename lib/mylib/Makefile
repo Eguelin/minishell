@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 15:15:24 by eguelin           #+#    #+#              #
-#    Updated: 2023/03/23 15:22:21 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/05/17 17:45:17 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,9 +36,13 @@ CLEAN_MSG		= "$(RED)Cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shell date +'%Y-
 FULL_CLEAN_MSG	= "$(PURPLE)Full cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shell date +'%Y-%m-%d %H:%M:%S')$(WHITE)"
 
 #Sources
+DLST_DIR = dlst/
+FILES_DLST = ft_dlstadd_back.c ft_dlstadd_front.c ft_dlstclear.c ft_dlstdelone.c ft_dlstfirst.c ft_dlstlast.c ft_dlstnew.c ft_dlstsize.c
+FILES_ALL = $(addprefix $(DLST_DIR), $(FILES_DLST))
+
 GET_DIR = get/
 FILES_GET = get_next_line.c
-FILES_ALL = $(addprefix $(GET_DIR), $(FILES_GET))
+FILES_ALL += $(addprefix $(GET_DIR), $(FILES_GET))
 
 IS_DIR = is/
 FILES_IS = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c

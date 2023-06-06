@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_env_chr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/31 16:40:09 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2023/05/31 15:47:58 by naterrie          #+#    #+#             */
+/*   Updated: 2023/05/31 15:58:39 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include "exec.h"
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include "minishell.h"
 
-typedef struct s_minishell
+t_env	*ft_env_chr(t_env *env, char *name)
 {
-	t_env	*env;
-}	t_minishell;
-
-void	ft_init_minishell(t_minishell *data, char **env);
-
-#endif
+	while (env && ft_strncmp(env->name, name, ft_strlen(name) + 1))
+		env = env->next;
+	return (env);
+}

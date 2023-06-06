@@ -6,7 +6,7 @@
 #    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/19 12:31:33 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/05/31 15:58:21 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,10 +45,24 @@ FULL_CLEAN_MSG	= "$(PURPLE)Full cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shel
 ALL_FILES = main.c init.c
 
 BLT_DIR = builtin/
-BLT_FILES = echo.c env.c export.c pwd.c cd.c
+BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c
 ALL_FILES += $(addprefix $(BLT_DIR), $(BLT_FILES))
 
-INC_FILES	= $(NAME).h
+LST_DIR = lst/
+
+ENV_DIR = env/
+ENV_FILES = ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env_var.c ft_set_env.c ft_env_chr.c
+ALL_FILES += $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
+
+FILE_DIR = file/
+FILE_FILES = ft_file_add_back.c ft_file_clear.c ft_file_delone.c ft_file_last.c ft_file_new.c
+ALL_FILES += $(addprefix $(LST_DIR)$(FILE_DIR), $(FILE_FILES))
+
+PIPE_DIR = pipe/
+PIPE_FILES = ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
+ALL_FILES += $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
+
+INC_FILES	= $(NAME).h lst.h exec.h
 
 OBJS		= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
 HEADERS		= $(addprefix $(INC_DIR), $(INC_FILES))

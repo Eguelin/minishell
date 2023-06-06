@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_dlstadd_back.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 20:04:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-void	ft_env(t_env *env)
+void	ft_dlstadd_back(t_dlist **dlst, t_dlist *new)
 {
-	while (env)
+	t_dlist	*dlst_last;
+
+	if (!dlst || !new)
+		return ;
+	if (*dlst)
 	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
-		env = env->next;
+		dlst_last = ft_dlstlast(*dlst);
+		dlst_last->next = new;
+		new->previous = dlst_last;
 	}
+	else
+		*dlst = new;
 }

@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_envsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 19:27:39 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 18:36:54 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_env *env)
+int	ft_env_size(t_env *env)
 {
+	int	n;
+
+	n = 0;
+	env = ft_env_first(env);
 	while (env)
 	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
 		env = env->next;
+		n++;
 	}
+	return (n);
 }

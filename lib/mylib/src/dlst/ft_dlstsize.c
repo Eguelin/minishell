@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 19:27:39 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 18:36:54 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-void	ft_env(t_env *env)
+int	ft_dlstsize(t_dlist *dlst)
 {
-	while (env)
+	int	n;
+
+	n = 0;
+	dlst = ft_dlstfirst(dlst);
+	while (dlst)
 	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
-		env = env->next;
+		dlst = dlst->next;
+		n++;
 	}
+	return (n);
 }

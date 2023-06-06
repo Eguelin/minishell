@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_dlstclear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 15:35:55 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:28:33 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 21:32:26 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/17 20:07:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-void	ft_env(t_env *env)
+void	ft_dlstclear(t_dlist **dlst, void (*del)(void*))
 {
-	while (env)
+	t_dlist	*tmp;
+
+	if (!dlst || !del)
+		return ;
+	*dlst = ft_dlstfirst(*dlst);
+	while (*dlst)
 	{
-		if (env->content != NULL)
-			printf("%s=%s\n", env->name, env->content);
-		env = env->next;
+		tmp = (*dlst)->next;
+		ft_dlstdelone(*dlst, del);
+		*dlst = tmp;
 	}
 }
