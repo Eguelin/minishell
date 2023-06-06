@@ -6,34 +6,46 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 15:43:24 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/06 13:54:24 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "minishell.h"
 
-// int	ft_export(t_env *env, char **cmd)
-// {
-// 	t_list	*new;
-// 	char	*str;
-// 	int		i;
+static int	add_env(t_env **env, char *cmd)
+{
+	char	**temp;
+	t_env	*tmp;
 
-// 	if (cmd[1])
-// 	{
-// 		str = ft_strdup(cmd[1]);
-// 		if (!str)
-// 			return (1);
-// 		new = ft_lstnew(str);
-// 		ft_lstadd_back(env, new);
-// 	}
-// 	i = 1;
-// 	while (i <= 177)
-// 	{
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	temp = ft_split(cmd, '=');
+	if (!temp)
+		return (1);
+	tmp = ft_env_chr(*env, temp[0]);
+	if (tmp)
+	{
+		free(tmp->content);
+		tmp->content = ft_strdup(temp[1]);
+	}
+	else
+	{
+		tmp = ft_env_new(temp[0], temp[1]);
+		ft_env_add_back(env, tmp);
+	}
+	ft_free_split(temp);
+	free(tmp);
+	return (0);
+}
 
-// Check si la variable existe deja
-// Indexage par croissance selon la table ascii
-// Plusieurs export peuvent etre fait en une commande
+int	ft_export(t_env **env, char **cmd)
+{
+	int	i;
+
+	i = 1;
+	while (cmd[i])
+	{
+		if (add_env(env, cmd[i]) == 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}

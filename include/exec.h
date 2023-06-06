@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:49:08 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 16:45:47 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/06 14:21:46 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../lib/mylib/include/mylib.h"
 # include "lst.h"
 
-int		ft_export(t_env *env, char **cmd);
-int		ft_cd(t_env *env, char **cmd);
+int		ft_export(t_env **env, char **cmd);
+int		ft_cd(t_env **env, char **cmd);
 
 void	ft_unset(t_env **env, char **cmd);
 void	ft_echo(char **cmd);
