@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:03:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/02 15:59:32 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/06 13:58:12 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_fusion_line(t_token *token)
 			return (1);
 		if (token->next && !token->next->type)
 			ft_token_delone(token->next);
-		else if (token->next)
+		if (token->next && token->next->type < 0)
 			token = token->next;
 		token = token->next;
 	}

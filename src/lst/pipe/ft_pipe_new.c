@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 14:40:19 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/05 17:12:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ t_pipe	*ft_pipe_new(void)
 	if (!pipe_new)
 		return (NULL);
 	pipe_new->cmd = NULL;
-	pipe_new->in = NULL;
-	pipe_new->out = NULL;
+	pipe_new->file = NULL;
 	pipe_new->next = NULL;
 	return (pipe_new);
 }

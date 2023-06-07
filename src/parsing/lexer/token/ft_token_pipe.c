@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_chevron.c                                 :+:      :+:    :+:   */
+/*   ft_token_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 11:45:48 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/07 19:13:03 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_token_chevron(t_data_token *data)
+int	ft_token_pipe(t_data_token *data)
 {
-	char	c;
+	t_token	*new;
 
-	c = data->line[data->end];
-	if (ft_token_space(data))
-		return (130);
-	while (data->line[data->end] == c)
-		(data->end)++;
-	if (data->end - data->start == 1 && c == '<')
-		data->type = IN;
-	else if (data->end - data->start == 1)
-		data->type = OUT;
-	else if (data->end - data->start == 2 && c == '<')
-		data->type = HERE_DOC_EX;
-	else if (data->end - data->start == 2)
-		data->type = APP_END;
-	else if (data->end - data->start > 2)
-		return (data->line[data->end - 1]);
+	if (!(data->token))
+		return ('|');
+	data->type = PIPE;
+	new = ft_token_new(NULL, data->type);
+	if (!new)
+		return (1);
+	ft_token_add_back(data->token, new);
+	(data->end)++;
+	data->type = ISOLATOR;
 	while (data->line[data->end] == ' ')
 		(data->end)++;
 	if (!data->line[data->end])
-		return (131);
-	else if (ft_strchr("<>|", data->line[data->end]))
-		return (data->line[data->end]);
+		return ('|');
+	else if (data->line[data->end] == '|')
+		return ('|');
 	data->start = data->end;
 	return (0);
 }

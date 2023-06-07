@@ -6,26 +6,22 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 16:43:15 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/07 18:45:53 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "../lib/mylib/include/mylib.h"
-# include "lst.h"
-# include "parsing.h"
 # include <stdio.h>
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
-typedef struct s_minishell
-{
-	t_env	*env;
-	t_pipe	*pipe;
-}	t_minishell;
-
-void	ft_init_minishell(t_minishell *data, char **env);
+# include "mylib.h"
+# include "s_lst.h"
+# include "s_parsing.h"
+# include "s_minishell.h"
+# include "ft_lst.h"
+# include "ft_parsing.h"
+# include "ft_minishell.h"
 
 #endif

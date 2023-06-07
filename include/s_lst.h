@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_space.c                                   :+:      :+:    :+:   */
+/*   s_lst.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/31 13:11:12 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/07 15:46:27 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef S_LST_H
+# define S_LST_H
 
-int	ft_token_space(t_data_token *data)
+typedef struct s_env
 {
-	t_token	*new;
+	char			*name;
+	char			*content;
+	struct s_env	*previous;
+	struct s_env	*next;
+}	t_env;
 
-	if (!data->type)
-		return (0);
-	data->type = ISOLATOR;
-	new = ft_token_new(NULL, data->type);
-	if (!new)
-		return (130);
-	ft_token_add_back(data->token, new);
-	while (data->line[data->end] == ' ')
-		(data->end)++;
-	data->start = data->end;
-	return (0);
-}
+typedef struct s_token
+{
+	char			*content;
+	int				type;
+	struct s_token	*previous;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_pipe
+{
+	char			**cmd;
+	t_token			*file;
+	struct s_pipe	*next;
+}	t_pipe;
+
+#endif

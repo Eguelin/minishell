@@ -6,25 +6,22 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 16:49:24 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/07 19:30:00 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ft_print_pipe(t_pipe *t_pipe);
 char	*ft_prompt(int i);
 
 int	main(int argc, char **argv, char **env)
 {
 	t_minishell	data;
-	t_token		*token;
-	t_token		*tmp;
 	char		*line;
-	int			i;
 
 	(void)argc;
 	(void)argv;
-	token = NULL;
 	ft_init_minishell(&data, env);
 	while (1)
 	{
@@ -38,22 +35,37 @@ int	main(int argc, char **argv, char **env)
 			exit(0);
 		}
 		else
-		{
-			if (ft_lexer(&token, data.env, line))
-				ft_token_clear(&token);
-			tmp = token;
-			i = 1;
-			while (tmp)
-			{
-				printf("%d\t:\t%s\t:\t%d\n", i++, tmp->content, tmp->type);
-				tmp = tmp->next;
-			}
-			ft_token_clear(&token);
-		}
+			ft_parsing(&data, line);
+		ft_print_pipe(data.pipe);
+		ft_pipe_clear(&data.pipe);
 		add_history(line);
 	}
 	ft_env_clear(&data.env);
 	return (0);
+}
+
+void	ft_print_pipe(t_pipe *t_pipe)
+{
+	int		i;
+	t_token	*file;
+
+	file = NULL;
+	while (t_pipe)
+	{
+		i = 0;
+		printf("pipe :\n\tcmd : ");
+		while (t_pipe->cmd && t_pipe->cmd[i])
+			printf("%s, ", t_pipe->cmd[i++]);
+		printf("\n\tfile : ");
+		file = t_pipe->file;
+		while (file)
+		{
+			printf("[ %s | %d ] ", file->content, file->type);
+			file = file->next;
+		}
+		printf("\n");
+		t_pipe = t_pipe->next;
+	}
 }
 
 char	*ft_prompt(int i)

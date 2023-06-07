@@ -1,41 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst.h                                              :+:      :+:    :+:   */
+/*   ft_lst.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/01 20:00:46 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/07 15:46:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LST_H
-# define LST_H
-
-typedef struct s_env
-{
-	char			*name;
-	char			*content;
-	struct s_env	*previous;
-	struct s_env	*next;
-}	t_env;
-
-typedef struct s_token
-{
-	char			*content;
-	int				type;
-	struct s_token	*previous;
-	struct s_token	*next;
-}	t_token;
-
-typedef struct s_pipe
-{
-	char			**cmd;
-	t_token			*in;
-	t_token			*out;
-	struct s_pipe	*next;
-}	t_pipe;
+#ifndef FT_LST_H
+# define FT_LST_H
 
 ////////// [ env ] //////////
 void	ft_env_add_back(t_env **env, t_env *new);

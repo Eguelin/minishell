@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/30 15:20:14 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/07 19:13:37 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	ft_token_quote(t_data_token *data, t_env *env)
 	{
 		if (data->type != HERE_DOC_NO && c == '"' \
 		&& data->line[data->end] == '$' && ft_dlr_quote(data, env))
-			return (130);
+			return (1);
 		else if (data->line[data->end] != c)
 			(data->end)++;
 	}
 	if (!data->line[data->end])
-		return (131);
+		return ('\n');
 	if (ft_add_token(data))
-		return (130);
+		return (1);
 	data->end++;
 	data->start = data->end;
 	return (0);
