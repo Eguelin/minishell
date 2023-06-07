@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/07 14:04:05 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/07 14:56:20 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_cd_back(t_env **env)
 
 	getcwd(cwd, sizeof(cwd));
 	old = ft_env_chr(*env, "OLDPWD");
-	if (!old)
+	if (old->content)
 		cmd = ft_strdup(old->content);
 	else
 		return (1);
@@ -84,6 +84,7 @@ static int	ft_cd_back(t_env **env)
 		return (free(oldpath), 1);
 	getcwd(cwd, sizeof(cwd));
 	change_pwd(env, oldpath, cwd);
+	printf("%s\n", cwd);
 	free(oldpath);
 	free(cmd);
 	return (0);
