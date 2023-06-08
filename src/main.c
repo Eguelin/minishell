@@ -6,13 +6,14 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 19:30:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/08 18:53:39 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	ft_print_pipe(t_pipe *t_pipe);
+void	ft_print_token(t_token	*token);
 char	*ft_prompt(int i);
 
 int	main(int argc, char **argv, char **env)
@@ -47,9 +48,7 @@ int	main(int argc, char **argv, char **env)
 void	ft_print_pipe(t_pipe *t_pipe)
 {
 	int		i;
-	t_token	*file;
 
-	file = NULL;
 	while (t_pipe)
 	{
 		i = 0;
@@ -57,14 +56,18 @@ void	ft_print_pipe(t_pipe *t_pipe)
 		while (t_pipe->cmd && t_pipe->cmd[i])
 			printf("%s, ", t_pipe->cmd[i++]);
 		printf("\n\tfile : ");
-		file = t_pipe->file;
-		while (file)
-		{
-			printf("[ %s | %d ] ", file->content, file->type);
-			file = file->next;
-		}
+		ft_print_token(t_pipe->file);
 		printf("\n");
 		t_pipe = t_pipe->next;
+	}
+}
+
+void	ft_print_token(t_token	*token)
+{
+	while (token)
+	{
+		printf("[ %s | %d ] ", token->content, token->type);
+		token = token->next;
 	}
 }
 

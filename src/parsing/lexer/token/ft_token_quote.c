@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 19:13:37 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/08 19:33:01 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ static int	ft_dlr_quote(t_data_token *data, t_env *env)
 	data->start = data->end;
 	if (ft_token_dollar(data, env, 1))
 		return (1);
+	if (!data->type)
+		data->type = 1;
 	return (0);
 }

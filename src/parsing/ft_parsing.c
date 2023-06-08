@@ -6,16 +6,16 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:17:34 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 14:06:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/08 19:50:57 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_fill_pipe(t_minishell *data, t_token *token_pipe);
-int		ft_convert_cmd(t_pipe *new_pipe, t_token *token_pipe);
-int		ft_cmd_size(t_token *token_pipe);
-void	ft_take_file(t_pipe *new_pipe, t_token *token_pipe);
+static int	ft_fill_pipe(t_minishell *data, t_token *token_pipe);
+static int	ft_convert_cmd(t_pipe *new_pipe, t_token *token_pipe);
+static int	ft_cmd_size(t_token *token_pipe);
+static void	ft_take_file(t_pipe *new_pipe, t_token *token_pipe);
 
 int	ft_parsing(t_minishell *data, char *line)
 {
@@ -45,7 +45,7 @@ int	ft_parsing(t_minishell *data, char *line)
 	return (0);
 }
 
-int	ft_fill_pipe(t_minishell *data, t_token *token_pipe)
+static int	ft_fill_pipe(t_minishell *data, t_token *token_pipe)
 {
 	t_pipe	*new_pipe;
 
@@ -59,7 +59,7 @@ int	ft_fill_pipe(t_minishell *data, t_token *token_pipe)
 	return (0);
 }
 
-int	ft_convert_cmd(t_pipe *new_pipe, t_token *token_pipe)
+static int	ft_convert_cmd(t_pipe *new_pipe, t_token *token_pipe)
 {
 	int		size;
 
@@ -84,7 +84,7 @@ int	ft_convert_cmd(t_pipe *new_pipe, t_token *token_pipe)
 	return (0);
 }
 
-int	ft_cmd_size(t_token *token_pipe)
+static int	ft_cmd_size(t_token *token_pipe)
 {
 	int	size;
 
@@ -98,7 +98,7 @@ int	ft_cmd_size(t_token *token_pipe)
 	return (size);
 }
 
-void	ft_take_file(t_pipe *new_pipe, t_token *token_pipe)
+static void	ft_take_file(t_pipe *new_pipe, t_token *token_pipe)
 {
 	t_token	*tmp;
 

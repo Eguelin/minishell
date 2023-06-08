@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/07 19:38:27 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/08 19:52:03 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_DIR	= include/
 LIB_DIR	= lib/
 NAME	= minishell
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra $(LIB_INC) -I $(INC_DIR)# -g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra $(LIB_INC) -I $(INC_DIR) -g3# -fsanitize=address
 RM		= rm -rf
 ARC		= ar rcs
 
@@ -63,16 +63,16 @@ PARS_FILES		= ft_parsing.c
 ALL_FILES		+= $(addprefix $(PARS_DIR), $(PARS_FILES))
 
 LEXER_DIR		= lexer/
-LEXER_FILES		= ft_fusion_line.c ft_lexer.c
+LEXER_FILES		= ft_lexer.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
-
-EXPANDS_DIR		= expands/
-EXPANDS_FILES	= ft_expands.c ft_expands_classic.c ft_expands_quote.c
-ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 TOKEN_P_DIR		= token/
 TOKEN_P_FILES	= ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR), $(TOKEN_P_FILES))
+
+EXPANDS_DIR		= expands/
+EXPANDS_FILES	= ft_expands.c ft_expands_classic.c ft_expands_quote.c
+ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 INC_FILES		= $(NAME).h ft_lst.h s_lst.h ft_minishell.h s_minishell.h ft_parsing.h s_parsing.h
 
@@ -139,4 +139,4 @@ $(OUT_DIR): force
 re: fclean all
 
 .PHONY: all bonus clean fclean force re
-#.SILENT:
+.SILENT:

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 19:13:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/08 19:37:21 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int	ft_token_dollar(t_data_token *data, t_env *env, int i)
 	(data->end)++;
 	if (data->type < HERE_DOC_EX && ft_isdigit(data->line[data->end]))
 	{
-		data->start = data->end;
-		if (ft_add_token(data))
-			return (1);
 		(data->end)++;
+		data->type = ISOLATOR;
 	}
 	else if (data->type < HERE_DOC_EX && ft_var_nane(data, env, i))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 19:13:12 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/08 19:54:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,12 @@ int	ft_token_space(t_data_token *data)
 	t_token	*new;
 
 	if (!data->type)
+	{
+		while (data->line[data->end] == ' ')
+			(data->end)++;
+		data->start = data->end;
 		return (0);
+	}
 	data->type = ISOLATOR;
 	new = ft_token_new(NULL, data->type);
 	if (!new)
