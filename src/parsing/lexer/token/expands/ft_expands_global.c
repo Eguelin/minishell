@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_expands_global.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:15:22 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/09 14:53:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_minishell(t_minishell *data, char **env)
+int	ft_expands_global(t_data_token *data)
 {
-	data->env = ft_set_env(env);
-	if (!data->env)
-		exit(1);
-	data->pipe = NULL;
+	t_token	*new;
+	char	*str;
+
+	str = ft_itoa(g_error);
+	if (!str)
+		return (1);
+	new = ft_token_new(str, data->type);
+	if (!new)
+	{
+		free(str);
+		return (1);
+	}
+	ft_token_add_back(data->token, new);
+	return (0);
 }

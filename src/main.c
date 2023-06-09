@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/08 18:53:39 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/09 14:15:57 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_print_pipe(t_pipe *t_pipe);
 void	ft_print_token(t_token	*token);
 char	*ft_prompt(int i);
+
+unsigned int	g_error;
 
 int	main(int argc, char **argv, char **env)
 {

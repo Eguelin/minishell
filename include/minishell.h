@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 18:45:53 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/09 14:16:07 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 # include "ft_lst.h"
 # include "ft_parsing.h"
 # include "ft_minishell.h"
+
+extern unsigned int	g_error;
 
 #endif

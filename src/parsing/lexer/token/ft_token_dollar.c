@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/08 19:37:21 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/09 14:54:34 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_token_dollar(t_data_token *data, t_env *env, int i)
 	if (!data->type)
 		data->type = 1;
 	(data->end)++;
-	if (data->type < HERE_DOC_EX && ft_isdigit(data->line[data->end]))
+	if (data->type < IN && ft_isdigit(data->line[data->end]))
 	{
 		(data->end)++;
 		data->type = ISOLATOR;
@@ -36,8 +36,12 @@ static int	ft_var_nane(t_data_token *data, t_env *env, int i)
 {
 	char	*name;
 
-	while (ft_isalnum(data->line[data->end]) || data->line[data->end] == '_')
+	if (ft_isdigit(data->line[data->end]) || data->line[data->end] == '?')
 		(data->end)++;
+	else
+		while (ft_isalnum(data->line[data->end]) \
+		|| data->line[data->end] == '_')
+			(data->end)++;
 	if (data->end - data->start > 1)
 	{
 		name = ft_substr(data->line, data->start, data->end - data->start);
