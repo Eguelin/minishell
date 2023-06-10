@@ -6,24 +6,24 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/24 17:33:52 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 14:21:21 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_get_name(char *env_var, char **name);
-static int	ft_get_content(char *env_var, char **content);
+static int	ft_pars_name(char *env_var, char **name);
+static int	ft_pars_content(char *env_var, char **content);
 
-t_env	*ft_get_env_var(char *env_var)
+t_env	*ft_pars_env_var(char *env_var)
 {
 	t_env	*new;
 	char	*name;
 	char	*content;
 
-	if (ft_get_name(env_var, &name))
+	if (ft_pars_name(env_var, &name))
 		return (NULL);
-	if (ft_get_content(env_var, &content))
+	if (ft_pars_content(env_var, &content))
 		return (free(name), NULL);
 	new = ft_env_new(name, content);
 	if (!new)
@@ -31,7 +31,7 @@ t_env	*ft_get_env_var(char *env_var)
 	return (new);
 }
 
-static int	ft_get_name(char *env_var, char **name)
+static int	ft_pars_name(char *env_var, char **name)
 {
 	size_t	start;
 	size_t	end;
@@ -46,7 +46,7 @@ static int	ft_get_name(char *env_var, char **name)
 	return (0);
 }
 
-static int	ft_get_content(char *env_var, char **content)
+static int	ft_pars_content(char *env_var, char **content)
 {
 	char	*str;
 

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:16:07 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 16:05:01 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # include "mylib.h"
 # include "s_lst.h"
 # include "s_parsing.h"
-# include "s_minishell.h"
+# include "s_utils.h"
 # include "ft_lst.h"
 # include "ft_parsing.h"
-# include "ft_minishell.h"
+# include "ft_utils.h"
 
 extern unsigned int	g_error;
 

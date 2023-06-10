@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/08 19:47:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 14:29:08 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 ////////// [ env ] //////////
 void	ft_env_add_back(t_env **env, t_env *new);
 void	ft_env_add_front(t_env **env, t_env *new);
-t_env	*ft_env_chr(t_env *env, char *name);
+
 void	ft_env_clear(t_env **env);
 void	ft_env_delone(t_env *env);
 t_env	*ft_env_first(t_env *env);
 t_env	*ft_env_last(t_env *env);
 t_env	*ft_env_new(char *name, char *content);
 int		ft_env_size(t_env *env);
-t_env	*ft_get_env_var(char *env_var);
+t_env	*ft_get_env(t_env *env, char *name);
+t_env	*ft_pars_env_var(char *env_var);
 t_env	*ft_set_env(char **env);
 
 ////////// [ pipe ] //////////

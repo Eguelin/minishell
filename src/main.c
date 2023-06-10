@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:15:57 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 16:30:57 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_pipe(t_pipe *t_pipe);
 void	ft_print_token(t_token	*token);
-char	*ft_prompt(int i);
+void	ft_free_minishell(t_minishell *data);
 
 unsigned int	g_error;
 
@@ -28,14 +28,13 @@ int	main(int argc, char **argv, char **env)
 	ft_init_minishell(&data, env);
 	while (1)
 	{
-		line = readline(ft_prompt(0));
+		line = readline(ft_prompt(&data));
 		if (!line)
 			exit(0);
 		if (!ft_strncmp(line, "exit", 5))
 		{
 			free(line);
-			ft_env_clear(&data.env);
-			exit(0);
+			break ;
 		}
 		else
 			ft_parsing(&data, line);
@@ -43,7 +42,7 @@ int	main(int argc, char **argv, char **env)
 		ft_pipe_clear(&data.pipe);
 		add_history(line);
 	}
-	ft_env_clear(&data.env);
+	ft_free_minishell(&data);
 	return (0);
 }
 
@@ -73,10 +72,8 @@ void	ft_print_token(t_token	*token)
 	}
 }
 
-char	*ft_prompt(int i)
+void	ft_free_minishell(t_minishell *data)
 {
-	if (i)
-		return ("\033[1;31m➜  \033[1;36mminishell \033[0m");
-	else
-		return ("\033[1;32m➜  \033[1;36mminishell \033[0m");
+	ft_env_clear(&data->env);
+	free(data->prompt);
 }

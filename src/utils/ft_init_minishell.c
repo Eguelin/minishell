@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlstdelone.c                                    :+:      :+:    :+:   */
+/*   ft_init_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 21:03:04 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/17 16:31:54 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 16:34:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mylib.h"
+#include "minishell.h"
 
-void	ft_dlstdelone(t_dlist *dlst, void (*del)(void*))
+void	ft_init_minishell(t_minishell *data, char **env)
 {
-	if (!dlst || !del)
-		return ;
-	if (dlst->previous)
-		dlst->previous->next = dlst->next;
-	if (dlst->next)
-		dlst->next->previous = dlst->previous;
-	del(dlst->content);
-	free(dlst);
+	data->env = ft_set_env(env);
+	if (!data->env)
+		exit(1);
+	data->pipe = NULL;
+	data->prompt = NULL;
 }
