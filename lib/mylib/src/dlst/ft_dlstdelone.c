@@ -16,6 +16,10 @@ void	ft_dlstdelone(t_dlist *dlst, void (*del)(void*))
 {
 	if (!dlst || !del)
 		return ;
+	if (dlst->previous)
+		dlst->previous->next = dlst->next;
+	if (dlst->next)
+		dlst->next->previous = dlst->previous;
 	del(dlst->content);
 	free(dlst);
 }

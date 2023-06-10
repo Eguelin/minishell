@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   ft_init_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 18:02:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:06:24 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 16:34:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#include "minishell.h"
 
-# define SYNTAX_ERROR 42
-
-void	ft_error(int error, t_minishell *data);
-
-#endif
+void	ft_init_minishell(t_minishell *data, char **env)
+{
+	data->env = ft_set_env(env);
+	if (!data->env)
+		exit(1);
+	data->pipe = NULL;
+	data->prompt = NULL;
+}

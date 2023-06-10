@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:42:20 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 14:29:49 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_expands(t_data_token *data, t_env *env, char *name, int i)
 			return (1);
 		return (0);
 	}
-	env = ft_env_chr(env, name);
+	env = ft_get_env(env, name);
 	if (!env && data->type >= IN)
 	{
 		(data->type)--;

@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell copy 2.h                                 :+:      :+:    :+:   */
+/*   ft_strjoin_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 15:48:45 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/10 05:43:08 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 14:32:34 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_MINISHELL_H
-# define S_MINISHELL_H
+#include "mylib.h"
 
-typedef struct s_minishell
+char	*ft_strjoin_tab(char **tab)
 {
-	t_env	*env;
-	t_pipe	*pipe;
-}	t_minishell;
+	size_t	size;
+	int		i;
+	char	*str;
 
-#endif
+	size = 0;
+	i = 0;
+	while (tab[i])
+		size += ft_strlen(tab[i++]);
+	str = ft_calloc(sizeof(char), size + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (tab[i])
+		ft_strlcat(str, tab[i++], size + 1);
+	return (str);
+}
