@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:15:57 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 18:14:20 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **env)
 			exit(0);
 		}
 		else
-			ft_parsing(&data, line);
+			ft_error(ft_parsing(&data, line));
 		ft_print_pipe(data.pipe);
 		ft_pipe_clear(&data.pipe);
 		add_history(line);
