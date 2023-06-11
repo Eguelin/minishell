@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   s_utils.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:15:22 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 15:58:44 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef S_UTILS_H
+# define S_UTILS_H
 
-void	ft_init_minishell(t_minishell *data, char **env)
+typedef struct s_minishell
 {
-	data->env = ft_set_env(env);
-	if (!data->env)
-		exit(1);
-	data->pipe = NULL;
-}
+	t_env	*env;
+	t_pipe	*pipe;
+	char	*prompt;
+}	t_minishell;
+
+#endif

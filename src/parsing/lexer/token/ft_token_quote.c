@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/08 19:33:01 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 18:05:39 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_token_quote(t_data_token *data, t_env *env)
 			(data->end)++;
 	}
 	if (!data->line[data->end])
-		return ('\n');
+		return (SYNTAX_ERROR);
 	if (ft_add_token(data))
 		return (1);
 	data->end++;

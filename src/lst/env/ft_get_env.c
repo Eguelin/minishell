@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:07:56 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/27 13:27:27 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 14:28:16 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "mylib.h"
-# include "s_lst.h"
-# include "s_parsing.h"
-# include "s_utils.h"
-# include "error.h"
-# include "ft_lst.h"
-# include "ft_parsing.h"
-# include "ft_utils.h"
+#include "minishell.h"
 
-extern unsigned int	g_error;
-
-#endif
+t_env	*ft_get_env(t_env *env, char *name)
+{
+	while (env && ft_strncmp(env->name, name, ft_strlen(name) + 1))
+		env = env->next;
+	return (env);
+}

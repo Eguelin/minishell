@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell copy 2.h                                 :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 15:48:45 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/10 17:53:34 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 19:08:48 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef S_MINISHELL_H
-# define S_MINISHELL_H
+#include "minishell.h"
 
-typedef struct s_minishell
+void	ft_error(int error, t_minishell *data)
 {
-	t_env	*env;
-	t_pipe	*pipe;
-}	t_minishell;
-
-#endif
+	if (error == SYNTAX_ERROR)
+	{
+		printf("Syntax error !\n");
+		g_error = 2;
+	}
+	else if (!data->pipe)
+		return ;
+	else
+		g_error = error;
+}

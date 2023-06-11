@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strjoin_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:07:56 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/10 05:43:08 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 14:32:34 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdio.h>
-# include <limits.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "mylib.h"
-# include "s_lst.h"
-# include "s_parsing.h"
-# include "s_utils.h"
-# include "error.h"
-# include "ft_lst.h"
-# include "ft_parsing.h"
-# include "ft_utils.h"
+#include "mylib.h"
 
-extern unsigned int	g_error;
+char	*ft_strjoin_tab(char **tab)
+{
+	size_t	size;
+	int		i;
+	char	*str;
 
-#endif
+	size = 0;
+	i = 0;
+	while (tab[i])
+		size += ft_strlen(tab[i++]);
+	str = ft_calloc(sizeof(char), size + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (tab[i])
+		ft_strlcat(str, tab[i++], size + 1);
+	return (str);
+}

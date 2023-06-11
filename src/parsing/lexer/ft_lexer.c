@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/11 18:49:04 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/11 18:53:46 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	ft_lexer(t_token **token, t_env *env, char *line)
 	{
 		error = ft_get_token(&data, env);
 		if (error)
-			return (ft_syntax_error(error));
+			return (error);
 	}
-	if (ft_fusion_line(*token);)
+	if (ft_fusion_line(*token))
 		return (1);
 	return (0);
 }
@@ -88,19 +88,4 @@ static size_t	ft_size_join_token(t_token *token)
 		token = token->next;
 	}
 	return (size);
-}
-
-int	ft_syntax_error(int error)
-{
-	if (error == '\n')
-	{
-		printf("minishell: syntax error near unexpected token `newline'\n");
-		return (2);
-	}
-	else if (error > 1)
-	{
-		printf("minishell: syntax error near unexpected token `%c'\n", error);
-		return (2);
-	}
-	return (error);
 }

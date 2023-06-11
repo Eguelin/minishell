@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env_chr.c                                       :+:      :+:    :+:   */
+/*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/27 13:27:27 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/27 16:53:12 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 16:03:11 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef FT_UTILS_H
+# define FT_UTILS_H
 
-t_env	*ft_env_chr(t_env *env, char *name)
-{
-	while (env && ft_strncmp(env->name, name, ft_strlen(name) + 1))
-		env = env->next;
-	return (env);
-}
+void	ft_init_minishell(t_minishell *data, char **env);
+char	*ft_prompt(t_minishell *data);
+
+#endif

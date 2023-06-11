@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 19:13:46 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 18:04:59 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_token_chevron(t_data_token *data)
 	while (data->line[data->end] == ' ')
 		(data->end)++;
 	if (!data->line[data->end])
-		return ('\n');
+		return (SYNTAX_ERROR);
 	else if (ft_strchr("<>|", data->line[data->end]))
 		return (data->line[data->end]);
 	data->start = data->end;

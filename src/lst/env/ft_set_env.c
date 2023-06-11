@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/24 18:52:06 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/10 16:30:13 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_env	*ft_set_env(char **env)
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "SHLVL=", 6))
-			new = ft_get_env_var(env[i]);
+			new = ft_pars_env_var(env[i]);
 		else
 			new = ft_increase_shlvl(env[i]);
 		if (!new)
