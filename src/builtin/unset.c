@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/31 16:47:56 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/12 16:40:36 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_unset(t_env **env, char **cmd)
 		}
 		else
 		{
-			ft_env_delone(ft_env_chr(tmp, cmd[i]));
+			ft_env_delone(ft_get_env(tmp, cmd[i]));
 		}
 		tmp = tmp->next;
 	}

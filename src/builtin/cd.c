@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/07 14:56:20 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/12 16:41:07 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	change_pwd(t_env **env, char *path, char *cwd)
 	t_env	*oldpwd;
 	t_env	*pwd;
 
-	oldpwd = ft_env_chr(*env, "OLDPWD");
-	pwd = ft_env_chr(*env, "PWD");
+	oldpwd = ft_get_env(*env, "OLDPWD");
+	pwd = ft_get_env(*env, "PWD");
 	if (oldpwd)
 	{
 		free(oldpwd->content);
@@ -48,7 +48,7 @@ static int	check_path(t_env **env, char *cmd)
 	char	cwd[PATH_MAX];
 
 	getcwd(cwd, sizeof(cwd));
-	temp = ft_env_chr(*env, "PWD");
+	temp = ft_get_env(*env, "PWD");
 	if (temp)
 		oldpath = ft_strdup(temp->content);
 	else
@@ -70,12 +70,12 @@ static int	ft_cd_back(t_env **env)
 	char	cwd[PATH_MAX];
 
 	getcwd(cwd, sizeof(cwd));
-	old = ft_env_chr(*env, "OLDPWD");
+	old = ft_get_env(*env, "OLDPWD");
 	if (old->content)
 		cmd = ft_strdup(old->content);
 	else
 		return (1);
-	temp = ft_env_chr(*env, "PWD");
+	temp = ft_get_env(*env, "PWD");
 	if (temp)
 		oldpath = ft_strdup(temp->content);
 	else
@@ -99,12 +99,12 @@ static int	ft_cd_home(t_env **env)
 	char	cwd[PATH_MAX];
 
 	getcwd(cwd, sizeof(cwd));
-	home = ft_env_chr(*env, "HOME");
+	home = ft_get_env(*env, "HOME");
 	if (home)
 		cmd = ft_strdup(home->content);
 	else
 		return (1);
-	temp = ft_env_chr(*env, "PWD");
+	temp = ft_get_env(*env, "PWD");
 	if (temp)
 		oldpath = ft_strdup(temp->content);
 	else

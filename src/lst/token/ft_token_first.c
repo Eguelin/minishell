@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_delone.c                                   :+:      :+:    :+:   */
+/*   ft_token_first.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/06 18:02:37 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/17 20:19:26 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 14:23:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipe_delone(t_pipe *pipe)
+t_token	*ft_token_first(t_token *token)
 {
-	if (!pipe)
-		return ;
-	ft_free_split(pipe->cmd);
-	ft_token_clear(&pipe->file);
-	free(pipe);
+	if (!token)
+		return (NULL);
+	while (token->previous)
+		token = token->previous;
+	return (token);
 }

@@ -6,7 +6,7 @@
 #    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/05/31 15:58:21 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/12 16:35:05 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INC_DIR	= include/
 LIB_DIR	= lib/
 NAME	= minishell
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra -I $(INC_DIR) #-g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra $(LIB_INC) -I $(INC_DIR) -g3# -fsanitize=address
 RM		= rm -rf
 ARC		= ar rcs
 
@@ -42,47 +42,62 @@ FULL_CLEAN_MSG	= "$(PURPLE)Full cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shel
 #..._DIR = ../
 #..._FILES = ..
 #ALL_FILES = $(addprefix $(..._DIR), $(..._FILES))
-ALL_FILES = main.c init.c
+ALL_FILES		= main.c
 
 BLT_DIR = builtin/
 BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c
 ALL_FILES += $(addprefix $(BLT_DIR), $(BLT_FILES))
 
-LST_DIR = lst/
+ERROR_DIR		= error/
+ERROR_FILES		= ft_error.c
+ALL_FILES		+= $(addprefix $(ERROR_DIR), $(ERROR_FILES))
 
-ENV_DIR = env/
-ENV_FILES = ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env_var.c ft_set_env.c ft_env_chr.c
-ALL_FILES += $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
+LST_DIR			= lst/
 
-FILE_DIR = file/
-FILE_FILES = ft_file_add_back.c ft_file_clear.c ft_file_delone.c ft_file_last.c ft_file_new.c
-ALL_FILES += $(addprefix $(LST_DIR)$(FILE_DIR), $(FILE_FILES))
+ENV_DIR			= env/
+ENV_FILES		= ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env.c ft_pars_env_var.c ft_set_env.c
+ALL_FILES		+= $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
 
-PIPE_DIR = pipe/
-PIPE_FILES = ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
-ALL_FILES += $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
+PIPE_DIR		= pipe/
+PIPE_FILES		= ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
+ALL_FILES		+= $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
 
-INC_FILES	= $(NAME).h lst.h exec.h
+TOKEN_DIR		= token/
+TOKEN_FILES		= ft_token_add_back.c ft_token_add_front.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c ft_token_size.c
+ALL_FILES		+= $(addprefix $(LST_DIR)$(TOKEN_DIR), $(TOKEN_FILES))
 
-OBJS		= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
-HEADERS		= $(addprefix $(INC_DIR), $(INC_FILES))
+PARS_DIR		= parsing/
+PARS_FILES		= ft_parsing.c
+ALL_FILES		+= $(addprefix $(PARS_DIR), $(PARS_FILES))
 
-#Sources bonus
-#..._DIR	= ../
-#..._FILES	= ..
-#ALL_BNS_FILES	= $(addprefix $(..._DIR), $(..._FILES))
-#
-#BNS_INC_FILES	= $(NAME)_bonus.h
-#
-#BNS_OBJS	= $(addprefix $(OUT_DIR), $(ALL_BNS_FILES:.c=.o))
-#BNS_HEADERS	= $(addprefix $(INC_DIR), $(BNS_INC_FILES))
+LEXER_DIR		= lexer/
+LEXER_FILES		= ft_lexer.c
+ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
+
+TOKEN_P_DIR		= token/
+TOKEN_P_FILES	= ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
+ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR), $(TOKEN_P_FILES))
+
+EXPANDS_DIR		= expands/
+EXPANDS_FILES	= ft_expands_classic.c ft_expands_global.c ft_expands_quote.c ft_expands.c
+ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
+
+UTILS_DIR		= utils/
+UTILS_FILES		= ft_init_minishell.c ft_prompt.c
+ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
+
+INC_FILES		= ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h
+
+OBJS			= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
+HEADERS			= $(addprefix $(INC_DIR), $(INC_FILES))
 
 #Lib
-MYLIB_DIR	= mylib/
-MYLIB_FILES	= mylib.a
-LIB_FILES	= $(addprefix $(MYLIB_DIR), $(MYLIB_FILES))
+MYLIB_DIR		= mylib/
+MYLIB_FILES		= mylib.a
+LIB_FILES		= $(addprefix $(MYLIB_DIR), $(MYLIB_FILES))
+LIB_INC			= -I $(addprefix $(LIB_DIR), $(addprefix $(MYLIB_DIR), $(INC_DIR)))
 
-LIB			= $(addprefix $(LIB_DIR), $(LIB_FILES))
+LIB				= $(addprefix $(LIB_DIR), $(LIB_FILES))
 
 #Rules
 all: $(NAME)
@@ -104,12 +119,12 @@ $(OUT_DIR)%.o : $(SRC_DIR)%.c Makefile $(BNS_HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) clean -C ./lib/$(MYLIB_DIR)
+	$(MAKE) clean -sC ./lib/$(MYLIB_DIR)
 	$(RM) $(OUT_DIR)
 	@echo $(CLEAN_MSG)
 
 fclean:
-	$(MAKE) fclean -C ./lib/$(MYLIB_DIR)
+	$(MAKE) fclean -sC ./lib/$(MYLIB_DIR)
 	$(RM) $(NAME) $(OUT_DIR)
 	echo $(CLEAN_MSG)
 	echo $(FULL_CLEAN_MSG)
@@ -117,7 +132,7 @@ fclean:
 force:
 
 $(LIB): force
-	$(MAKE) -C ./lib/$(MYLIB_DIR)
+	$(MAKE) -sC ./lib/$(MYLIB_DIR)
 
 $(OUT_DIR): force
 	mkdir -p $(shell find $(SRC_DIR) -type d | awk -F "$(SRC_DIR)" '$$NF!="$(SRC_DIR)" {print "$(OUT_DIR)"$$(NF)}')

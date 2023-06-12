@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_delone.c                                   :+:      :+:    :+:   */
+/*   ft_expands_classic.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/06 18:02:37 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/01 16:24:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipe_delone(t_pipe *pipe)
+int	ft_expands_classic(t_data_token *data, char *content)
 {
-	if (!pipe)
-		return ;
-	ft_free_split(pipe->cmd);
-	ft_token_clear(&pipe->file);
-	free(pipe);
+	t_data_token	data_var;
+
+	data_var.token = data->token;
+	data_var.line = content;
+	data_var.end = 0;
+	data_var.start = 0;
+	data_var.type = data->type;
+	while (content[data_var.end])
+	{
+		if (content[data_var.end] == ' ' && ft_token_space(&data_var))
+			return (1);
+		else if (ft_token_word(&data_var))
+			return (1);
+	}
+	return (0);
 }

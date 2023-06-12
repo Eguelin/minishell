@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_file_ copy 2.c                               :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 19:43:16 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/10 18:02:08 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 19:06:24 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef ERROR_H
+# define ERROR_H
 
-t_file	*ft_file_new(char *name, int type)
-{
-	t_file	*file_new;
+# define SYNTAX_ERROR 42
 
-	file_new = malloc(sizeof(t_file));
-	if (!file_new)
-		return (NULL);
-	file_new->name = name;
-	file_new->type = type;
-	file_new->next = NULL;
-	return (file_new);
-}
+void	ft_error(int error, t_minishell *data);
+
+#endif

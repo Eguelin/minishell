@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_delone.c                                   :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/06 18:02:37 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/10 17:53:34 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 19:08:48 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipe_delone(t_pipe *pipe)
+void	ft_error(int error, t_minishell *data)
 {
-	if (!pipe)
+	if (error == SYNTAX_ERROR)
+	{
+		printf("Syntax error !\n");
+		g_error = 2;
+	}
+	else if (!data->pipe)
 		return ;
-	ft_free_split(pipe->cmd);
-	ft_token_clear(&pipe->file);
-	free(pipe);
+	else
+		g_error = error;
 }

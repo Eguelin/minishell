@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_delone.c                                   :+:      :+:    :+:   */
+/*   s_utils.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/06 18:02:37 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/10 15:58:44 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef S_UTILS_H
+# define S_UTILS_H
 
-void	ft_pipe_delone(t_pipe *pipe)
+typedef struct s_minishell
 {
-	if (!pipe)
-		return ;
-	ft_free_split(pipe->cmd);
-	ft_token_clear(&pipe->file);
-	free(pipe);
-}
+	t_env	*env;
+	t_pipe	*pipe;
+	char	*prompt;
+}	t_minishell;
+
+#endif

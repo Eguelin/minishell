@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_delone.c                                   :+:      :+:    :+:   */
+/*   s_lst.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/06 18:02:37 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/07 15:46:27 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef S_LST_H
+# define S_LST_H
 
-void	ft_pipe_delone(t_pipe *pipe)
+typedef struct s_env
 {
-	if (!pipe)
-		return ;
-	ft_free_split(pipe->cmd);
-	ft_token_clear(&pipe->file);
-	free(pipe);
-}
+	char			*name;
+	char			*content;
+	struct s_env	*previous;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_token
+{
+	char			*content;
+	int				type;
+	struct s_token	*previous;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_pipe
+{
+	char			**cmd;
+	t_token			*file;
+	struct s_pipe	*next;
+}	t_pipe;
+
+#endif

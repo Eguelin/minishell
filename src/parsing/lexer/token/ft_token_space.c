@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_file_.c                                      :+:      :+:    :+:   */
+/*   ft_token_space.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/22 19:44:53 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/08 19:54:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_file_delone(t_file *file)
+int	ft_token_space(t_data_token *data)
 {
-	if (!file)
-		return ;
-	free(file->name);
-	free(file);
+	t_token	*new;
+
+	if (!data->type)
+	{
+		while (data->line[data->end] == ' ')
+			(data->end)++;
+		data->start = data->end;
+		return (0);
+	}
+	data->type = ISOLATOR;
+	new = ft_token_new(NULL, data->type);
+	if (!new)
+		return (1);
+	ft_token_add_back(data->token, new);
+	while (data->line[data->end] == ' ')
+		(data->end)++;
+	data->start = data->end;
+	return (0);
 }

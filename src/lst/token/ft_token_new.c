@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_token_new.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/31 16:40:28 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/17 16:49:23 by eguelin           #+#    #+#             */
+/*   Updated: 2023/05/28 14:37:05 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_minishell(t_minishell *data, char **env)
+t_token	*ft_token_new(char *content, int type)
 {
-	data->env = ft_set_env(env);
-	if (!data->env)
-		exit(1);
+	t_token	*token_new;
+
+	token_new = malloc(sizeof(t_token));
+	if (!token_new)
+		return (NULL);
+	token_new->content = content;
+	token_new->type = type;
+	token_new->previous = NULL;
+	token_new->next = NULL;
+	return (token_new);
 }
