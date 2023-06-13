@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/13 14:13:43 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/13 15:09:36 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	add_env(t_env **env, char *cmd)
 	if (tmp)
 	{
 		free(tmp->content);
-		tmp->content = ft_strdup(cpy->content);
+		tmp->content = cpy->content;
+		cpy->content = NULL;
+		ft_env_delone(cpy);
 	}
 	else
 		ft_env_add_back(env, cpy);
