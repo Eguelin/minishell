@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/12 16:41:07 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/12 18:34:55 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	ft_cd_back(t_env **env)
 	else
 		oldpath = ft_strdup(cwd);
 	if (chdir(cmd) != 0)
-		return (free(oldpath), 1);
+		return (free(oldpath), free(cmd), 1);
 	getcwd(cwd, sizeof(cwd));
 	change_pwd(env, oldpath, cwd);
 	printf("%s\n", cwd);

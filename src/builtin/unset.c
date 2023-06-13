@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/12 16:40:36 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/12 19:07:57 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ void	ft_unset(t_env **env, char **cmd)
 	{
 		if (!ft_strncmp((*env)->name, cmd[i], ft_strlen(cmd[i])))
 		{
-			*env = (*env)->next;
-			ft_env_delone((*env)->previous);
+			if (!(*env)->next)
+				ft_env_delone(*env);
+			else
+			{
+				*env = (*env)->next;
+				ft_env_delone((*env)->previous);
+			}
 		}
 		else
 		{
