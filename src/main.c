@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:08:13 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/13 12:43:09 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		else
 			ft_error(ft_parsing(&data, line), &data);
-		ft_print_pipe(data.pipe);
+		ft_exec(&data);
 		ft_pipe_clear(&data.pipe);
 		add_history(line);
 	}

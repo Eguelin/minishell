@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:07:56 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/13 14:53:05 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include "../lib/mylib/include/mylib.h"
 # include <stdio.h>
 # include <limits.h>
 # include <readline/readline.h>
@@ -21,6 +22,8 @@
 # include "s_parsing.h"
 # include "s_utils.h"
 # include "error.h"
+# include "builtin.h"
+# include "exec.h"
 # include "ft_lst.h"
 # include "ft_parsing.h"
 # include "ft_utils.h"
