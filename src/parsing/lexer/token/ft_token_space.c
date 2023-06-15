@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/08 19:54:35 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 09:25:45 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_token_space(t_data_token *data)
 	data->type = ISOLATOR;
 	new = ft_token_new(NULL, data->type);
 	if (!new)
-		return (1);
+		return (MALLOC_FAILED);
 	ft_token_add_back(data->token, new);
 	while (data->line[data->end] == ' ')
 		(data->end)++;

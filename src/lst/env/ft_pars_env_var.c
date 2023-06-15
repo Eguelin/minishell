@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_var.c                                   :+:      :+:    :+:   */
+/*   ft_pars_env_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 14:21:21 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 17:18:32 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	ft_pars_name(char *env_var, char **name)
 		end++;
 	*name = ft_substr(env_var, start, end);
 	if (!*name)
-		return (1);
+		return (MALLOC_FAILED);
 	return (0);
 }
 
@@ -55,7 +55,7 @@ static int	ft_pars_content(char *env_var, char **content)
 	{
 		*content = ft_strdup(str + 1);
 		if (!*content)
-			return (1);
+			return (MALLOC_FAILED);
 	}
 	else
 		*content = NULL;

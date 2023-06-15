@@ -6,13 +6,13 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:08:13 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 09:48:03 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_pipe(t_pipe *t_pipe);
+void	ft_print_lcmd(t_lcmd *t_lcmd);
 void	ft_print_token(t_token	*token);
 void	ft_free_minishell(t_minishell *data);
 
@@ -30,36 +30,35 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = readline(ft_prompt(&data));
 		if (!line)
-			exit(0);
+			ft_exit_minishell(&data, 0);
 		if (!ft_strncmp(line, "exit", 5))
 		{
 			free(line);
-			break ;
+			ft_exit_minishell(&data, 0);
 		}
 		else
-			ft_error(ft_parsing(&data, line), &data);
-		ft_print_pipe(data.pipe);
-		ft_pipe_clear(&data.pipe);
+			ft_error(&data, ft_parsing(&data, line));
+		ft_print_lcmd(data.lcmd);
+		ft_lcmd_clear(&data.lcmd);
 		add_history(line);
 	}
-	ft_free_minishell(&data);
 	return (0);
 }
 
-void	ft_print_pipe(t_pipe *t_pipe)
+void	ft_print_lcmd(t_lcmd *lcmd)
 {
 	int		i;
 
-	while (t_pipe)
+	while (lcmd)
 	{
 		i = 0;
-		printf("pipe :\n\tcmd : ");
-		while (t_pipe->cmd && t_pipe->cmd[i])
-			printf("%s, ", t_pipe->cmd[i++]);
+		printf("lcmd :\n\tcmd : ");
+		while (lcmd->cmd && lcmd->cmd[i])
+			printf("%s, ", lcmd->cmd[i++]);
 		printf("\n\tfile : ");
-		ft_print_token(t_pipe->file);
+		ft_print_token(lcmd->file);
 		printf("\n");
-		t_pipe = t_pipe->next;
+		lcmd = lcmd->next;
 	}
 }
 

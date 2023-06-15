@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 16:30:13 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 18:05:11 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ static int	ft_check_shelvl(t_env **set_env, char **env)
 		return (0);
 	name = ft_strdup("SHLVL");
 	if (!name)
-		return (1);
+		return (MALLOC_FAILED);
 	content = ft_strdup("1");
 	if (!content)
-		return (free(name), 1);
+		return (free(name), MALLOC_FAILED);
 	new = ft_env_new(name, content);
 	if (!new)
-		return (free(name), free(content), 1);
+		return (free(name), free(content), MALLOC_FAILED);
 	ft_env_add_back(set_env, new);
 	return (0);
 }
@@ -93,7 +93,6 @@ static int	ft_check_pwd(t_env **set_env, char **env)
 	t_env	*new;
 	char	*name;
 	char	*content;
-	char	pwd[PATH_MAX];
 	int		i;
 
 	i = 0;
@@ -101,16 +100,15 @@ static int	ft_check_pwd(t_env **set_env, char **env)
 		i++;
 	if (env[i])
 		return (0);
-	getcwd(pwd, sizeof(pwd));
 	name = ft_strdup("PWD");
 	if (!name)
-		return (1);
-	content = ft_strdup(pwd);
+		return (MALLOC_FAILED);
+	content = getcwd(NULL, 0);
 	if (!content)
-		return (free(name), 1);
+		return (free(name), MALLOC_FAILED);
 	new = ft_env_new(name, content);
 	if (!new)
-		return (free(name), free(content), 1);
+		return (free(name), free(content), MALLOC_FAILED);
 	ft_env_add_back(set_env, new);
 	return (0);
 }
@@ -127,13 +125,13 @@ static int	ft_check_oldpwd(t_env **set_env, char **env)
 		i++;
 	if (env[i])
 		return (0);
-	name = ft_strdup("OLDPWD");
+	name = NULL;
 	if (!name)
-		return (1);
+		return (MALLOC_FAILED);
 	content = NULL;
 	new = ft_env_new(name, content);
 	if (!new)
-		return (free(name), 1);
+		return (free(name), MALLOC_FAILED);
 	ft_env_add_back(set_env, new);
 	return (0);
 }

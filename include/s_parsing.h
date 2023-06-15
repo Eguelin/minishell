@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:36:05 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 18:33:40 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 14:40:07 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # define ISOLATOR 0
 # define WORD 1
 # define IN 3
-# define OUT 5
-# define APP_END 7
-# define HERE_DOC_EX 8
-# define HERE_DOC_NO 9
+# define OUT 6
+# define APP_END 9
+# define HERE_DOC_EX 12
+# define HERE_DOC_NO 13
 
 typedef struct s_data_token
 {
