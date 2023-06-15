@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/14 09:48:03 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 12:07:00 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = readline(ft_prompt(&data));
 		if (!line)
-			ft_exit_minishell(&data, 0);
+			ft_exit_minishell(&data, g_error);
 		if (!ft_strncmp(line, "exit", 5))
 		{
 			free(line);
-			ft_exit_minishell(&data, 0);
+			ft_exit_minishell(&data, g_error);
 		}
 		else
 			ft_error(&data, ft_parsing(&data, line));
