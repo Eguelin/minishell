@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_word.c                                    :+:      :+:    :+:   */
+/*   ft_lcmd_add_back.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/15 09:26:17 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/14 09:48:27 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_token_word(t_data_token *data)
+void	ft_lcmd_add_back(t_lcmd **lcmd, t_lcmd *new)
 {
-	if (!data->type)
-		data->type = WORD;
-	while (!ft_strchr("<>|$\'\" ", data->line[data->end]))
-		(data->end)++;
-	if (ft_add_token(data))
-		return (MALLOC_FAILED);
-	data->start = data->end;
-	return (0);
+	if (!lcmd || !new)
+		return ;
+	if (*lcmd)
+		ft_lcmd_last(*lcmd)->next = new;
+	else
+		*lcmd = new;
 }

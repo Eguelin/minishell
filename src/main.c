@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/13 12:43:09 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 13:36:52 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_pipe(t_pipe *t_pipe);
+void	ft_print_lcmd(t_lcmd *t_lcmd);
 void	ft_print_token(t_token	*token);
 void	ft_free_minishell(t_minishell *data);
 
@@ -30,11 +30,11 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = readline(ft_prompt(&data));
 		if (!line)
-			exit(0);
+			ft_exit_minishell(&data, g_error);
 		if (!ft_strncmp(line, "exit", 5))
 		{
 			free(line);
-			break ;
+			ft_exit_minishell(&data, g_error);
 		}
 		else
 			ft_error(ft_parsing(&data, line), &data);
@@ -42,24 +42,23 @@ int	main(int argc, char **argv, char **env)
 		ft_pipe_clear(&data.pipe);
 		add_history(line);
 	}
-	ft_free_minishell(&data);
 	return (0);
 }
 
-void	ft_print_pipe(t_pipe *t_pipe)
+void	ft_print_lcmd(t_lcmd *lcmd)
 {
 	int		i;
 
-	while (t_pipe)
+	while (lcmd)
 	{
 		i = 0;
-		printf("pipe :\n\tcmd : ");
-		while (t_pipe->cmd && t_pipe->cmd[i])
-			printf("%s, ", t_pipe->cmd[i++]);
+		printf("lcmd :\n\tcmd : ");
+		while (lcmd->cmd && lcmd->cmd[i])
+			printf("%s, ", lcmd->cmd[i++]);
 		printf("\n\tfile : ");
-		ft_print_token(t_pipe->file);
+		ft_print_token(lcmd->file);
 		printf("\n");
-		t_pipe = t_pipe->next;
+		lcmd = lcmd->next;
 	}
 }
 

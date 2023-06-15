@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 14:29:08 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 09:42:43 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ t_env	*ft_get_env(t_env *env, char *name);
 t_env	*ft_pars_env_var(char *env_var);
 t_env	*ft_set_env(char **env);
 
-////////// [ pipe ] //////////
-void	ft_pipe_add_back(t_pipe **pipe, t_pipe *new);
-void	ft_pipe_clear(t_pipe **pipe);
-void	ft_pipe_delone(t_pipe *pipe);
-t_pipe	*ft_pipe_new(void);
-t_pipe	*ft_pipe_last(t_pipe *pipe);
+////////// [ lcmd ] //////////
+void	ft_lcmd_add_back(t_lcmd **lcmd, t_lcmd *new);
+void	ft_lcmd_clear(t_lcmd **lcmd);
+void	ft_lcmd_delone(t_lcmd *lcmd);
+t_lcmd	*ft_lcmd_new(void);
+t_lcmd	*ft_lcmd_last(t_lcmd *lcmd);
 
 ////////// [ token ] //////////
 void	ft_token_add_back(t_token **token, t_token *new);

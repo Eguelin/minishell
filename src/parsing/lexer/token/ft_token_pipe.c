@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 18:05:29 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 08:51:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_token_pipe(t_data_token *data)
 	data->type = PIPE;
 	new = ft_token_new(NULL, data->type);
 	if (!new)
-		return (1);
+		return (MALLOC_FAILED);
 	ft_token_add_back(data->token, new);
 	(data->end)++;
 	data->type = ISOLATOR;

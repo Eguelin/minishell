@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/13 14:53:13 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/15 13:37:03 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,9 +62,9 @@ ENV_DIR			= env/
 ENV_FILES		= ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env.c ft_pars_env_var.c ft_set_env.c
 ALL_FILES		+= $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
 
-PIPE_DIR		= pipe/
-PIPE_FILES		= ft_pipe_add_back.c ft_pipe_clear.c ft_pipe_delone.c ft_pipe_last.c ft_pipe_new.c
-ALL_FILES		+= $(addprefix $(LST_DIR)$(PIPE_DIR), $(PIPE_FILES))
+LCMD_DIR		= lcmd/
+LCMD_FILES		= ft_lcmd_add_back.c ft_lcmd_clear.c ft_lcmd_delone.c ft_lcmd_last.c ft_lcmd_new.c
+ALL_FILES		+= $(addprefix $(LST_DIR)$(LCMD_DIR), $(LCMD_FILES))
 
 TOKEN_DIR		= token/
 TOKEN_FILES		= ft_token_add_back.c ft_token_add_front.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c ft_token_size.c
@@ -87,7 +87,7 @@ EXPANDS_FILES	= ft_expands_classic.c ft_expands_global.c ft_expands_quote.c ft_e
 ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 UTILS_DIR		= utils/
-UTILS_FILES		= ft_init_minishell.c ft_prompt.c
+UTILS_FILES		= ft_exit_minishell.c ft_init_minishell.c ft_prompt.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 INC_FILES		= ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h
@@ -142,6 +142,12 @@ $(OUT_DIR): force
 	mkdir -p $(shell find $(SRC_DIR) -type d | awk -F "$(SRC_DIR)" '$$NF!="$(SRC_DIR)" {print "$(OUT_DIR)"$$(NF)}')
 
 re: fclean all
+
+exec: all
+	./$(NAME)
+
+leaks: all
+	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes ./$(NAME)
 
 .PHONY: all bonus clean fclean force re
 .SILENT:
