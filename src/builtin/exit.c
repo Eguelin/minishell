@@ -6,26 +6,45 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/15 16:11:17 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 17:56:52 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	ft_check_exit_digit(t_minishell *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->lcmd->cmd[1][i])
+	{
+		if (!ft_isdigit(data->lcmd->cmd[1][i]) || i > 20)
+		{
+			ft_putstr_fd("exit: numeric argument required\n", 2);
+			ft_exit_minishell(data, 2);
+		}
+		i++;
+	}
+	return (ft_atoi(data->lcmd->cmd[1]));
+}
+
 void	ft_exit(t_minishell *data)
 {
-	int	returntype;
+	int	i;
 
-	if (data->lcmd->cmd[1])
-		returntype = ft_atoi(data->lcmd->cmd[1]);
-	else
-		returntype = g_error;
-	if (data->lcmd->cmd[2])
+	i = 0;
+	while (data->lcmd->cmd[i])
+		i++;
+	if (i > 2)
 	{
-		printf("cc\n");
+		ft_putstr_fd("exit: too many arguments\n", 2);
 		return ;
 	}
-	ft_exit_minishell(data, returntype);
+	i = 0;
+	if (data->lcmd->cmd[1])
+		g_error = ft_check_exit_digit(data);=
+	ft_exit_minishell(data, g_error);
 }
 //ne fait rien si plus que un code
 //20 chiffre ou + error

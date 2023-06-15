@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/15 16:03:14 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 17:51:37 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_isbuiltin(t_minishell *data)
 		ft_export(&data->env, data->lcmd->cmd);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "unset", 6) && ++i)
 		ft_unset(&data->env, data->lcmd->cmd);
-		else if (!ft_strncmp(data->lcmd->cmd[0], "exit", 5) && ++i)
+	else if (!ft_strncmp(data->lcmd->cmd[0], "exit", 5) && ++i)
 		ft_exit(data);
 	return (i);
 }
@@ -60,7 +60,7 @@ int	ft_exec(t_minishell *data)
 		return (g_error);
 	while (data->lcmd)
 	{
-		ft_execve(data);
+		//ft_execve(data);
 		tmp = data->lcmd;
 		data->lcmd = data->lcmd->next;
 		ft_lcmd_delone(tmp);
