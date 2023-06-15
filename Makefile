@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/15 13:37:03 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/15 16:03:43 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ FULL_CLEAN_MSG	= "$(PURPLE)Full cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shel
 ALL_FILES		= main.c
 
 BLT_DIR = builtin/
-BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c
+BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c exit.c
 ALL_FILES += $(addprefix $(BLT_DIR), $(BLT_FILES))
 
 EXEC_DIR = exec/

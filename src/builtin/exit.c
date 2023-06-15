@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 17:49:08 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/15 16:03:35 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
+/*   Updated: 2023/06/15 16:11:17 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "minishell.h"
 
-int		ft_export(t_env **env, char **cmd);
-int		ft_cd(t_env **env, char **cmd);
+void	ft_exit(t_minishell *data)
+{
+	int	returntype;
 
-void	ft_unset(t_env **env, char **cmd);
-void	ft_echo(char **cmd);
-void	ft_pwd(void);
-void	ft_env(t_env *env);
-void	ft_exit(t_minishell *data);
-
-#endif
+	if (data->lcmd->cmd[1])
+		returntype = ft_atoi(data->lcmd->cmd[1]);
+	else
+		returntype = g_error;
+	if (data->lcmd->cmd[2])
+	{
+		printf("cc\n");
+		return ;
+	}
+	ft_exit_minishell(data, returntype);
+}
+//ne fait rien si plus que un code
+//20 chiffre ou + error
