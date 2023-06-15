@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 13:10:37 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/01 16:24:26 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 18:09:09 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@ int	ft_expands_classic(t_data_token *data, char *content)
 	data_var.type = data->type;
 	while (content[data_var.end])
 	{
+		if (content[data_var.end] == ' ' && data->type >= IN)
+		{
+			ft_token_last(*data->token)->type += 1;
+			return (0);
+		}
 		if (content[data_var.end] == ' ' && ft_token_space(&data_var))
-			return (1);
+			return (MALLOC_FAILED);
 		else if (ft_token_word(&data_var))
-			return (1);
+			return (MALLOC_FAILED);
 	}
 	return (0);
 }

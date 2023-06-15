@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:25:29 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 16:24:56 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 09:55:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_prompt(t_minishell *data)
 		data->prompt = ft_prompt_error(data->env);
 	else
 		data->prompt = ft_prompt_classic(data->env);
+	if (!data->prompt)
+		ft_error(data, MALLOC_FAILED);
 	return (data->prompt);
 }
 
@@ -65,7 +67,7 @@ static char	*ft_prompt_error(t_env *env)
 	prompt_tab[5] = NULL;
 	prompt = ft_strjoin_tab(prompt_tab);
 	if (!prompt)
-		return (NULL);
+		return (free(prompt_tab[1]), NULL);
 	free(prompt_tab[1]);
 	return (prompt);
 }

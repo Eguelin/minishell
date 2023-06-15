@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_last.c                                     :+:      :+:    :+:   */
+/*   ft_lcmd_delone.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 14:40:11 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 17:12:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_pipe	*ft_pipe_last(t_pipe *pipe)
+void	ft_lcmd_delone(t_lcmd *lcmd)
 {
-	if (!pipe)
-		return (NULL);
-	while (pipe->next)
-		pipe = pipe->next;
-	return (pipe);
+	if (!lcmd)
+		return ;
+	ft_free_split(lcmd->cmd);
+	ft_token_clear(&lcmd->file);
+	free(lcmd);
 }
