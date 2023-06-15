@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/14 18:05:11 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 16:10:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static int	ft_check_oldpwd(t_env **set_env, char **env)
 		i++;
 	if (env[i])
 		return (0);
-	name = NULL;
+	name = ft_strdup("OLDPWD");
 	if (!name)
 		return (MALLOC_FAILED);
 	content = NULL;
