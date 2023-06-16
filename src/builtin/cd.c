@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/15 17:06:55 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:43:02 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ static int	ft_cd_home(t_env **env)
 
 int	ft_cd(t_env **env, char **cmd)
 {
-	if (cmd[2])
+	if (cmd[1] && cmd[2])
 		return (1);
 	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][1]))
 	{

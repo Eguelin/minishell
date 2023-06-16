@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/13 15:09:36 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:44:43 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,32 @@ static int	add_env(t_env **env, char *cmd)
 	return (0);
 }
 
+static int	export_check(char *cmd)
+{
+	int	i;
+
+	i = 1;
+	if (cmd[0] == '_' && (!cmd[1] || cmd[1] == '='))
+		return (1);
+	if (!ft_isalpha(cmd[0]))
+	{
+		ft_putstr_fd("export: No numeric arguements\n", 2);
+		g_error = 1;
+		return (1);
+	}
+	while (cmd[i] && cmd[i] != '=')
+	{
+		if (!ft_isalnum(cmd[i]) && cmd[i] == '=')
+		{
+			ft_putstr_fd("export: No numeric arguements\n", 2);
+			g_error = 1;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	ft_export(t_env **env, char **cmd)
 {
 	int	i;
@@ -38,8 +64,11 @@ int	ft_export(t_env **env, char **cmd)
 	i = 1;
 	while (cmd[i])
 	{
-		if (add_env(env, cmd[i]) == 1)
-			return (1);
+		if (export_check(cmd[i]) == 0)
+		{
+			if (add_env(env, cmd[i]) == 1)
+				return (1);
+		}
 		i++;
 	}
 	return (0);

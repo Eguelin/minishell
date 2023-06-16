@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:59:00 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/15 16:38:02 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 15:00:23 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	ft_pwd(void)
 {
 	char	cwd[PATH_MAX];
 
-	ft_putstr_fd(getcwd(cwd, sizeof(cwd)), 1);
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		return (ft_putstr_fd("pwd: error retrieving current directory\n", 2));
+	}
+	ft_putstr_fd(cwd, 1);
 	printf("\n");
 }

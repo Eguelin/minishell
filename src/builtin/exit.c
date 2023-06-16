@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/15 17:56:52 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 16:43:46 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	ft_exit(t_minishell *data)
 	}
 	i = 0;
 	if (data->lcmd->cmd[1])
-		g_error = ft_check_exit_digit(data);=
+		g_error = ft_check_exit_digit(data);
 	ft_exit_minishell(data, g_error);
 }
-//ne fait rien si plus que un code
-//20 chiffre ou + error
