@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 17:00:40 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:04:39 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ static int	ft_complete_content(char *name, char **content, char pwd[PATH_MAX])
 	else if (!ft_strncmp(name, "PWD", 4))
 		*content = ft_strdup(pwd);
 	if (!*content)
-	else if (!ft_strncmp(name, "OLDPWD", 7))
+		return (MALLOC_FAILED);
+	if (!ft_strncmp(name, "OLDPWD", 7))
 		*content = NULL;
 	return (0);
 }
