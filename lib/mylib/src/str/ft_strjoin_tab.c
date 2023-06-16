@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 05:43:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 14:32:34 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 08:49:23 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ char	*ft_strjoin_tab(char **tab)
 
 	size = 0;
 	i = 0;
+	if (!tab)
+		return (NULL);
 	while (tab[i])
 		size += ft_strlen(tab[i++]);
-	str = ft_calloc(sizeof(char), size + 1);
+	str = malloc(sizeof(char) * (size + 1));
 	if (!str)
 		return (NULL);
 	i = 0;
+	ft_strlcpy(str, tab[i++], size + 1);
 	while (tab[i])
 		ft_strlcat(str, tab[i++], size + 1);
 	return (str);
