@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/15 12:07:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 15:00:41 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_print_lcmd(t_lcmd *t_lcmd);
 void	ft_print_token(t_token	*token);
-void	ft_free_minishell(t_minishell *data);
 
 unsigned int	g_error;
 
@@ -31,13 +30,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline(ft_prompt(&data));
 		if (!line)
 			ft_exit_minishell(&data, g_error);
-		if (!ft_strncmp(line, "exit", 5))
-		{
-			free(line);
-			ft_exit_minishell(&data, g_error);
-		}
-		else
-			ft_error(&data, ft_parsing(&data, line));
+		ft_error(&data, ft_parsing(&data, line));
 		ft_print_lcmd(data.lcmd);
 		ft_lcmd_clear(&data.lcmd);
 		add_history(line);
@@ -69,10 +62,4 @@ void	ft_print_token(t_token	*token)
 		printf("[ %s | %d ] ", token->content, token->type);
 		token = token->next;
 	}
-}
-
-void	ft_free_minishell(t_minishell *data)
-{
-	ft_env_clear(&data->env);
-	free(data->prompt);
 }
