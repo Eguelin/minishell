@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 16:52:22 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:00:40 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,12 @@ static int	ft_check_presence(t_env **env, char *var)
 
 static int	ft_complete_content(char *name, char **content, char pwd[PATH_MAX])
 {
-	t_env	*new;
-	char	*name;
-	char	*content;
-	int		i;
-
-	i = 0;
-	while (env[i] && ft_strncmp(env[i], "OLDPWD=", 7))
-		i++;
-	if (env[i])
-		return (0);
-	name = ft_strdup("OLDPWD");
-	if (!name)
-		return (MALLOC_FAILED);
+	*content = "";
+	if (!ft_strncmp(name, "SHLVL", 6))
+		*content = ft_strdup("1");
+	else if (!ft_strncmp(name, "PWD", 4))
+		*content = ft_strdup(pwd);
+	if (!*content)
 	else if (!ft_strncmp(name, "OLDPWD", 7))
 		*content = NULL;
 	return (0);
