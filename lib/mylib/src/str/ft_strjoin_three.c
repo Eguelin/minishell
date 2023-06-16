@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_minishell.c                                :+:      :+:    :+:   */
+/*   ft_strjoin_three.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 19:28:48 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 15:09:45 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/10 05:43:08 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/16 08:51:35 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-void	ft_exit_minishell(t_minishell *data, int status)
+char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3)
 {
-	ft_env_clear(&data->env);
-	ft_lcmd_clear(&data->lcmd);
-	free(data->prompt);
-	rl_clear_history();
-	exit(status);
+	char	*join;
+	size_t	size;
+
+	if (!s1 || !s2 || !s3)
+		return (NULL);
+	size = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1;
+	join = malloc(size);
+	if (!join)
+		return (NULL);
+	ft_strlcpy(join, s1, size);
+	ft_strlcat(join, s2, size);
+	ft_strlcat(join, s3, size);
+	return (join);
 }

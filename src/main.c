@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/15 17:54:32 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:07:09 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_print_lcmd(t_lcmd *t_lcmd);
 void	ft_print_token(t_token	*token);
-void	ft_free_minishell(t_minishell *data);
 
 unsigned int	g_error;
 
@@ -64,10 +63,4 @@ void	ft_print_token(t_token	*token)
 		printf("[ %s | %d ] ", token->content, token->type);
 		token = token->next;
 	}
-}
-
-void	ft_free_minishell(t_minishell *data)
-{
-	ft_env_clear(&data->env);
-	free(data->prompt);
 }

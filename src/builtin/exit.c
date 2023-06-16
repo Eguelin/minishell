@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/16 16:43:46 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:55:16 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_exit(t_minishell *data)
 	if (i > 2)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
+		g_error = 1;
 		return ;
 	}
 	i = 0;

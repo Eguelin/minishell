@@ -6,7 +6,7 @@
 #    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/15 16:03:43 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/16 17:07:14 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ ALL_FILES		+= $(addprefix $(ERROR_DIR), $(ERROR_FILES))
 LST_DIR			= lst/
 
 ENV_DIR			= env/
-ENV_FILES		= ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_get_env.c ft_pars_env_var.c ft_set_env.c
+ENV_FILES		= ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_env_to_tab.c ft_get_env.c ft_pars_env_var.c ft_set_env.c
 ALL_FILES		+= $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
 
 LCMD_DIR		= lcmd/

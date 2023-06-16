@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/14 09:42:43 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 08:27:23 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_env	*ft_env_first(t_env *env);
 t_env	*ft_env_last(t_env *env);
 t_env	*ft_env_new(char *name, char *content);
 int		ft_env_size(t_env *env);
+char	**ft_env_to_tab(t_env *env);
 t_env	*ft_get_env(t_env *env, char *name);
 t_env	*ft_pars_env_var(char *env_var);
 t_env	*ft_set_env(char **env);

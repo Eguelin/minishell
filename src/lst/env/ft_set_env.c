@@ -6,16 +6,16 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/15 16:10:15 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:04:39 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static t_env	*ft_increase_shlvl(char *shlvl);
-static int		ft_check_shelvl(t_env **set_env, char **env);
-static int		ft_check_pwd(t_env **set_env, char **env);
-static int		ft_check_oldpwd(t_env **set_env, char **env);
+static int		ft_check_presence(t_env **env, char *name);
+static int		ft_complete_content(char *name, char **content, \
+char pwd[PATH_MAX]);
 
 t_env	*ft_set_env(char **env)
 {
@@ -36,11 +36,11 @@ t_env	*ft_set_env(char **env)
 		ft_env_add_back(&set_env, new);
 		i++;
 	}
-	if (ft_check_shelvl(&set_env, env))
+	if (ft_check_presence(&set_env, "SHLVL"))
 		return (ft_env_clear(&set_env), NULL);
-	if (ft_check_pwd(&set_env, env))
+	if (ft_check_presence(&set_env, "PWD"))
 		return (ft_env_clear(&set_env), NULL);
-	if (ft_check_oldpwd(&set_env, env))
+	if (ft_check_presence(&set_env, "OLDPWD"))
 		return (ft_env_clear(&set_env), NULL);
 	return (set_env);
 }
@@ -63,75 +63,45 @@ static t_env	*ft_increase_shlvl(char *shlvl)
 	return (new);
 }
 
-static int	ft_check_shelvl(t_env **set_env, char **env)
+static int	ft_check_presence(t_env **env, char *var)
 {
-	t_env	*new;
+	int		i;
+	t_env	*tmp;
 	char	*name;
 	char	*content;
-	int		i;
+	char	pwd[PATH_MAX];
 
 	i = 0;
-	while (env[i] && ft_strncmp(env[i], "SHLVL=", 6))
-		i++;
-	if (env[i])
+	tmp = *env;
+	if (!ft_strncmp(var, "PWD", 4) && !getcwd(pwd, sizeof(pwd)))
+		return (ft_putstr_fd("Minishell: error retrieving current directory\n", \
+		2), 0);
+	while (tmp && ft_strncmp(tmp->name, var, ft_strlen(var) + 1))
+		tmp = tmp->next;
+	if (tmp)
 		return (0);
-	name = ft_strdup("SHLVL");
+	name = ft_strdup(var);
 	if (!name)
 		return (MALLOC_FAILED);
-	content = ft_strdup("1");
-	if (!content)
+	if (ft_complete_content(name, &content, pwd))
 		return (free(name), MALLOC_FAILED);
-	new = ft_env_new(name, content);
-	if (!new)
+	tmp = ft_env_new(name, content);
+	if (!tmp)
 		return (free(name), free(content), MALLOC_FAILED);
-	ft_env_add_back(set_env, new);
+	ft_env_add_back(env, tmp);
 	return (0);
 }
 
-static int	ft_check_pwd(t_env **set_env, char **env)
+static int	ft_complete_content(char *name, char **content, char pwd[PATH_MAX])
 {
-	t_env	*new;
-	char	*name;
-	char	*content;
-	int		i;
-
-	i = 0;
-	while (env[i] && ft_strncmp(env[i], "PWD=", 4))
-		i++;
-	if (env[i])
-		return (0);
-	name = ft_strdup("PWD");
-	if (!name)
+	*content = "";
+	if (!ft_strncmp(name, "SHLVL", 6))
+		*content = ft_strdup("1");
+	else if (!ft_strncmp(name, "PWD", 4))
+		*content = ft_strdup(pwd);
+	if (!*content)
 		return (MALLOC_FAILED);
-	content = getcwd(NULL, 0);
-	if (!content)
-		return (free(name), MALLOC_FAILED);
-	new = ft_env_new(name, content);
-	if (!new)
-		return (free(name), free(content), MALLOC_FAILED);
-	ft_env_add_back(set_env, new);
-	return (0);
-}
-
-static int	ft_check_oldpwd(t_env **set_env, char **env)
-{
-	t_env	*new;
-	char	*name;
-	char	*content;
-	int		i;
-
-	i = 0;
-	while (env[i] && ft_strncmp(env[i], "OLDPWD=", 7))
-		i++;
-	if (env[i])
-		return (0);
-	name = ft_strdup("OLDPWD");
-	if (!name)
-		return (MALLOC_FAILED);
-	content = NULL;
-	new = ft_env_new(name, content);
-	if (!new)
-		return (free(name), MALLOC_FAILED);
-	ft_env_add_back(set_env, new);
+	if (!ft_strncmp(name, "OLDPWD", 7))
+		*content = NULL;
 	return (0);
 }

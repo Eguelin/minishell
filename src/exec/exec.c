@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/16 16:43:57 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 17:42:17 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@ int	ft_isbuiltin(t_minishell *data)
 	return (i);
 }
 
-void	ft_execve(t_minishell *data)
-{
-	pid_t	pid;
+// void	ft_execve(t_minishell *data)
+// {
+// 	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-		return ;
-	else
-	{
-		//ft_in
-		//ft_out
-		if (ft_isbuiltin(data))
-			exit(g_error);
-		// else
-		// 	execve()
-	}
-}
+// 	pid = fork();
+// 	if (pid == -1)
+// 		return ;
+// 	else
+// 	{
+// 		//ft_in
+// 		//ft_out
+// 		if (ft_isbuiltin(data))
+// 			exit(g_error);
+// 		// else
+// 		// 	execve()
+// 	}
+// }
 
 int	ft_exec(t_minishell *data)
 {
