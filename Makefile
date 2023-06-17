@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/17 16:42:06 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/17 17:59:46 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,12 @@ PARS_FILES		= ft_parsing.c
 ALL_FILES		+= $(addprefix $(PARS_DIR), $(PARS_FILES))
 
 LEXER_DIR		= lexer/
-LEXER_FILES		= ft_lexer.c
+LEXER_FILES		= ft_fusion_line.c ft_lexer.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
+
+HEREDOC_DIR		= heredoc/
+HEREDOC_FILES	= ft_heredoc_expands.c ft_heredoc_no_expans.c ft_heredoc.c
+ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(HEREDOC_DIR), $(HEREDOC_FILES))
 
 TOKEN_P_DIR		= token/
 TOKEN_P_FILES	= ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c

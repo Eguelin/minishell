@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/17 18:05:27 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/12 16:09:03 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/17 18:41:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_lexer(t_token **token, t_env *env, char *line)
+int	ft_heredoc(t_token *token)
 {
-	t_data_token	data;
-	int				error;
+	int	error;
 
-	data.token = token;
-	data.line = line;
-	data.end = 0;
-	while (line[data.end] == ' ')
-		(data.end)++;
-	data.start = data.end;
-	data.type = 0;
-	while (line[data.end])
+	error = 0;
+	while (token)
 	{
-		error = ft_get_token(&data, env);
+		if (token->type == HERE_DOC_EX)
+			error = ft_heredoc_expands(token);
+		else if (token->type == HERE_DOC_NO)
+			error = ft_heredoc_no_expans(token);
 		if (error)
 			return (error);
+		token = token->next;
 	}
-	if (ft_fusion_line(*token))
-		return (MALLOC_FAILED);
-	if (ft_heredoc(*token))
-		return (MALLOC_FAILED);
 	return (0);
 }

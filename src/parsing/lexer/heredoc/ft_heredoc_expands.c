@@ -1,38 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_heredoc_expands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/17 18:05:27 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/11 19:00:49 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/17 17:54:28 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_lexer(t_token **token, t_env *env, char *line)
+int	ft_heredoc_expands(t_token *token)
 {
-	t_data_token	data;
-	int				error;
-
-	data.token = token;
-	data.line = line;
-	data.end = 0;
-	while (line[data.end] == ' ')
-		(data.end)++;
-	data.start = data.end;
-	data.type = 0;
-	while (line[data.end])
-	{
-		error = ft_get_token(&data, env);
-		if (error)
-			return (error);
-	}
-	if (ft_fusion_line(*token))
-		return (MALLOC_FAILED);
-	if (ft_heredoc(*token))
-		return (MALLOC_FAILED);
+	(void)token;
 	return (0);
 }

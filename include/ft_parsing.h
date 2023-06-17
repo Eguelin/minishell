@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 17:36:05 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/09 14:53:57 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/17 17:58:58 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ int	ft_expands_classic(t_data_token *data, char *content);
 int	ft_expands(t_data_token *data, t_env *env, char *name, int i);
 
 ////////// [ lexer ] //////////
+int	ft_fusion_line(t_token *token);
 int	ft_lexer(t_token **token, t_env *env, char *line);
+
+////////// [ heredoc ] //////////
+int	ft_heredoc_expands(t_token *token);
+int	ft_heredoc_no_expans(t_token *token);
+int	ft_heredoc(t_token *token);
 
 ////////// [ token ] //////////
 int	ft_add_token(t_data_token *data);
