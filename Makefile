@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/17 17:59:46 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/18 17:47:36 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,11 +71,11 @@ LEXER_FILES		= ft_fusion_line.c ft_lexer.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
 
 HEREDOC_DIR		= heredoc/
-HEREDOC_FILES	= ft_heredoc_expands.c ft_heredoc_no_expans.c ft_heredoc.c
+HEREDOC_FILES	= ft_heredoc_expands.c ft_heredoc_no_expans.c ft_heredoc.c ft_replace_heredoc_content.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(HEREDOC_DIR), $(HEREDOC_FILES))
 
 TOKEN_P_DIR		= token/
-TOKEN_P_FILES	= ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
+TOKEN_P_FILES	= ft_add_token.c ft_get_ptr_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR), $(TOKEN_P_FILES))
 
 EXPANDS_DIR		= expands/
@@ -87,7 +87,7 @@ UTILS_FILES		= ft_exit_minishell.c ft_get_data.c ft_init_minishell.c ft_prompt.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 SIGNAL_DIR		= signal/
-SIGNAL_FILES	= ft_ctrl_c.c ft_ctrl_c_exec.c
+SIGNAL_FILES	= ft_ctrl_c.c ft_ctrl_c_heredoc_fork.c ft_ctrl_c_heredoc.c ft_ctrl_c_exec.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR)$(SIGNAL_DIR), $(SIGNAL_FILES))
 
 INC_FILES		= ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_minishell.c                                :+:      :+:    :+:   */
+/*   ft_ctrl_c_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/18 17:57:10 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/17 13:01:30 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/18 18:04:46 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_minishell(t_minishell *data, char **env)
+void	ft_ctrl_c_heredoc(int signum)
 {
-	data->lcmd = NULL;
-	data->prompt = NULL;
-	data->env = ft_set_env(env);
-	if (!data->env)
-		ft_error(data, MALLOC_FAILED);
-	ft_get_data(data);
+	if (signum == 2)
+	{
+		g_error = 130;
+	}
 }
