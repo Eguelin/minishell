@@ -6,22 +6,20 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:00:49 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/18 16:38:48 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/19 18:34:51 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_add_line_ex(t_token **heredoc, char *line, t_env *env);
-static int	ft_token_line_part(t_data_token *data);
-static int	ft_new_line(t_token **heredoc);
+static int	ft_putstr_line(char *line, t_env *env, int fd);
+static int	ft_putstr_ex(char *line, t_env *env, size_t	*start, int fd);
 
 int	ft_heredoc_expands(t_token *token, t_env *env, int fd)
 {
 	char	*line;
-	t_token	*heredoc;
 
-	heredoc = NULL;
+	token->type = fd + HERE_DOC_NO;
 	while (1)
 	{
 		line = readline("> ");
@@ -29,72 +27,62 @@ int	ft_heredoc_expands(t_token *token, t_env *env, int fd)
 			break ;
 		if (!ft_strncmp(line, token->content, ft_strlen(token->content) + 1))
 			break ;
-		if (ft_add_line_ex(&heredoc, line, env))
-			return (ft_token_clear(&heredoc), free(line), MALLOC_FAILED);
+		if (ft_putstr_line(line, env, fd))
+			return (free(line), MALLOC_FAILED);
+		ft_putstr_fd("\n", fd);
 		free(line);
 	}
 	if (!line)
 		ft_putstr_fd("minishell: warning: here-document "\
 		"delimited by end-of-file\n", 2);
-	if (ft_fusion_line(heredoc))
-		return (ft_token_clear(&heredoc), free(line), MALLOC_FAILED);
-	if (heredoc)
-		ft_putstr_fd(heredoc->content, fd);
-	ft_token_delone(heredoc);
 	free(line);
 	return (0);
 }
 
-static int	ft_add_line_ex(t_token **heredoc, char *line, t_env *env)
+static int	ft_putstr_line(char *line, t_env *env, int fd)
 {
-	t_data_token	data;
-	int				error;
+	size_t	index[2];
 
-	data.token = heredoc;
-	data.line = line;
-	data.end = 0;
-	data.start = 0;
-	data.type = 1;
-	while (line[data.end])
+	index[0] = 0;
+	index[1] = 0;
+	while (line[index[1]])
 	{
-		if (data.line[data.end] == '$')
-			error = ft_token_dollar(&data, env, 1);
-		else
-			error = ft_token_line_part(&data);
-		if (error)
+		while (line[index[1]] && line[index[1]] != '$')
+			index[1]++;
+		write(1, line + index[0], index[1] - index[0]);
+		if (line[index[1]])
+			index[0] = index[1]++;
+		if (ft_putstr_ex(line, env, index, fd))
 			return (MALLOC_FAILED);
 	}
-	if (ft_new_line(heredoc))
-		return (MALLOC_FAILED);
 	return (0);
 }
 
-static int	ft_token_line_part(t_data_token *data)
+static int	ft_putstr_ex(char *line, t_env *env, size_t index[2], int fd)
 {
-	if (!data->type)
-		data->type = 1;
-	while (data->line[data->end] && data->line[data->end] != '$')
-		(data->end)++;
-	if (ft_add_token(data))
-		return (MALLOC_FAILED);
-	data->start = data->end;
-	return (0);
-}
+	char	*name;
 
-static int	ft_new_line(t_token **heredoc)
-{
-	t_token	*new;
-	char	*str;
-
-	str = ft_strdup("\n");
-	if (!str)
-		return (MALLOC_FAILED);
-	new = ft_token_new(str, WORD);
-	if (!new)
+	name = NULL;
+	if (ft_isdigit(line[index[1]]))
 	{
-		free(str);
-		return (MALLOC_FAILED);
+		index[0] = ++(index[1]);
+		return (0);
 	}
-	ft_token_add_back(heredoc, new);
-	return (0);
+	else
+		while (ft_isalnum(line[index[1]]) || line[index[1]] == '_')
+			(index[1])++;
+	if (index[1] - index[0] > 1)
+	{
+		(index[0])++;
+		name = ft_substr(line, index[0], index[1] - index[0]);
+		if (!name)
+			return (MALLOC_FAILED);
+		env = ft_get_env(env, name);
+		if (env && env->content)
+			ft_putstr_fd(env->content, 1);
+	}
+	else
+		ft_putstr_fd("$", fd);
+	index[0] = index[1];
+	return (free(name), 0);
 }
