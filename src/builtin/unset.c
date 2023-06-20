@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/16 16:01:47 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 11:33:03 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	unset_check(char *cmd)
 	if (!ft_isalpha(cmd[0]))
 	{
 		ft_putstr_fd("unset: No numeric arguements\n", 2);
-		g_error = 1;
 		return (1);
 	}
 	while (cmd[i] && cmd[i] != '=')
@@ -57,7 +56,6 @@ static int	unset_check(char *cmd)
 		if (!ft_isalnum(cmd[i]) && cmd[i] == '=')
 		{
 			ft_putstr_fd("unset: No numeric arguements\n", 2);
-			g_error = 1;
 			return (1);
 		}
 		i++;
@@ -65,15 +63,19 @@ static int	unset_check(char *cmd)
 	return (0);
 }
 
-void	ft_unset(t_env **env, char **cmd)
+int	ft_unset(t_env **env, char **cmd)
 {
 	int	i;
+	int	error_value;
 
+	error_value = 0;
 	i = 0;
 	while (cmd[i] && cmd[i][0] != '\0')
 	{
-		if (unset_check(cmd[i]) == 0)
+		error_value = unset_check(cmd[i]);
+		if (error_value == 0)
 			ft_remove(env, cmd[i]);
 		i++;
 	}
+	return (error_value);
 }

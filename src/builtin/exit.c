@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/16 17:55:16 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 11:16:32 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,23 @@ static int	ft_check_exit_digit(t_minishell *data)
 	return (ft_atoi(data->lcmd->cmd[1]));
 }
 
-void	ft_exit(t_minishell *data)
+int	ft_exit(t_minishell *data)
 {
 	int	i;
+	int	error_value;
 
 	i = 0;
+	error_value = 0;
 	while (data->lcmd->cmd[i])
 		i++;
 	if (i > 2)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
-		g_error = 1;
-		return ;
+		return (1);
 	}
 	i = 0;
 	if (data->lcmd->cmd[1])
-		g_error = ft_check_exit_digit(data);
-	ft_exit_minishell(data, g_error);
+		error_value = ft_check_exit_digit(data);
+	ft_exit_minishell(data, error_value);
+	return (0);
 }

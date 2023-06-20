@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/16 17:42:17 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 11:17:52 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ int	ft_isbuiltin(t_minishell *data)
 
 	i = 0;
 	if (!ft_strncmp(data->lcmd->cmd[0], "env", 4) && ++i)
-		ft_env(data->env);
+		g_error = ft_env(data->env);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "pwd", 4) && ++i)
-		ft_pwd();
+		g_error = ft_pwd();
 	else if (!ft_strncmp(data->lcmd->cmd[0], "cd", 3) && ++i)
-		ft_cd(&data->env, data->lcmd->cmd);
+		g_error = ft_cd(&data->env, data->lcmd->cmd);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "echo", 5) && ++i)
-		ft_echo(data->lcmd->cmd);
+		g_error = ft_echo(data->lcmd->cmd);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "export", 7) && ++i)
-		ft_export(&data->env, data->lcmd->cmd);
+		g_error = ft_export(&data->env, data->lcmd->cmd);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "unset", 6) && ++i)
-		ft_unset(&data->env, data->lcmd->cmd);
+		g_error = ft_unset(&data->env, data->lcmd->cmd);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "exit", 5) && ++i)
-		ft_exit(data);
+		g_error = ft_exit(data);
 	return (i);
 }
 

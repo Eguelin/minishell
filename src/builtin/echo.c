@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:51:19 by naterrie          #+#    #+#             */
-/*   Updated: 2023/05/18 11:19:57 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 11:30:45 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	ft_writestr(char **str)
 	printf ("%s", str[i]);
 }
 
-void	ft_echo(char **cmd)
+int	ft_echo(char **cmd)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ void	ft_echo(char **cmd)
 	if (!cmd[i])
 	{
 		printf("\n");
-		return ;
+		return (0);
 	}
 	if (check_option(cmd[i]))
 	{
@@ -56,8 +56,9 @@ void	ft_echo(char **cmd)
 			i++;
 		if (cmd[i])
 			ft_writestr(cmd + i);
-		return ;
+		return (0);
 	}
 	ft_writestr(cmd + i);
 	printf("\n");
+	return (0);
 }

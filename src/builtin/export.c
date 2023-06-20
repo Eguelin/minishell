@@ -6,13 +6,13 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/16 17:45:53 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 11:36:42 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	add_env(t_env **env, char *cmd)
+static void	add_env(t_env **env, char *cmd)
 {
 	t_env	*cpy;
 	t_env	*tmp;
@@ -28,7 +28,6 @@ static int	add_env(t_env **env, char *cmd)
 	}
 	else
 		ft_env_add_back(env, cpy);
-	return (0);
 }
 
 static int	export_check(char *cmd)
@@ -37,11 +36,10 @@ static int	export_check(char *cmd)
 
 	i = 1;
 	if (cmd[0] == '_' && (!cmd[1] || cmd[1] == '='))
-		return (1);
+		return (0);
 	if (!ft_isalpha(cmd[0]) && cmd[0] != '_')
 	{
 		ft_putstr_fd("export: No numeric arguements\n", 2);
-		g_error = 1;
 		return (1);
 	}
 	while (cmd[i] && cmd[i] != '=')
@@ -49,7 +47,6 @@ static int	export_check(char *cmd)
 		if (!ft_isalnum(cmd[i]) && cmd[i] == '=')
 		{
 			ft_putstr_fd("export: No numeric arguements\n", 2);
-			g_error = 1;
 			return (1);
 		}
 		i++;
@@ -72,7 +69,7 @@ static int	index_export(t_env *env, char *name)
 	return (i);
 }
 
-static void	sort_export(t_env *env)
+static int	sort_export(t_env *env)
 {
 	t_env	**tab;
 	int		i;
@@ -80,10 +77,7 @@ static void	sort_export(t_env *env)
 	i = 0;
 	tab = ft_calloc(sizeof(t_env *), ft_env_size(env) + 1);
 	if (!tab)
-	{
-		g_error = MALLOC_FAILED;
-		return ;
-	}
+		return (MALLOC_FAILED);
 	while (env)
 	{
 		tab[index_export(env, env->name)] = env;
@@ -98,23 +92,26 @@ static void	sort_export(t_env *env)
 		i++;
 	}
 	free(tab);
+	return (0);
 }
 
 int	ft_export(t_env **env, char **cmd)
 {
 	int	i;
+	int	error_value;
 
 	i = 1;
+	error_value = 0;
 	while (cmd[i])
 	{
-		if (export_check(cmd[i]) == 0)
-		{
-			if (add_env(env, cmd[i]) == 1)
-				return (1);
-		}
+		error_value = export_check(cmd[i]);
+		if (error_value == 0)
+			add_env(env, cmd[i]);
+		else if (error_value == MALLOC_FAILED)
+			return (error_value);
 		i++;
 	}
 	if (i == 1)
 		sort_export(*env);
-	return (0);
+	return (error_value);
 }
