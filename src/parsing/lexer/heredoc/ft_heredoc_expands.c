@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:00:49 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/19 18:34:51 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 10:04:00 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ static int	ft_putstr_line(char *line, t_env *env, int fd)
 	{
 		while (line[index[1]] && line[index[1]] != '$')
 			index[1]++;
-		write(1, line + index[0], index[1] - index[0]);
+		write(fd, line + index[0], index[1] - index[0]);
 		if (line[index[1]])
+		{
 			index[0] = index[1]++;
-		if (ft_putstr_ex(line, env, index, fd))
-			return (MALLOC_FAILED);
+			if (ft_putstr_ex(line, env, index, fd))
+				return (MALLOC_FAILED);
+		}
 	}
 	return (0);
 }
@@ -79,7 +81,7 @@ static int	ft_putstr_ex(char *line, t_env *env, size_t index[2], int fd)
 			return (MALLOC_FAILED);
 		env = ft_get_env(env, name);
 		if (env && env->content)
-			ft_putstr_fd(env->content, 1);
+			ft_putstr_fd(env->content, fd);
 	}
 	else
 		ft_putstr_fd("$", fd);

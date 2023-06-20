@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 16:09:03 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/19 18:33:16 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 09:17:04 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,25 @@ static int	ft_heredoc_2(t_token *heredoc, t_env *env)
 {
 	pid_t	pid;
 	int		pipefd[2];
-	int		error;
 
 	if (pipe(pipefd) == -1)
 		return (PIPE_FAILED);
 	pid = fork();
 	if (pid == -1)
 	{
-		close(pipefd[STDIN_FILENO]);
+		close(pipefd[STDOUT_FILENO]);
 		close(pipefd[STDIN_FILENO]);
 		return (FORK_FAILED);
 	}
 	if (!pid)
 		ft_heredoc_3(heredoc, env, pipefd);
 	close(pipefd[STDOUT_FILENO]);
-	waitpid(pid, &error, 0);
+	waitpid(pid, &g_error, 0);
 	free(heredoc->content);
 	heredoc->content = NULL;
 	heredoc->type = pipefd[STDIN_FILENO] + HERE_DOC_NO;
-	return (WEXITSTATUS(error));
+	g_error = WEXITSTATUS(g_error);
+	return (g_error);
 }
 
 static void	ft_heredoc_3(t_token *heredoc, t_env *env, int pipefd[2])
