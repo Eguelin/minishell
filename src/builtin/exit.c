@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 13:49:11 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 17:06:05 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	ft_check_exit_digit(t_minishell *data)
 	{
 		if (!ft_isdigit(data->lcmd->cmd[1][i]) || i > 20)
 		{
-			ft_putstr_fd("exit: numeric argument required\n", 2);
+			ft_printf_error("minishel: exit: %s: numeric argument required\n", \
+			data->lcmd->cmd[i + 1]);
 			ft_exit_minishell(data, 2);
 		}
 		i++;
@@ -35,13 +36,13 @@ int	ft_exit(t_minishell *data)
 	int	error_value;
 
 	i = 0;
-	printf("salut\n");
 	error_value = 0;
+	printf("exit\n");
 	while (data->lcmd->cmd[i])
 		i++;
 	if (i > 2)
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
+		ft_printf_error("minishell: exit: too many arguments\n", 2);
 		return (1);
 	}
 	i = 0;

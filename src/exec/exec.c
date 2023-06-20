@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 16:00:24 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 17:05:23 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	child_process(t_minishell *data)
 {
 	char	*path_cmd;
 	char	**env;
+
 	if (ft_isbuiltin(data))
 		ft_exit_minishell(data, g_error);
 	env = ft_env_to_tab(data->env);
