@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/13 14:53:05 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 16:01:15 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 # define MINISHELL_H
 # include "../lib/mylib/include/mylib.h"
 # include <stdio.h>
+# include <signal.h>
 # include <limits.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "mylib.h"
@@ -28,6 +31,6 @@
 # include "ft_parsing.h"
 # include "ft_utils.h"
 
-extern unsigned int	g_error;
+extern int	g_error;
 
 #endif

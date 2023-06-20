@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_heredoc_no_expans.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 17:53:34 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/14 09:48:12 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/11 19:00:46 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/18 14:35:54 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(t_minishell *data, int error)
+int	ft_heredoc_no_expans(t_token *token, int fd)
 {
-	if (error == SYNTAX_ERROR)
+	char	*line;
+
+	while (1)
 	{
-		printf("Syntax error !\n");
-		g_error = 2;
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (!ft_strncmp(line, token->content, ft_strlen(token->content) + 1))
+			break ;
+		ft_putstr_fd(line, fd);
+		ft_putstr_fd("\n", fd);
+		free(line);
 	}
-	else if (error == MALLOC_FAILED)
-	{
-		printf("Malloc failed !\n");
-		ft_exit_minishell(data, 1);
-	}
-	else if (!data->lcmd)
-		return ;
-	else
-		g_error = error;
+	if (!line)
+		ft_putstr_fd("minishell: warning: here-document "\
+		"delimited by end-of-file\n", 2);
+	free(line);
+	return (0);
 }

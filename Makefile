@@ -6,7 +6,7 @@
 #    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/16 17:07:14 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/20 14:36:43 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,12 +49,8 @@ BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c exit.c
 ALL_FILES += $(addprefix $(BLT_DIR), $(BLT_FILES))
 
 EXEC_DIR = exec/
-EXEC_FILES = exec.c
+EXEC_FILES = exec.c ft_path.c
 ALL_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
-
-ERROR_DIR		= error/
-ERROR_FILES		= ft_error.c
-ALL_FILES		+= $(addprefix $(ERROR_DIR), $(ERROR_FILES))
 
 LST_DIR			= lst/
 
@@ -75,11 +71,15 @@ PARS_FILES		= ft_parsing.c
 ALL_FILES		+= $(addprefix $(PARS_DIR), $(PARS_FILES))
 
 LEXER_DIR		= lexer/
-LEXER_FILES		= ft_lexer.c
+LEXER_FILES		= ft_fusion_line.c ft_lexer.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR), $(LEXER_FILES))
 
+HEREDOC_DIR		= heredoc/
+HEREDOC_FILES	= ft_heredoc_expands.c ft_heredoc_no_expans.c ft_heredoc.c
+ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(HEREDOC_DIR), $(HEREDOC_FILES))
+
 TOKEN_P_DIR		= token/
-TOKEN_P_FILES	= ft_add_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
+TOKEN_P_FILES	= ft_add_token.c ft_get_ptr_token.c ft_get_token.c ft_token_chevron.c ft_token_dollar.c ft_token_pipe.c ft_token_quote.c ft_token_space.c ft_token_word.c
 ALL_FILES		+= $(addprefix $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR), $(TOKEN_P_FILES))
 
 EXPANDS_DIR		= expands/
@@ -87,8 +87,12 @@ EXPANDS_FILES	= ft_expands_classic.c ft_expands_global.c ft_expands_quote.c ft_e
 ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 UTILS_DIR		= utils/
-UTILS_FILES		= ft_exit_minishell.c ft_init_minishell.c ft_prompt.c
+UTILS_FILES		= ft_error.c ft_exit_minishell.c ft_get_data.c ft_init_minishell.c ft_prompt.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
+
+SIGNAL_DIR		= signal/
+SIGNAL_FILES	= ft_ctrl_c.c ft_ctrl_c_heredoc_fork.c ft_ctrl_c_heredoc.c ft_ctrl_c_exec.c
+ALL_FILES		+= $(addprefix $(UTILS_DIR)$(SIGNAL_DIR), $(SIGNAL_FILES))
 
 INC_FILES		= ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h
 
@@ -113,11 +117,6 @@ $(NAME): $(OUT_DIR) $(OBJS) $(LIB)
 
 $(OUT_DIR)%.o : $(SRC_DIR)%.c Makefile $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-bonus: $(OUT_DIR) $(BNS_OBJS) $(LIB)
-	$(CC) $(CFLAGS) $(BNS_OBJS) $(LIB) -o $(NAME)_bonus -lreadline
-	@echo $(COMP_BNS_MSG)
-	@norminette | awk '$$NF!="OK!" {print "$(RED)" $$0 "$(WHITE)"}'
 
 $(OUT_DIR)%.o : $(SRC_DIR)%.c Makefile $(BNS_HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -149,5 +148,5 @@ exec: all
 leaks: all
 	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes ./$(NAME)
 
-.PHONY: all bonus clean fclean force re
+.PHONY: all clean fclean force re exec leaks
 .SILENT:

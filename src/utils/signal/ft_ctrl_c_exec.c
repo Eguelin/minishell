@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_token_delone.c                                  :+:      :+:    :+:   */
+/*   ft_ctrl_c_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 21:03:04 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/19 18:33:55 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/17 13:01:30 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/18 17:43:20 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_token_delone(t_token *token)
+void	ft_ctrl_c_exec(int signum)
 {
-	if (!token)
-		return ;
-	if (token->previous)
-		token->previous->next = token->next;
-	if (token->next)
-		token->next->previous = token->previous;
-	if (token->type > HERE_DOC_NO)
-		close(token->type - HERE_DOC_NO);
-	free(token->content);
-	free(token);
+	if (signum == 2)
+	{
+		g_error = 130;
+		ft_putstr_fd("\n", 1);
+	}
 }
