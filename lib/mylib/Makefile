@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 15:15:24 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/16 08:48:37 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/20 16:14:05 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,10 @@ FILES_ALL += $(addprefix $(OTHER_DIR), $(FILES_OTHER))
 PRINT_DIR = print/
 FILES_PRINT = ft_print_address.c ft_print_all.c ft_print_base.c ft_print_char.c ft_printf.c ft_print_nbr.c ft_print_str.c
 FILES_ALL += $(addprefix $(PRINT_DIR), $(FILES_PRINT))
+
+PRINT_ERROR_DIR = print_error/
+FILES_PRINT_ERROR = ft_print_error_address.c ft_print_error_all.c ft_print_error_base.c ft_print_error_char.c ft_printf_error.c ft_print_error_nbr.c ft_print_error_str.c
+FILES_ALL += $(addprefix $(PRINT_ERROR_DIR), $(FILES_PRINT_ERROR))
 
 PUT_DIR = put/
 FILES_PUT = ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
