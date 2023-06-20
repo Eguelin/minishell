@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 17:07:09 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/16 18:12:06 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exit_minishell(&data, g_error);
 		ft_error(&data, ft_parsing(&data, line));
 		if (data.lcmd)
-			ft_exec(&data);
+			ft_error(&data, ft_exec(&data));
 		ft_lcmd_clear(&data.lcmd);
 		add_history(line);
 	}
