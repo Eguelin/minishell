@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 17:04:22 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 12:37:56 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ static int	unset_check(char *cmd)
 		return (1);
 	if (!ft_isalpha(cmd[0]))
 	{
-		ft_printf_error("minishell: unset: %s: No numeric arguements\n", cmd);
+		ft_printf_error("%s: unset: %s: No numeric arguements\n", \
+		ft_get_data(NULL)->name, cmd);
 		return (1);
 	}
 	while (cmd[i] && cmd[i] != '=')
 	{
 		if (!ft_isalnum(cmd[i]) && cmd[i] == '=')
 		{
-			ft_printf_error("minishell: unset: %s: No numeric arguements\n", \
-			cmd);
+			ft_printf_error("%s: unset: %s: No numeric arguements\n", \
+			ft_get_data(NULL)->name, cmd);
 			return (1);
 		}
 		i++;

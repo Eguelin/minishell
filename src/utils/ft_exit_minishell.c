@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:28:48 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 13:29:19 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 12:34:49 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	ft_exit_minishell(t_minishell *data, int status)
 	free(data->prompt);
 	ft_free_split(data->path);
 	rl_clear_history();
+	free(data->name);
 	exit(status);
 }

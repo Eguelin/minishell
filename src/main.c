@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 10:55:12 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 11:43:03 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int	main(int argc, char **argv, char **env)
 	char		*line;
 
 	(void)argc;
-	(void)argv;
-	ft_init_minishell(&data, env);
+	ft_init_minishell(&data, argv[0], env);
 	while (1)
 	{
 		signal(SIGINT, ft_ctrl_c);

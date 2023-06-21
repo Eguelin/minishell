@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 17:28:25 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 11:42:46 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		ft_ctrl_c(int signum);
 void		ft_error(t_minishell *data, int error);
 void		ft_exit_minishell(t_minishell *data, int status);
 t_minishell	*ft_get_data(t_minishell *data);
-void		ft_init_minishell(t_minishell *data, char **env);
+void		ft_init_minishell(t_minishell *data, char *argv, char **env);
 char		*ft_prompt(t_minishell *data);
 
 #endif
