@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/18 18:06:14 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 14:49:08 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	ft_lexer(t_token **token, t_env *env, char *line)
 		return (MALLOC_FAILED);
 	ft_get_ptr_token(token);
 	error = ft_heredoc(*token, env);
+	if (error == 130)
+		ft_putstr_fd("\n", 1);
 	if (error)
 		return (error);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 16:09:03 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 09:17:04 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 17:28:39 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_heredoc(t_token *token, t_env *env)
 	int	error;
 
 	error = 0;
-	signal(SIGINT, ft_ctrl_c_heredoc);
+	signal(SIGINT, SIG_IGN);
 	while (token)
 	{
 		if (token->type == HERE_DOC_EX || token->type == HERE_DOC_NO)
@@ -62,7 +62,7 @@ static void	ft_heredoc_3(t_token *heredoc, t_env *env, int pipefd[2])
 	int		error;
 
 	error = 0;
-	signal(SIGINT, ft_ctrl_c_heredoc_fork);
+	signal(SIGINT, ft_ctrl_c_heredoc);
 	close(pipefd[STDIN_FILENO]);
 	if (heredoc->type == HERE_DOC_EX)
 		error = ft_heredoc_expands(heredoc, env, pipefd[STDOUT_FILENO]);

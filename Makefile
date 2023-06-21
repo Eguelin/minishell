@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/20 14:36:43 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/21 10:54:35 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ UTILS_FILES		= ft_error.c ft_exit_minishell.c ft_get_data.c ft_init_minishell.c 
 ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 SIGNAL_DIR		= signal/
-SIGNAL_FILES	= ft_ctrl_c.c ft_ctrl_c_heredoc_fork.c ft_ctrl_c_heredoc.c ft_ctrl_c_exec.c
+SIGNAL_FILES	= ft_ctrl_c.c ft_ctrl_c_heredoc.c ft_ctrl_c_exec.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR)$(SIGNAL_DIR), $(SIGNAL_FILES))
 
 INC_FILES		= ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h

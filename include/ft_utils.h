@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 10:05:32 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 17:28:25 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 ////////// [ signal ] //////////
 void		ft_ctrl_c_exec(int signum);
-void		ft_ctrl_c_heredoc_fork(int signum);
 void		ft_ctrl_c_heredoc(int signum);
 void		ft_ctrl_c(int signum);
 

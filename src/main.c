@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 15:54:24 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 10:55:12 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	g_error;
 // {
 // 	char	*cmd[2];
 // 	pid_t	pid;
+// 	pid_t	pid2;
 
 // 	signal(SIGINT, ft_ctrl_c_exec);
 // 	cmd[0] = "cat";
@@ -30,9 +31,18 @@ int	g_error;
 // 	{
 // 		signal(SIGINT, SIG_DFL);
 // 		signal(SIGQUIT, SIG_DFL);
-// 		execve("/usr/bin/cp", cmd, ft_env_to_tab(data->env));
+// 		execve("/usr/bin/cat", cmd, ft_env_to_tab(data->env));
 // 	}
-// 	waitpid(pid, &g_error, 0);
+// 	pid2 = fork();
+// 	if (!pid2)
+// 	{
+// 		signal(SIGINT, SIG_DFL);
+// 		signal(SIGQUIT, SIG_DFL);
+// 		exit(130);
+// 		execve("/usr/bin/ls", cmd, ft_env_to_tab(data->env));
+// 	}
+// 	waitpid(pid, NULL, 0);
+// 	waitpid(pid2, &g_error, 0);
 // 	if (g_error != 2 && g_error != 131)
 // 		g_error = WEXITSTATUS(g_error);
 // 	else if (g_error == 2)
