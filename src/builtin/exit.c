@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 12:26:56 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 17:15:23 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_exit(t_minishell *data)
 	i = 0;
 	if (data->lcmd->cmd[1])
 		error_value = ft_check_exit_digit(data);
+	else
+		error_value = g_error;
 	ft_exit_minishell(data, error_value);
 	return (0);
 }
