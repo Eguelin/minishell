@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 14:46:10 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 16:30:17 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int	main(int argc, char **argv, char **env)
 	char		*line;
 
 	(void)argc;
-	(void)argv;
-	ft_init_minishell(&data, env);
+	ft_init_minishell(&data, argv[0], env);
 	while (1)
 	{
 		signal(SIGINT, ft_ctrl_c);

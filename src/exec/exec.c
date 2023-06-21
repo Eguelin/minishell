@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 15:48:57 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 16:38:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	ft_exec(t_minishell *data)
 {
 	if (!data->lcmd->next && ft_isbuiltin(data))
 		return (g_error);
+	signal(SIGINT, ft_ctrl_c_exec);
 	data->pid = fork();
 	if (data->pid == -1)
 		ft_error(data, FORK_FAILED);
 	if (!data->pid)
 	{
-		signal(SIGINT, ft_ctrl_c_exec);
 		if (ft_get_path(data))
 			return (MALLOC_FAILED);
 		while (data->lcmd)
@@ -98,11 +98,12 @@ static int	child_process(t_minishell *data)
 	char	*path_cmd;
 	char	**env;
 
+	signal(SIGQUIT, SIG_DFL);
 	ft_file(data);
 	if (ft_isbuiltin(data))
 		ft_exit_minishell(data, g_error);
-	env = ft_env_to_tab(data->env);
 	path_cmd = ft_check_cmd(data);
+	env = ft_env_to_tab(data->env);
 	execve(path_cmd, data->lcmd->cmd, env);
 	ft_free_split(env);
 	free(path_cmd);

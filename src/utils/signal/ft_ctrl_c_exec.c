@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 13:01:30 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/18 17:43:20 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 16:40:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 void	ft_ctrl_c_exec(int signum)
 {
-	if (signum == 2)
-	{
-		g_error = 130;
-		ft_putstr_fd("\n", 1);
-	}
+	(void)signum;
 }

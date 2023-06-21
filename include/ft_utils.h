@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 12:18:19 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 16:05:53 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		ft_dup(int fd, int fd2, t_minishell *data);
 void		ft_error(t_minishell *data, int error);
 void		ft_exit_minishell(t_minishell *data, int status);
 t_minishell	*ft_get_data(t_minishell *data);
-void		ft_init_minishell(t_minishell *data, char **env);
+void		ft_init_minishell(t_minishell *data, char *argv, char **env);
 char		*ft_prompt(t_minishell *data);
 
 #endif

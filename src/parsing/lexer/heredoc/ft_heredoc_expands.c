@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_expands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:00:49 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 10:04:00 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 12:34:35 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	ft_heredoc_expands(t_token *token, t_env *env, int fd)
 		free(line);
 	}
 	if (!line)
-		ft_putstr_fd("minishell: warning: here-document "\
-		"delimited by end-of-file\n", 2);
+		ft_printf_error("%s: warning: here-document "\
+		"delimited by end-of-file\n", ft_get_data(NULL)->name);
 	free(line);
 	return (0);
 }

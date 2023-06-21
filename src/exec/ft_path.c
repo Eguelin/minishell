@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:34:40 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 15:57:53 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 12:26:00 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ static char	*ft_check_absolute_path(t_minishell *data)
 			return (data->lcmd->cmd[0]);
 		else if (!access(data->lcmd->cmd[0], F_OK))
 		{
-			ft_putstr_fd("minishell: Permission denied\n", 2);
+			ft_printf_error("%s: %s: Permission denied\n", \
+			data->name, data->lcmd->cmd[0]);
 			ft_exit_minishell(data, 126);
 		}
 		else
 		{
-			ft_putstr_fd("minishell: not found\n", 2);
+			ft_printf_error("%s: %s: not found\n", \
+			data->name, data->lcmd->cmd[0]);
 			ft_exit_minishell(data, 127);
 		}
 	}
@@ -60,7 +62,7 @@ static char	*ft_check_relative_path(t_minishell *data)
 		free(path);
 		i++;
 	}
-	ft_putstr_fd("minishell: not found\n", 2);
+	ft_printf_error("%s: %s: not found\n", data->name, data->lcmd->cmd[0]);
 	ft_exit_minishell(data, 127);
 	return (NULL);
 }

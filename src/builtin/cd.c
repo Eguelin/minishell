@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 17:05:06 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 12:35:42 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int	ft_cd(t_env **env, char **cmd)
 	error_value = 0;
 	if (cmd[1] && cmd[2])
 	{
-		ft_printf_error("minishell: cd: too many arguments\n");
+		ft_printf_error("%s: cd: too many arguments\n", ft_get_data(NULL)->name);
 		return (1);
 	}
 	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][1]))
@@ -137,7 +137,7 @@ int	ft_cd(t_env **env, char **cmd)
 	else
 		error_value = check_path(env, cmd[1]);
 	if (error_value == 1)
-		ft_printf_error("minishell: cd: %s: No such file or directory\n", \
-		cmd[1]);
+		ft_printf_error("%s: cd: %s: No such file or directory\n", \
+		ft_get_data(NULL)->name, cmd[1]);
 	return (error_value);
 }
