@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 16:38:15 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 19:54:01 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_exec(t_minishell *data)
 {
 	if (!data->lcmd->next && ft_isbuiltin(data))
 		return (g_error);
-	signal(SIGINT, ft_ctrl_c_exec);
 	data->pid = fork();
 	if (data->pid == -1)
 		ft_error(data, FORK_FAILED);
@@ -33,10 +32,12 @@ int	ft_exec(t_minishell *data)
 		waitpid(data->pid, &g_error, 0);
 		while (waitpid(-1, NULL, 0) != -1)
 			;
-		if (g_error != 2 && g_error != 131)
+		if (WIFSIGNALED(g_error))
+			ft_putstr_fd("\n", 1);
+		if (!WIFSIGNALED(g_error))
 			g_error = WEXITSTATUS(g_error);
-		else if (g_error == 2)
-			g_error = 130;
+		else if (WIFSIGNALED(g_error))
+			g_error = 128 + WTERMSIG(g_error);
 		ft_exit_minishell(data, g_error);
 	}
 	waitpid(data->pid, &g_error, 0);
@@ -99,6 +100,7 @@ static int	child_process(t_minishell *data)
 	char	**env;
 
 	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, ft_ctrl_c_exec);
 	ft_file(data);
 	if (ft_isbuiltin(data))
 		ft_exit_minishell(data, g_error);
