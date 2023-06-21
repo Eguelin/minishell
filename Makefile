@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/21 10:54:35 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/21 14:04:32 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c exit.c
 ALL_FILES += $(addprefix $(BLT_DIR), $(BLT_FILES))
 
 EXEC_DIR = exec/
-EXEC_FILES = exec.c ft_path.c
+EXEC_FILES = exec.c ft_file.c ft_path.c
 ALL_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 LST_DIR			= lst/
@@ -87,7 +87,7 @@ EXPANDS_FILES	= ft_expands_classic.c ft_expands_global.c ft_expands_quote.c ft_e
 ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 UTILS_DIR		= utils/
-UTILS_FILES		= ft_error.c ft_exit_minishell.c ft_get_data.c ft_init_minishell.c ft_prompt.c
+UTILS_FILES		= ft_close.c ft_dup.c ft_error.c ft_exit_minishell.c ft_get_data.c ft_init_minishell.c ft_prompt.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 SIGNAL_DIR		= signal/

@@ -3,16 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 17:05:23 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/21 15:48:57 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isbuiltin(t_minishell *data)
+static int	ft_isbuiltin(t_minishell *data);
+static int	ft_execve(t_minishell *data);
+static int	child_process(t_minishell *data);
+
+int	ft_exec(t_minishell *data)
+{
+	if (!data->lcmd->next && ft_isbuiltin(data))
+		return (g_error);
+	data->pid = fork();
+	if (data->pid == -1)
+		ft_error(data, FORK_FAILED);
+	if (!data->pid)
+	{
+		signal(SIGINT, ft_ctrl_c_exec);
+		if (ft_get_path(data))
+			return (MALLOC_FAILED);
+		while (data->lcmd)
+			ft_execve(data);
+		waitpid(data->pid, &g_error, 0);
+		while (waitpid(-1, NULL, 0) != -1)
+			;
+		if (g_error != 2 && g_error != 131)
+			g_error = WEXITSTATUS(g_error);
+		else if (g_error == 2)
+			g_error = 130;
+		ft_exit_minishell(data, g_error);
+	}
+	waitpid(data->pid, &g_error, 0);
+	g_error = WEXITSTATUS(g_error);
+	return (g_error);
+}
+
+static int	ft_isbuiltin(t_minishell *data)
 {
 	int	i;
 
@@ -34,11 +66,39 @@ int	ft_isbuiltin(t_minishell *data)
 	return (i);
 }
 
+static int	ft_execve(t_minishell *data)
+{
+	t_lcmd	*tmp;
+
+	if (pipe(data->pipefd) == -1)
+	{
+		while (waitpid(-1, NULL, 0) != -1)
+			;
+		ft_error(data, PIPE_FAILED);
+	}
+	data->pid = fork();
+	if (data->pid == -1)
+	{
+		while (waitpid(-1, NULL, 0) != -1)
+			;
+		ft_error(data, FORK_FAILED);
+	}
+	if (!data->pid)
+		child_process(data);
+	tmp = data->lcmd;
+	data->lcmd = data->lcmd->next;
+	ft_lcmd_delone(tmp);
+	ft_close(&data->pipefd[STDOUT_FILENO]);
+	ft_dup(data->pipefd[STDIN_FILENO], STDIN_FILENO, data);
+	return (0);
+}
+
 static int	child_process(t_minishell *data)
 {
 	char	*path_cmd;
 	char	**env;
 
+	ft_file(data);
 	if (ft_isbuiltin(data))
 		ft_exit_minishell(data, g_error);
 	env = ft_env_to_tab(data->env);
@@ -47,37 +107,5 @@ static int	child_process(t_minishell *data)
 	ft_free_split(env);
 	free(path_cmd);
 	ft_exit_minishell(data, g_error);
-	return (0);
-}
-
-static int	ft_execve(t_minishell *data)
-{
-	t_lcmd	*tmp;
-
-	data->pid = fork();
-	if (data->pid == -1)
-	{
-		while (waitpid(-1, NULL, 0) != -1)
-			;
-		return (FORK_FAILED);
-	}
-	if (!data->pid)
-		child_process(data);
-	tmp = data->lcmd;
-	data->lcmd = data->lcmd->next;
-	ft_lcmd_delone(tmp);
-	return (0);
-}
-
-int	ft_exec(t_minishell *data)
-{
-	if (!data->lcmd->next && ft_isbuiltin(data))
-		return (g_error);
-	if (ft_get_path(data))
-		return (MALLOC_FAILED);
-	while (data->lcmd)
-		if (ft_execve(data))
-			return (FORK_FAILED);
-	waitpid(data->pid, NULL, 0);
 	return (0);
 }

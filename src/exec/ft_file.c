@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit_minishell.c                                :+:      :+:    :+:   */
+/*   ft_file.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/13 19:28:48 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 14:39:51 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/21 11:01:41 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/21 15:47:42 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit_minishell(t_minishell *data, int status)
+void	ft_file(t_minishell *data)
 {
-	ft_env_clear(&data->env);
-	ft_lcmd_clear(&data->lcmd);
-	free(data->prompt);
-	ft_free_split(data->path);
-	rl_clear_history();
+	int	in;
+	int	out;
+
+	in = STDIN_FILENO;
+	out = STDOUT_FILENO;
 	ft_close(&data->pipefd[0]);
-	ft_close(&data->pipefd[1]);
-	close(0);
-	if (!data->pid)
-		close(1);
-	exit(status);
+	if (data->lcmd->next)
+		ft_dup(data->pipefd[1], STDOUT_FILENO, data);
+	else
+		ft_close(&data->pipefd[1]);
 }
