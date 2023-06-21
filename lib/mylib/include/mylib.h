@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:54:43 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 08:49:01 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/20 16:17:27 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,16 @@ int		ft_print_char(char c);
 int		ft_print_nbr(int n);
 int		ft_print_str(const char *s);
 int		ft_printf(const char *format, ...);
+
+////////// [ print_error ] //////////
+int		ft_print_error_address(unsigned long un);
+int		ft_print_error_all(char c, va_list arg);
+int		ft_print_error_base(unsigned long un, unsigned long size_set, \
+char *set);
+int		ft_print_error_char(char c);
+int		ft_print_error_nbr(int n);
+int		ft_print_error_str(const char *s);
+int		ft_printf_error(const char *format, ...);
 
 ////////// [ put ] //////////
 void	ft_putchar_fd(char c, int fd);
