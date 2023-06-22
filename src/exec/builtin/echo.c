@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:51:19 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:05:19 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 15:21:13 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_echo(char **cmd)
 	i = 1;
 	if (!cmd[i])
 	{
-		printf("\n");
+		ft_printf_fd(ft_get_data(NULL)->out, "\n");
 		return (0);
 	}
 	if (check_option(cmd[i]))
@@ -59,6 +59,6 @@ int	ft_echo(char **cmd)
 		return (0);
 	}
 	ft_writestr(cmd + i);
-	printf("\n");
+	ft_printf_fd(ft_get_data(NULL)->out, "\n");
 	return (0);
 }

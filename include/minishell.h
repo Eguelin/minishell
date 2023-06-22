@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/22 11:43:15 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 14:25:54 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@
 # include "s_lst.h"
 # include "s_parsing.h"
 # include "s_utils.h"
-# include "error.h"
-# include "builtin.h"
-# include "exec.h"
+# include "ft_exec.h"
 # include "ft_lst.h"
 # include "ft_parsing.h"
 # include "ft_utils.h"

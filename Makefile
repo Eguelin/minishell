@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/21 14:04:32 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/22 16:02:25 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,18 +39,16 @@ CLEAN_MSG		= "$(RED)Cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shell date +'%Y-
 FULL_CLEAN_MSG	= "$(PURPLE)Full cleaning $(NAME) $(WHITE)done on $(YELLOW)$(shell date +'%Y-%m-%d %H:%M:%S')$(WHITE)"
 
 #Sources
-#..._DIR = ../
-#..._FILES = ..
-#ALL_FILES = $(addprefix $(..._DIR), $(..._FILES))
 ALL_FILES		= main.c
 
-BLT_DIR = builtin/
-BLT_FILES = echo.c env.c export.c pwd.c cd.c unset.c exit.c
-ALL_FILES += $(addprefix $(BLT_DIR), $(BLT_FILES))
+EXEC_DIR		= exec/
 
-EXEC_DIR = exec/
-EXEC_FILES = exec.c ft_file.c ft_path.c
-ALL_FILES += $(addprefix $(EXEC_DIR), $(EXEC_FILES))
+BLT_DIR			= builtin/
+BLT_FILES		= echo.c env.c export.c pwd.c cd.c unset.c exit.c
+ALL_FILES		+= $(addprefix $(EXEC_DIR)$(BLT_DIR), $(BLT_FILES))
+
+EXEC_FILES		= ft_exec.c ft_file.c ft_path.c
+ALL_FILES		+= $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 
 LST_DIR			= lst/
 
@@ -94,7 +92,7 @@ SIGNAL_DIR		= signal/
 SIGNAL_FILES	= ft_ctrl_c.c ft_ctrl_c_heredoc.c ft_ctrl_c_exec.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR)$(SIGNAL_DIR), $(SIGNAL_FILES))
 
-INC_FILES		= ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h
+INC_FILES		= ft_exec.h ft_lst.h ft_parsing.h ft_utils.h $(NAME).h s_lst.h  s_parsing.h s_utils.h
 
 OBJS			= $(addprefix $(OUT_DIR), $(ALL_FILES:.c=.o))
 HEADERS			= $(addprefix $(INC_DIR), $(INC_FILES))

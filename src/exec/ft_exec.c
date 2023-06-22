@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   ft_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:14:32 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 16:00:48 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,17 @@ static int	ft_isbuiltin(t_minishell *data)
 		g_error = ft_pwd();
 	else if (!ft_strncmp(data->lcmd->cmd[0], "cd", 3) && ++i && !ft_file(data))
 		g_error = ft_cd(&data->env, data->lcmd->cmd);
-	else if (!ft_strncmp(data->lcmd->cmd[0], "echo", 5) && ++i && !ft_file(data))
+	else if (!ft_strncmp(data->lcmd->cmd[0], "echo", 5) && ++i && \
+	!ft_file(data))
 		g_error = ft_echo(data->lcmd->cmd);
-	else if (!ft_strncmp(data->lcmd->cmd[0], "export", 7) && ++i && !ft_file(data))
+	else if (!ft_strncmp(data->lcmd->cmd[0], "export", 7) && ++i && \
+	!ft_file(data))
 		g_error = ft_export(&data->env, data->lcmd->cmd);
-	else if (!ft_strncmp(data->lcmd->cmd[0], "unset", 6) && ++i && !ft_file(data))
+	else if (!ft_strncmp(data->lcmd->cmd[0], "unset", 6) && ++i && \
+	!ft_file(data))
 		g_error = ft_unset(&data->env, data->lcmd->cmd);
-	else if (!ft_strncmp(data->lcmd->cmd[0], "exit", 5) && ++i && !ft_file(data))
+	else if (!ft_strncmp(data->lcmd->cmd[0], "exit", 5) && ++i && \
+	!ft_file(data))
 		g_error = ft_exit(data);
 	data->out = 1;
 	return (i);

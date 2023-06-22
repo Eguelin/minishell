@@ -6,48 +6,13 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:30:44 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/22 12:18:15 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 14:34:41 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_lcmd(t_lcmd *t_lcmd);
-void	ft_print_token(t_token	*token);
-
 int	g_error;
-
-// void	ft_extest(t_minishell *data)
-// {
-// 	char	*cmd[2];
-// 	pid_t	pid;
-// 	pid_t	pid2;
-
-// 	signal(SIGINT, ft_ctrl_c_exec);
-// 	cmd[0] = "cat";
-// 	cmd[1] = NULL;
-// 	pid = fork();
-// 	if (!pid)
-// 	{
-// 		signal(SIGINT, SIG_DFL);
-// 		signal(SIGQUIT, SIG_DFL);
-// 		execve("/usr/bin/cat", cmd, ft_env_to_tab(data->env));
-// 	}
-// 	pid2 = fork();
-// 	if (!pid2)
-// 	{
-// 		signal(SIGINT, SIG_DFL);
-// 		signal(SIGQUIT, SIG_DFL);
-// 		exit(130);
-// 		execve("/usr/bin/ls", cmd, ft_env_to_tab(data->env));
-// 	}
-// 	waitpid(pid, NULL, 0);
-// 	waitpid(pid2, &g_error, 0);
-// 	if (g_error != 2 && g_error != 131)
-// 		g_error = WEXITSTATUS(g_error);
-// 	else if (g_error == 2)
-// 		g_error = 130;
-// }
 
 int	main(int argc, char **argv, char **env)
 {
@@ -74,30 +39,4 @@ int	main(int argc, char **argv, char **env)
 		ft_lcmd_clear(&data.lcmd);
 	}
 	return (0);
-}
-
-void	ft_print_lcmd(t_lcmd *lcmd)
-{
-	int		i;
-
-	while (lcmd)
-	{
-		i = 0;
-		printf("lcmd :\n\tcmd : ");
-		while (lcmd->cmd && lcmd->cmd[i])
-			printf("%s, ", lcmd->cmd[i++]);
-		printf("\n\tfile : ");
-		ft_print_token(lcmd->file);
-		printf("\n");
-		lcmd = lcmd->next;
-	}
-}
-
-void	ft_print_token(t_token	*token)
-{
-	while (token)
-	{
-		printf("[ %s | %d ] ", token->content, token->type);
-		token = token->next;
-	}
 }
