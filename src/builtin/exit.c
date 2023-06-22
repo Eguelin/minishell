@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 17:15:23 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 14:02:42 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_exit(t_minishell *data)
 
 	i = 0;
 	error_value = 0;
-	printf("exit\n");
+	ft_printf_fd(ft_get_data(NULL)->out, "exit\n");
 	while (data->lcmd->cmd[i])
 		i++;
 	if (i > 2)

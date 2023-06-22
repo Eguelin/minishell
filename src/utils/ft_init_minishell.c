@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_minishell.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:42:57 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 16:33:48 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 13:57:59 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_init_minishell(t_minishell *data, char *argv, char **env)
 	int		i;
 
 	i = 0;
+	data->out = 1;
 	data->lcmd = NULL;
 	data->prompt = NULL;
 	data->env = ft_set_env(env);

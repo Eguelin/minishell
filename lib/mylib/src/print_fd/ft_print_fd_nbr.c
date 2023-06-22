@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_print_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 16:59:00 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:04:16 by naterrie         ###   ########lyon.fr   */
+/*   Created: 2022/11/19 12:03:24 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/22 13:49:08 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-int	ft_pwd(void)
+int	ft_print_fd_nbr(int n, int fd)
 {
-	char	cwd[PATH_MAX];
+	unsigned int	un;
+	int				count;
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	un = n;
+	count = 0;
+	if (n < 0)
 	{
-		ft_printf_error("pwd: error retrieving current directory\n");
-		return (1);
+		count += ft_print_fd_char('-', fd);
+		un *= -1;
 	}
-	ft_printf_fd(ft_get_data(NULL)->out, "%s\n", cwd);
-	return (0);
+	if (un > 9)
+		count += ft_print_fd_nbr(un / 10, fd);
+	count += ft_print_fd_char((un % 10) + '0', fd);
+	return (count);
 }
