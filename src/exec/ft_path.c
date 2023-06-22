@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:34:40 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 12:26:00 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 17:29:04 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,16 @@ static char	*ft_check_absolute_path(t_minishell *data)
 	}
 	return (NULL);
 }
+
+// eguelin@z4r6p5:/sgoinfre/goinfre/Perso/eguelin/projet/minishell$ ./m; echo $?
+// bash: ./m: No such file or directory
+// 127
+// eguelin@z4r6p5:/sgoinfre/goinfre/Perso/eguelin/projet/minishell$ ./build/; echo $?
+// bash: ./build/: Is a directory
+// 126
+// eguelin@z4r6p5:/sgoinfre/goinfre/Perso/eguelin/projet/minishell$ ./FILE; echo $?
+// bash: ./FILE: Permission denied
+// 126
 
 static char	*ft_check_relative_path(t_minishell *data)
 {

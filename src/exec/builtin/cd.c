@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:02:01 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 17:44:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,3 +141,4 @@ int	ft_cd(t_env **env, char **cmd)
 		ft_get_data(NULL)->name, cmd[1]);
 	return (error_value);
 }
+//  add Permission denied
