@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   s_utils.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 13:43:10 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 16:06:01 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 13:57:36 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_minishell
 	pid_t	pid;
 	int		pipefd[2];
 	char	*name;
+	int		out;
 }	t_minishell;
 
 #endif

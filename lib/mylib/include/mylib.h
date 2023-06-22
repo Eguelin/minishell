@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mylib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:54:43 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 16:17:27 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 13:54:27 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,16 @@ int		ft_print_error_char(char c);
 int		ft_print_error_nbr(int n);
 int		ft_print_error_str(const char *s);
 int		ft_printf_error(const char *format, ...);
+
+////////// [ print_fd ] //////////
+int		ft_print_fd_address(unsigned long un, int fd);
+int		ft_print_fd_all(char c, va_list arg, int fd);
+int		ft_print_fd_base(unsigned long un, unsigned long size_set, \
+char *set, int fd);
+int		ft_print_fd_char(char c, int fd);
+int		ft_print_fd_nbr(int n, int fd);
+int		ft_print_fd_str(const char *s, int fd);
+int		ft_printf_fd(int fd, const char *format, ...);
 
 ////////// [ put ] //////////
 void	ft_putchar_fd(char c, int fd);

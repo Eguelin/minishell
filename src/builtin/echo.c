@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:51:19 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/20 11:30:45 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 14:05:19 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	ft_writestr(char **str)
 	i = 0;
 	while (str[i] && str[i + 1])
 	{
-		printf ("%s ", str[i]);
+		ft_printf_fd(ft_get_data(NULL)->out, "%s ", str[i]);
 		i++;
 	}
-	printf ("%s", str[i]);
+	ft_printf_fd(ft_get_data(NULL)->out, "%s", str[i]);
 }
 
 int	ft_echo(char **cmd)

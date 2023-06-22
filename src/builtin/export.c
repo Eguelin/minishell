@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 12:39:36 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 14:03:53 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,11 @@ static int	sort_export(t_env *env)
 	while (tab[i])
 	{
 		if (tab[i]->content == NULL)
-			printf("declare -x %s\n", tab[i]->name);
+			ft_printf_fd(ft_get_data(NULL)->out, "declare -x %s\n", \
+			tab[i]->name);
 		else if (tab[i]->name[0] != '_' || tab[i]->name[1])
-			printf("declare -x %s=\"%s\"\n", tab[i]->name, tab[i]->content);
+			ft_printf_fd(ft_get_data(NULL)->out, "declare -x %s=\"%s\"\n", \
+			tab[i]->name, tab[i]->content);
 		i++;
 	}
 	free(tab);

@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 12:35:42 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 14:02:01 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	ft_cd_back(t_env **env)
 		return (1);
 	getcwd(cwd, sizeof(cwd));
 	change_pwd(env, oldpath, cwd);
-	return (ft_putstr_fd(cwd, 1), ft_putstr_fd("\n", 1), 0);
+	return (ft_printf_fd(ft_get_data(NULL)->out, "%s\n", cwd), 0);
 }
 
 static int	ft_cd_home(t_env **env)
