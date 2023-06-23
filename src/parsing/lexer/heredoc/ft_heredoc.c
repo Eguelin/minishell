@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 16:09:03 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/20 17:28:39 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 16:08:51 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_heredoc(t_token *token, t_env *env)
 	{
 		if (token->type == HERE_DOC_EX || token->type == HERE_DOC_NO)
 			error = ft_heredoc_2(token, env);
+		if (error == 130)
+			ft_putstr_fd("\n", 1);
 		if (error)
 			return (error);
 		token = token->next;

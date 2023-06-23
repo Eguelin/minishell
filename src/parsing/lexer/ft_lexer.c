@@ -6,24 +6,25 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 19:59:23 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 17:19:25 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_init_data_token(t_data_token *data, t_token **token, char *line);
 
 int	ft_lexer(t_token **token, t_env *env, char *line)
 {
 	t_data_token	data;
 	int				error;
 
-	data.token = token;
-	data.line = line;
-	data.end = 0;
-	while (line[data.end] == ' ')
-		(data.end)++;
-	data.start = data.end;
-	data.type = 0;
+	ft_init_data_token(&data, token, line);
+	if (line[data.end] == ':' && \
+	(!line[data.end + 1] || (line[data.end + 1] == ' ')))
+		return (0);
+	if (line[data.end] == '#')
+		return (0);
 	while (line[data.end])
 	{
 		error = ft_get_token(&data, env);
@@ -34,9 +35,18 @@ int	ft_lexer(t_token **token, t_env *env, char *line)
 		return (MALLOC_FAILED);
 	ft_get_ptr_token(token);
 	error = ft_heredoc(*token, env);
-	if (error == 130)
-		ft_putstr_fd("\n", 1);
 	if (error)
 		return (error);
 	return (0);
+}
+
+static void	ft_init_data_token(t_data_token *data, t_token **token, char *line)
+{
+	data->token = token;
+	data->line = line;
+	data->end = 0;
+	while (line[data->end] && ft_strchr(" \t\n\v\f\r", line[data->end]))
+		(data->end)++;
+	data->start = data->end;
+	data->type = 0;
 }
