@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:34:40 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/23 13:35:07 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 14:39:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ static char	*ft_check_absolute_path(t_minishell *data)
 
 	if (!ft_strchr(data->lcmd->cmd[0], '/'))
 		return (NULL);
-	stat(data->lcmd->cmd[0], &path_stat);
+	if (stat(data->lcmd->cmd[0], &path_stat))
+	{
+		ft_printf_error("%s: %s: No such file or directory\n", \
+		data->name, data->lcmd->cmd[0]);
+		ft_exit_minishell(data, 127);
+	}
 	if (S_ISDIR(path_stat.st_mode))
 		ft_printf_error("%s: %s: Is a directory\n", \
 		data->name, data->lcmd->cmd[0]);
@@ -40,12 +45,6 @@ static char	*ft_check_absolute_path(t_minishell *data)
 			return (data->lcmd->cmd[0]);
 		ft_printf_error("%s: %s: Permission denied\n", \
 		data->name, data->lcmd->cmd[0]);
-	}
-	else
-	{
-		ft_printf_error("%s: %s: No such file or directory\n", \
-		data->name, data->lcmd->cmd[0]);
-		ft_exit_minishell(data, 127);
 	}
 	ft_exit_minishell(data, 126);
 	return (NULL);
@@ -63,8 +62,7 @@ static char	*ft_check_relative_path(t_minishell *data)
 		path = ft_strjoin_three(data->path[i], "/", data->lcmd->cmd[0]);
 		if (!path)
 			ft_exit_minishell(data, MALLOC_FAILED);
-		stat(path, &path_stat);
-		if (S_ISREG(path_stat.st_mode))
+		if (!stat(path, &path_stat) && S_ISREG(path_stat.st_mode))
 		{
 			if (!access(path, X_OK))
 				return (path);
