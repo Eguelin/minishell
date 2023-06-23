@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/07 15:46:27 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/14 09:42:37 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_pipe
+typedef struct s_lcmd
 {
 	char			**cmd;
 	t_token			*file;
-	struct s_pipe	*next;
-}	t_pipe;
+	struct s_lcmd	*next;
+}	t_lcmd;
 
 #endif

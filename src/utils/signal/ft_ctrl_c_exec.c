@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_add_back.c                                 :+:      :+:    :+:   */
+/*   ft_ctrl_c_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/05/28 14:42:14 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/17 13:01:30 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/21 16:40:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pipe_add_back(t_pipe **pipe, t_pipe *new)
+void	ft_ctrl_c_exec(int signum)
 {
-	if (!pipe || !new)
-		return ;
-	if (*pipe)
-		ft_pipe_last(*pipe)->next = new;
-	else
-		*pipe = new;
+	(void)signum;
 }

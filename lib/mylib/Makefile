@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/17 15:15:24 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/10 14:33:05 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/22 14:07:19 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,12 +64,20 @@ PRINT_DIR = print/
 FILES_PRINT = ft_print_address.c ft_print_all.c ft_print_base.c ft_print_char.c ft_printf.c ft_print_nbr.c ft_print_str.c
 FILES_ALL += $(addprefix $(PRINT_DIR), $(FILES_PRINT))
 
+PRINT_ERROR_DIR = print_error/
+FILES_PRINT_ERROR = ft_print_error_address.c ft_print_error_all.c ft_print_error_base.c ft_print_error_char.c ft_printf_error.c ft_print_error_nbr.c ft_print_error_str.c
+FILES_ALL += $(addprefix $(PRINT_ERROR_DIR), $(FILES_PRINT_ERROR))
+
+PRINT_FD_DIR = print_fd/
+FILES_FD_PRINT = ft_print_fd_address.c ft_print_fd_all.c ft_print_fd_base.c ft_print_fd_char.c ft_printf_fd.c ft_print_fd_nbr.c ft_print_fd_str.c
+FILES_ALL += $(addprefix $(PRINT_FD_DIR), $(FILES_FD_PRINT))
+
 PUT_DIR = put/
 FILES_PUT = ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c
 FILES_ALL += $(addprefix $(PUT_DIR), $(FILES_PUT))
 
 STR_DIR = str/
-FILES_STR = ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin_tab.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c
+FILES_STR = ft_strchr.c ft_strdup.c ft_striteri.c ft_strjoin_tab.c ft_strjoin_three.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c
 FILES_ALL += $(addprefix $(STR_DIR), $(FILES_STR))
 
 INC_FILES	= mylib.h

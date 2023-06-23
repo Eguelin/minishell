@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 18:05:39 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/15 09:24:34 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	ft_token_quote(t_data_token *data, t_env *env)
 	{
 		if (data->type != HERE_DOC_NO && c == '"' \
 		&& data->line[data->end] == '$' && ft_dlr_quote(data, env))
-			return (1);
+			return (MALLOC_FAILED);
 		else if (data->line[data->end] != c)
 			(data->end)++;
 	}
 	if (!data->line[data->end])
 		return (SYNTAX_ERROR);
 	if (ft_add_token(data))
-		return (1);
+		return (MALLOC_FAILED);
 	data->end++;
 	data->start = data->end;
 	return (0);
@@ -44,10 +44,10 @@ int	ft_token_quote(t_data_token *data, t_env *env)
 static int	ft_dlr_quote(t_data_token *data, t_env *env)
 {
 	if (ft_add_token(data))
-		return (1);
+		return (MALLOC_FAILED);
 	data->start = data->end;
 	if (ft_token_dollar(data, env, 1))
-		return (1);
+		return (MALLOC_FAILED);
 	if (!data->type)
 		data->type = 1;
 	return (0);

@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   ft_lcmd_clear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 18:02:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 19:06:24 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/14 09:49:20 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#include "minishell.h"
 
-# define SYNTAX_ERROR 42
+void	ft_lcmd_clear(t_lcmd **lcmd)
+{
+	t_lcmd	*tmp;
 
-void	ft_error(int error, t_minishell *data);
-
-#endif
+	if (!lcmd)
+		return ;
+	while (*lcmd)
+	{
+		tmp = (*lcmd)->next;
+		ft_lcmd_delone(*lcmd);
+		*lcmd = tmp;
+	}
+}

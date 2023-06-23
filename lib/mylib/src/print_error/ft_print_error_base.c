@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pipe_new.c                                      :+:      :+:    :+:   */
+/*   ft_print_error_base.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 17:38:12 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/05 17:12:02 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2022/11/19 12:03:24 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/20 16:19:41 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "mylib.h"
 
-t_pipe	*ft_pipe_new(void)
+int	ft_print_error_base(unsigned long un, unsigned long size_set, char *set)
 {
-	t_pipe	*pipe_new;
+	int	count;
 
-	pipe_new = malloc(sizeof(t_pipe));
-	if (!pipe_new)
-		return (NULL);
-	pipe_new->cmd = NULL;
-	pipe_new->file = NULL;
-	pipe_new->next = NULL;
-	return (pipe_new);
+	count = 0;
+	if (un > size_set - 1)
+		count += ft_print_error_base(un / size_set, size_set, set);
+	count += ft_print_error_char(set[un % size_set]);
+	return (count);
 }

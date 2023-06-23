@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mylib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:54:43 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/10 14:33:35 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/22 13:54:27 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,26 @@ int		ft_print_nbr(int n);
 int		ft_print_str(const char *s);
 int		ft_printf(const char *format, ...);
 
+////////// [ print_error ] //////////
+int		ft_print_error_address(unsigned long un);
+int		ft_print_error_all(char c, va_list arg);
+int		ft_print_error_base(unsigned long un, unsigned long size_set, \
+char *set);
+int		ft_print_error_char(char c);
+int		ft_print_error_nbr(int n);
+int		ft_print_error_str(const char *s);
+int		ft_printf_error(const char *format, ...);
+
+////////// [ print_fd ] //////////
+int		ft_print_fd_address(unsigned long un, int fd);
+int		ft_print_fd_all(char c, va_list arg, int fd);
+int		ft_print_fd_base(unsigned long un, unsigned long size_set, \
+char *set, int fd);
+int		ft_print_fd_char(char c, int fd);
+int		ft_print_fd_nbr(int n, int fd);
+int		ft_print_fd_str(const char *s, int fd);
+int		ft_printf_fd(int fd, const char *format, ...);
+
 ////////// [ put ] //////////
 void	ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
@@ -100,6 +120,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin_tab(char **tab);
+char	*ft_strjoin_three(char const *s1, char const *s2, char const *s3);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
