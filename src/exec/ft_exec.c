@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 16:00:48 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 17:26:44 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	ft_pipe(t_minishell *data)
 		g_error = WEXITSTATUS(g_error);
 	else if (WIFSIGNALED(g_error))
 	{
+		if (WTERMSIG(g_error) == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)", 1);
 		ft_putstr_fd("\n", 1);
 		g_error = 128 + WTERMSIG(g_error);
 	}
