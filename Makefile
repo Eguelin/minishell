@@ -6,7 +6,7 @@
 #    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/23 13:38:52 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/23 14:08:30 by naterrie         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ ALL_FILES		= main.c
 EXEC_DIR		= exec/
 
 BLT_DIR			= builtin/
-BLT_FILES		= echo.c env.c export.c pwd.c cd.c unset.c exit.c
+BLT_FILES		= echo.c env.c export.c pwd.c cd.c unset.c exit.c cd_error.c
 ALL_FILES		+= $(addprefix $(EXEC_DIR)$(BLT_DIR), $(BLT_FILES))
 
 EXEC_FILES		= ft_exec.c ft_file.c ft_path.c

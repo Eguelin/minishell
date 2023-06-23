@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:02:01 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 18:47:54 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,7 @@ static void	change_pwd(t_env **env, char *path, char *cwd)
 
 	oldpwd = ft_get_env(*env, "OLDPWD");
 	pwd = ft_get_env(*env, "PWD");
-	if (oldpwd)
-	{
-		free(oldpwd->content);
-		if (pwd)
-		{
-			oldpwd->content = pwd->content;
-			pwd->content = ft_strdup(cwd);
-		}
-		else
-			oldpwd->content = path;
-	}
-	else
+	if (!oldpwd)
 	{
 		if (pwd)
 		{
@@ -38,106 +27,81 @@ static void	change_pwd(t_env **env, char *path, char *cwd)
 			pwd->content = ft_strdup(cwd);
 		}
 	}
-}
-
-static int	check_path(t_env **env, char *cmd)
-{
-	char	*oldpath;
-	t_env	*temp;
-	char	cwd[PATH_MAX];
-
-	oldpath = NULL;
-	getcwd(cwd, sizeof(cwd));
-	temp = ft_get_env(*env, "PWD");
-	if (temp)
-		oldpath = temp->content;
-	else if (cwd[0])
-		oldpath = ft_strdup(cwd);
-	if (!oldpath && !temp && cwd[0])
-		return (MALLOC_FAILED);
-	if (chdir(cmd) != 0)
-		return (1);
-	getcwd(cwd, sizeof(cwd));
-	change_pwd(env, oldpath, cwd);
-	return (0);
-}
-
-static int	ft_cd_back(t_env **env)
-{
-	char	*oldpath;
-	t_env	*temp;
-	t_env	*old;
-	char	*cmd;
-	char	cwd[PATH_MAX];
-
-	oldpath = NULL;
-	getcwd(cwd, sizeof(cwd));
-	old = ft_get_env(*env, "OLDPWD");
-	if (old->content)
-		cmd = old->content;
 	else
-		return (1);
-	temp = ft_get_env(*env, "PWD");
-	if (temp)
-		oldpath = temp->content;
-	else if (cwd[0])
-		oldpath = ft_strdup(cwd);
-	if (!oldpath && !temp && cwd[0])
-		return (MALLOC_FAILED);
-	if (chdir(cmd) != 0)
-		return (1);
+	{
+		free(oldpwd->content);
+		if (pwd && pwd->content)
+		{
+			oldpwd->content = pwd->content;
+			pwd->content = ft_strdup(cwd);
+		}
+		else
+			oldpwd->content = path;
+	}
+}
+
+static int	check_path(t_env **env, char *path)
+{
+	char	cwd[PATH_MAX];
+	char	*oldpath;
+	t_env	*temp;
+
 	getcwd(cwd, sizeof(cwd));
-	change_pwd(env, oldpath, cwd);
-	return (ft_printf_fd(ft_get_data(NULL)->out, "%s\n", cwd), 0);
+	temp = ft_get_env(*env, "PWD");
+	if (temp && temp->content)
+		oldpath = temp->content;
+	else
+		oldpath = ft_strdup(cwd);
+	if (chdir(path) != 0)
+		return (cd_error(path, *env), 1);
+	getcwd(cwd, sizeof(cwd));
+	change_pwd(env, path, cwd);
+	return (0);
 }
 
 static int	ft_cd_home(t_env **env)
 {
-	char	*oldpath;
 	t_env	*temp;
-	t_env	*home;
-	char	*cmd;
-	char	cwd[PATH_MAX];
 
-	oldpath = NULL;
-	getcwd(cwd, sizeof(cwd));
-	home = ft_get_env(*env, "HOME");
-	if (home)
-		cmd = home->content;
-	else
-		return (1);
-	temp = ft_get_env(*env, "PWD");
-	if (temp)
-		oldpath = temp->content;
-	else if (cwd[0])
-		oldpath = ft_strdup(cwd);
-	if (!oldpath && !temp && cwd[0])
-		return (MALLOC_FAILED);
-	if (chdir(cmd) != 0)
-		return (free(oldpath), 1);
-	getcwd(cwd, sizeof(cwd));
-	change_pwd(env, oldpath, cwd);
-	return (0);
+	temp = ft_get_env(*env, "HOME");
+	if (temp && temp->content)
+		return (check_path(env, temp->content));
+	return (ft_printf_error("%s: cd: HOME not set\n", \
+		ft_get_data(NULL)->name), 1);
+}
+
+static int	ft_cd_back(t_env **env)
+{
+	t_env	*temp;
+	int		return_value;
+
+	temp = ft_get_env(*env, "OLDPWD");
+	if (temp && temp->content)
+	{
+		return_value = check_path(env, temp->content);
+		if (return_value == 0)
+			ft_printf_fd(ft_get_data(NULL)->out, "%s\n", temp->content);
+		return (return_value);
+	}
+	return (ft_printf_error("%s: cd: OLDPWD not set\n", \
+		ft_get_data(NULL)->name), 1);
 }
 
 int	ft_cd(t_env **env, char **cmd)
 {
-	int	error_value;
+	int		error_value;
+	t_env	*temp;
 
 	error_value = 0;
+	temp = NULL;
 	if (cmd[1] && cmd[2])
-	{
-		ft_printf_error("%s: cd: too many arguments\n", ft_get_data(NULL)->name);
-		return (1);
-	}
+		return (ft_printf_error("%s: cd: too many arguments\n", \
+		ft_get_data(NULL)->name), 1);
 	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][1]))
 		error_value = ft_cd_home(env);
 	else if (strcmp(cmd[1], "-") == 0)
 		error_value = ft_cd_back(env);
 	else
 		error_value = check_path(env, cmd[1]);
-	if (error_value == 1)
-		ft_printf_error("%s: cd: %s: No such file or directory\n", \
-		ft_get_data(NULL)->name, cmd[1]);
 	return (error_value);
 }

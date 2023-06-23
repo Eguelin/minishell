@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exec.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:43:36 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:29:19 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 18:21:16 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 int		ft_export(t_env **env, char **cmd);
 int		ft_unset(t_env **env, char **cmd);
 int		ft_cd(t_env **env, char **cmd);
+void	cd_error(char *cmd, t_env *env);
 int		ft_exit(t_minishell *data);
 int		ft_echo(char **cmd);
 int		ft_env(t_env *env);
