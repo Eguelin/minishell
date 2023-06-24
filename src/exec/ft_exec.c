@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/24 11:53:07 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 15:28:26 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_isbuiltin(t_minishell *data)
 	return (i);
 }
 
-void	ft_pipe(t_minishell *data)
+static void	ft_pipe(t_minishell *data)
 {
 	int	error;
 

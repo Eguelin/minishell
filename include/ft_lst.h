@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/24 14:06:58 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 15:31:08 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 ////////// [ env ] //////////
 void	ft_env_add_back(t_env **env, t_env *new);
-void	ft_env_add_front(t_env **env, t_env *new);
-
 void	ft_env_clear(t_env **env);
 void	ft_env_delone(t_env *env);
 t_env	*ft_env_first(t_env *env);
@@ -37,12 +35,10 @@ t_lcmd	*ft_lcmd_last(t_lcmd *lcmd);
 
 ////////// [ token ] //////////
 void	ft_token_add_back(t_token **token, t_token *new);
-void	ft_token_add_front(t_token **token, t_token *new);
 void	ft_token_clear(t_token **token);
 void	ft_token_delone(t_token *token);
 t_token	*ft_token_first(t_token *token);
 t_token	*ft_token_last(t_token *token);
 t_token	*ft_token_new(char *content, int type);
-int		ft_token_size(t_token *token);
 
 #endif
