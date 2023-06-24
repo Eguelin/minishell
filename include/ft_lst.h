@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 13:21:08 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 08:27:23 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 14:06:58 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	**ft_env_to_tab(t_env *env);
 t_env	*ft_get_env(t_env *env, char *name);
 t_env	*ft_pars_env_var(char *env_var);
 t_env	*ft_set_env(char **env);
-t_env	*ft_env_chr(t_env *env, char *name);
 
 ////////// [ lcmd ] //////////
 void	ft_lcmd_add_back(t_lcmd **lcmd, t_lcmd *new);
