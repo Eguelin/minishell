@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 12:37:56 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 13:16:29 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_remove(t_env **env, char *cmd)
 		if (!ft_strncmp((*env)->name, cmd, ft_strlen(cmd)))
 		{
 			if (!(*env)->next)
-				ft_env_delone(*env);
+				ft_env_clear(env);
 			else
 			{
 				*env = (*env)->next;
