@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:34:40 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/24 15:20:16 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 19:15:00 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ int	ft_get_path(t_minishell *data)
 
 	ft_free_split(data->path);
 	path = ft_get_env(data->env, "PATH");
-	data->path = ft_split(path->content, ':');
-	if (!data->path)
-		return (MALLOC_FAILED);
+	if (path)
+	{
+		data->path = ft_split(path->content, ':');
+		if (!data->path)
+			return (MALLOC_FAILED);
+	}
+	else
+		data->path = NULL;
 	return (0);
 }
 
