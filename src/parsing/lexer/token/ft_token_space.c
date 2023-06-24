@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/15 09:25:45 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 17:30:15 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	ft_token_space(t_data_token *data)
 
 	if (!data->type)
 	{
-		while (data->line[data->end] == ' ')
+		while (data->line[data->end] && \
+		ft_strchr(" \t\n\v\f\r", data->line[data->end]))
 			(data->end)++;
 		data->start = data->end;
 		return (0);
@@ -28,7 +29,8 @@ int	ft_token_space(t_data_token *data)
 	if (!new)
 		return (MALLOC_FAILED);
 	ft_token_add_back(data->token, new);
-	while (data->line[data->end] == ' ')
+	while (data->line[data->end] && \
+	ft_strchr(" \t\n\v\f\r", data->line[data->end]))
 		(data->end)++;
 	data->start = data->end;
 	return (0);

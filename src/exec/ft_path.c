@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:34:40 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/21 12:26:00 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/23 14:39:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,35 @@ int	ft_get_path(t_minishell *data)
 
 static char	*ft_check_absolute_path(t_minishell *data)
 {
-	if (ft_strchr(data->lcmd->cmd[0], '/'))
+	struct stat	path_stat;
+
+	if (!ft_strchr(data->lcmd->cmd[0], '/'))
+		return (NULL);
+	if (stat(data->lcmd->cmd[0], &path_stat))
+	{
+		ft_printf_error("%s: %s: No such file or directory\n", \
+		data->name, data->lcmd->cmd[0]);
+		ft_exit_minishell(data, 127);
+	}
+	if (S_ISDIR(path_stat.st_mode))
+		ft_printf_error("%s: %s: Is a directory\n", \
+		data->name, data->lcmd->cmd[0]);
+	else if (S_ISREG(path_stat.st_mode))
 	{
 		if (!access(data->lcmd->cmd[0], X_OK))
 			return (data->lcmd->cmd[0]);
-		else if (!access(data->lcmd->cmd[0], F_OK))
-		{
-			ft_printf_error("%s: %s: Permission denied\n", \
-			data->name, data->lcmd->cmd[0]);
-			ft_exit_minishell(data, 126);
-		}
-		else
-		{
-			ft_printf_error("%s: %s: not found\n", \
-			data->name, data->lcmd->cmd[0]);
-			ft_exit_minishell(data, 127);
-		}
+		ft_printf_error("%s: %s: Permission denied\n", \
+		data->name, data->lcmd->cmd[0]);
 	}
+	ft_exit_minishell(data, 126);
 	return (NULL);
 }
 
 static char	*ft_check_relative_path(t_minishell *data)
 {
-	char	*path;
-	int		i;
+	char		*path;
+	int			i;
+	struct stat	path_stat;
 
 	i = 0;
 	while (data->path && data->path[i])
@@ -57,12 +62,18 @@ static char	*ft_check_relative_path(t_minishell *data)
 		path = ft_strjoin_three(data->path[i], "/", data->lcmd->cmd[0]);
 		if (!path)
 			ft_exit_minishell(data, MALLOC_FAILED);
-		if (!access(path, X_OK))
-			return (path);
+		if (!stat(path, &path_stat) && S_ISREG(path_stat.st_mode))
+		{
+			if (!access(path, X_OK))
+				return (path);
+			ft_printf_error("%s: %s: Permission denied\n", \
+			data->name, data->lcmd->cmd[0]);
+			ft_exit_minishell(data, 126);
+		}
 		free(path);
 		i++;
 	}
-	ft_printf_error("%s: %s: not found\n", data->name, data->lcmd->cmd[0]);
+	ft_printf_error("%s: command not found\n", data->lcmd->cmd[0]);
 	ft_exit_minishell(data, 127);
 	return (NULL);
 }
