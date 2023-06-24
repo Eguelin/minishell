@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/23 17:26:44 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 11:53:07 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_isbuiltin(t_minishell *data)
 	else if (!ft_strncmp(data->lcmd->cmd[0], "pwd", 4) && ++i && !ft_file(data))
 		g_error = ft_pwd();
 	else if (!ft_strncmp(data->lcmd->cmd[0], "cd", 3) && ++i && !ft_file(data))
-		g_error = ft_cd(&data->env, data->lcmd->cmd);
+		g_error = ft_cd(data, data->lcmd->cmd);
 	else if (!ft_strncmp(data->lcmd->cmd[0], "echo", 5) && ++i && \
 	!ft_file(data))
 		g_error = ft_echo(data->lcmd->cmd);

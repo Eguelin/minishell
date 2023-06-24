@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:43:36 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:29:19 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 11:53:22 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ////////// [ builtin ] //////////
 int		ft_export(t_env **env, char **cmd);
 int		ft_unset(t_env **env, char **cmd);
-int		ft_cd(t_env **env, char **cmd);
+int		ft_cd(t_minishell *data, char **cmd);
 int		ft_exit(t_minishell *data);
 int		ft_echo(char **cmd);
 int		ft_env(t_env *env);

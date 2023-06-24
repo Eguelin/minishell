@@ -6,139 +6,109 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 17:44:26 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 12:54:52 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	change_pwd(t_env **env, char *path, char *cwd)
+static int	ft_check_dir(t_minishell *data, char *dir);
+static int	ft_cd_replace_env(t_env *oldpwd, t_env *pwd, \
+char oldcwd[PATH_MAX], char cwd[PATH_MAX]);
+static int	ft_cd_move(t_minishell *data, char *dir);
+
+int	ft_cd(t_minishell *data, char **cmd)
+{
+	t_env	*oldpwd;
+	t_env	*home;
+
+	if (cmd[1] && cmd[2])
+		return (ft_printf_error("%s: cd: too many arguments\n", data->name), \
+		1);
+	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][1]))
+	{
+		home = ft_get_env(data->env, "HOME");
+		if (home && home->content)
+			return (ft_cd_move(data, home->content));
+		else
+			return (ft_printf_error("%s: cd: HOME not set\n", data->name), 1);
+	}
+	else if (cmd[1][0] == '-' && !cmd[1][1])
+	{
+		oldpwd = ft_get_env(data->env, "OLDPWD");
+		if (oldpwd && oldpwd->content)
+			return (ft_cd_move(data, oldpwd->content));
+		else
+			return (ft_printf_error("%s: cd: OLDPWD not set\n", data->name), 1);
+	}
+	else
+		return (ft_cd_move(data, cmd[1]));
+}
+
+static int	ft_cd_move(t_minishell *data, char *dir)
 {
 	t_env	*oldpwd;
 	t_env	*pwd;
-
-	oldpwd = ft_get_env(*env, "OLDPWD");
-	pwd = ft_get_env(*env, "PWD");
-	if (oldpwd)
-	{
-		free(oldpwd->content);
-		if (pwd)
-		{
-			oldpwd->content = pwd->content;
-			pwd->content = ft_strdup(cwd);
-		}
-		else
-			oldpwd->content = path;
-	}
-	else
-	{
-		if (pwd)
-		{
-			free(pwd->content);
-			pwd->content = ft_strdup(cwd);
-		}
-	}
-}
-
-static int	check_path(t_env **env, char *cmd)
-{
-	char	*oldpath;
-	t_env	*temp;
+	char	oldcwd[PATH_MAX];
 	char	cwd[PATH_MAX];
 
-	oldpath = NULL;
-	getcwd(cwd, sizeof(cwd));
-	temp = ft_get_env(*env, "PWD");
-	if (temp)
-		oldpath = temp->content;
-	else if (cwd[0])
-		oldpath = ft_strdup(cwd);
-	if (!oldpath && !temp && cwd[0])
-		return (MALLOC_FAILED);
-	if (chdir(cmd) != 0)
+	if (ft_check_dir(data, dir))
 		return (1);
+	oldpwd = ft_get_env(data->env, "OLDPWD");
+	pwd = ft_get_env(data->env, "PWD");
+	getcwd(oldcwd, sizeof(oldcwd));
+	if (oldpwd && (oldpwd->content == dir))
+		ft_printf_fd(ft_get_data(NULL)->out, "%s\n", dir);
+	chdir(dir);
 	getcwd(cwd, sizeof(cwd));
-	change_pwd(env, oldpath, cwd);
+	if (ft_cd_replace_env(oldpwd, pwd, oldcwd, cwd))
+		return (MALLOC_FAILED);
 	return (0);
 }
 
-static int	ft_cd_back(t_env **env)
+static int	ft_check_dir(t_minishell *data, char *dir)
 {
-	char	*oldpath;
-	t_env	*temp;
-	t_env	*old;
-	char	*cmd;
-	char	cwd[PATH_MAX];
+	struct stat	path_stat;
 
-	oldpath = NULL;
-	getcwd(cwd, sizeof(cwd));
-	old = ft_get_env(*env, "OLDPWD");
-	if (old->content)
-		cmd = old->content;
-	else
-		return (1);
-	temp = ft_get_env(*env, "PWD");
-	if (temp)
-		oldpath = temp->content;
-	else if (cwd[0])
-		oldpath = ft_strdup(cwd);
-	if (!oldpath && !temp && cwd[0])
-		return (MALLOC_FAILED);
-	if (chdir(cmd) != 0)
-		return (1);
-	getcwd(cwd, sizeof(cwd));
-	change_pwd(env, oldpath, cwd);
-	return (ft_printf_fd(ft_get_data(NULL)->out, "%s\n", cwd), 0);
-}
-
-static int	ft_cd_home(t_env **env)
-{
-	char	*oldpath;
-	t_env	*temp;
-	t_env	*home;
-	char	*cmd;
-	char	cwd[PATH_MAX];
-
-	oldpath = NULL;
-	getcwd(cwd, sizeof(cwd));
-	home = ft_get_env(*env, "HOME");
-	if (home)
-		cmd = home->content;
-	else
-		return (1);
-	temp = ft_get_env(*env, "PWD");
-	if (temp)
-		oldpath = temp->content;
-	else if (cwd[0])
-		oldpath = ft_strdup(cwd);
-	if (!oldpath && !temp && cwd[0])
-		return (MALLOC_FAILED);
-	if (chdir(cmd) != 0)
-		return (free(oldpath), 1);
-	getcwd(cwd, sizeof(cwd));
-	change_pwd(env, oldpath, cwd);
-	return (0);
-}
-
-int	ft_cd(t_env **env, char **cmd)
-{
-	int	error_value;
-
-	error_value = 0;
-	if (cmd[1] && cmd[2])
+	if (stat(dir, &path_stat))
 	{
-		ft_printf_error("%s: cd: too many arguments\n", ft_get_data(NULL)->name);
-		return (1);
-	}
-	if (!cmd[1] || (cmd[1][0] == '~' && !cmd[1][1]))
-		error_value = ft_cd_home(env);
-	else if (strcmp(cmd[1], "-") == 0)
-		error_value = ft_cd_back(env);
-	else
-		error_value = check_path(env, cmd[1]);
-	if (error_value == 1)
 		ft_printf_error("%s: cd: %s: No such file or directory\n", \
-		ft_get_data(NULL)->name, cmd[1]);
-	return (error_value);
+		data->name, dir);
+		return (1);
+	}
+	if (!S_ISDIR(path_stat.st_mode))
+		ft_printf_error("%s: cd: %s: Not a directory\n", \
+		data->name, dir);
+	else
+	{
+		if (!access(dir, X_OK))
+			return (0);
+		ft_printf_error("%s: cd: %s: Permission denied\n", \
+		data->name, dir);
+	}
+	return (1);
 }
-//  add Permission denied
+
+static int	ft_cd_replace_env(t_env *oldpwd, t_env *pwd, \
+char oldcwd[PATH_MAX], char cwd[PATH_MAX])
+{
+	if (oldpwd)
+		free(oldpwd->content);
+	if (oldpwd && pwd)
+		oldpwd->content = pwd->content;
+	else if (oldpwd)
+	{
+		oldpwd->content = ft_strdup(oldcwd);
+		if (!oldpwd->content)
+			return (MALLOC_FAILED);
+	}
+	if (pwd)
+	{
+		if (!oldpwd)
+			free(pwd->content);
+		pwd->content = ft_strdup(cwd);
+		if (!pwd->content)
+			return (MALLOC_FAILED);
+	}
+	return (0);
+}
