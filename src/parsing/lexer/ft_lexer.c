@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/23 17:19:25 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 13:21:27 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	ft_lexer(t_token **token, t_env *env, char *line)
 	if (line[data.end] == ':' && \
 	(!line[data.end + 1] || (line[data.end + 1] == ' ')))
 		return (0);
-	if (line[data.end] == '#')
-		return (0);
 	while (line[data.end])
 	{
+		if (line[data.end] == '#')
+			break ;
 		error = ft_get_token(&data, env);
 		if (error)
 			return (error);
