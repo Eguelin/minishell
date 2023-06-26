@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_expands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 19:00:49 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/21 12:34:35 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/25 23:00:58 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	ft_putstr_line(char *line, t_env *env, int fd);
-static int	ft_putstr_ex(char *line, t_env *env, size_t	*start, int fd);
+static int	ft_putstr_ex(char *line, t_env *env, size_t	index[2], int fd);
 
 int	ft_heredoc_expands(t_token *token, t_env *env, int fd)
 {

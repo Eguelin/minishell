@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 18:37:13 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/16 17:04:39 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/25 22:59:18 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,11 @@ static t_env	*ft_increase_shlvl(char *shlvl)
 
 static int	ft_check_presence(t_env **env, char *var)
 {
-	int		i;
 	t_env	*tmp;
 	char	*name;
 	char	*content;
 	char	pwd[PATH_MAX];
 
-	i = 0;
 	tmp = *env;
 	if (!ft_strncmp(var, "PWD", 4) && !getcwd(pwd, sizeof(pwd)))
 		return (ft_putstr_fd("Minishell: error retrieving current directory\n", \
