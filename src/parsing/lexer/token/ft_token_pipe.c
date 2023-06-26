@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 17:26:09 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/23 17:18:50 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/26 12:36:07 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_token_pipe(t_data_token *data)
 		(data->end)++;
 	if (!data->line[data->end])
 		return (SYNTAX_ERROR);
-	else if (data->line[data->end] == '|')
+	else if (data->line[data->end] == '|' || data->line[data->end] == '#')
 		return (SYNTAX_ERROR);
 	data->start = data->end;
 	return (0);
