@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mylib.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 12:54:43 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/22 13:54:27 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/26 11:47:25 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # include <stdarg.h>
 
 # define BUFFER_SIZE 10
+# define PF_BUFFER_SIZE 250
+
+struct	s_printf
+{
+	char	buf[PF_BUFFER_SIZE];
+	int		index;
+	int		printed;
+}		t_printf;
 
 typedef struct s_list
 {

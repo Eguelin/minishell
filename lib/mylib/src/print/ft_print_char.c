@@ -5,14 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 10:57:42 by eguelin           #+#    #+#             */
-/*   Updated: 2023/02/15 17:20:51 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/26 11:34:10 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/26 11:47:42 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mylib.h"
 
-int	ft_print_char(char c)
+int	ft_print_char(t_printf *data, char c)
 {
-	return (write(1, &c, 1));
+	if (data->index == PF_BUFFER_SIZE && ft_write(data))
+		return (-1);
+	data->buf[data->index] = c;
+	data->index++;
+	return (0);
 }

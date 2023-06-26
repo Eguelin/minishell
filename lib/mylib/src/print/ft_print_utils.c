@@ -1,29 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_str.c                                     :+:      :+:    :+:   */
+/*   ft_print_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 11:35:07 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/26 11:47:51 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/26 11:30:58 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/26 11:47:57 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mylib.h"
 
-int	ft_print_str(t_printf *data, char *s)
+void	ft_print_init(t_printf *data)
 {
-	size_t	i;
+	bzero(data->buf, PF_BUFFER_SIZE);
+	data->index = 0;
+	data->printed = 0;
+}
 
-	i = 0;
-	while (s[i])
+int	ft_print_nbr_size(unsigned long ul, float div)
+{
+	int		size;
+
+	size = 0;
+	while (ul)
 	{
-		if (data->index == PF_BUFFER_SIZE && ft_write(data))
-			return (-1);
-		data->buf[data->index] = s[i];
-		data->index++;
-		i++;
+		ul *= div;
+		size++;
 	}
+	return (size);
+}
+
+int	ft_write(t_printf *data);
+{
+	if (write(STDOUT_FILENO, data->buf, data->index) == -1)
+		return (1);
+	data->size_print += data->index;
+	bzero(data->buf, PF_BUFFER_SIZE);
+	data->index = 0;
 	return (0);
 }

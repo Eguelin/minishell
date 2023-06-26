@@ -5,20 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 12:03:24 by eguelin           #+#    #+#             */
-/*   Updated: 2023/02/15 17:20:48 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/26 11:36:52 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/26 11:47:38 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mylib.h"
 
-int	ft_print_base(unsigned long un, unsigned long size_set, char *set)
+int	ft_print_base(t_printf *data, unsigned long ul, int base, int type)
 {
-	int	count;
+	int		size;
+	float	div;
+	static char* base_1 = "0123456789abcdef";
+	static char* base_2 = "0123456789ABCDEF";
 
-	count = 0;
-	if (un > size_set - 1)
-		count += ft_print_base(un / size_set, size_set, set);
-	count += ft_print_char(set[un % size_set]);
-	return (count);
+	div = 1 / base;
+	size = ft_print_nbr_size(ul, div);
+	if (data->index + size >= PF_BUFFER_SIZE && ft_write(data))
+		return (-1);
+	size += data->index;
+	while (ul)
+	{
+		if (type)
+			data->buf[size] = base_1[ul % base];
+		else
+			data->buf[size] = base_2[ul % base];
+		data->index++;
+		size--;
+		ul *= div;
+	}
+	return (0);
 }

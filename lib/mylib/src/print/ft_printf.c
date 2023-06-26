@@ -5,36 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:24:07 by eguelin           #+#    #+#             */
-/*   Updated: 2023/04/18 18:14:46 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/25 01:43:55 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/26 11:48:07 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mylib.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(const char *fmt, ...);
 {
-	va_list	larg;
-	size_t	i;
-	int		size;
+	va_list ap;
 
-	i = 0;
-	size = 0;
-	if (write(1, 0, 0) != 0 || !format)
-		return (-1);
-	va_start(larg, format);
-	while (format[i])
+	va_start(ap, fmt);
+	while (*fmt)
 	{
-		if (format[i] == '%')
-		{
-			size += ft_print_all(format[i + 1], larg);
-		}
-		else
-			size += ft_print_char(format[i]);
-		if (format[i + 1] && format[i] == '%')
-			i ++;
-		i++;
+		//va_arg(ap, char *);
 	}
-	va_end(larg);
-	return (size);
+	va_end(ap);
 }

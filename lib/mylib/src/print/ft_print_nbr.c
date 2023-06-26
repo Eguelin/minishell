@@ -5,27 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 12:03:24 by eguelin           #+#    #+#             */
-/*   Updated: 2023/02/15 17:20:55 by eguelin          ###   ########lyon.fr   */
+/*   Created: 2023/06/26 11:38:17 by eguelin           #+#    #+#             */
+/*   Updated: 2023/06/26 11:47:46 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mylib.h"
 
-int	ft_print_nbr(int n)
+int	ft_print_nbr(t_printf *data, long l)
 {
-	unsigned int	un;
-	int				count;
+	int	size;
 
-	un = n;
-	count = 0;
-	if (n < 0)
+	if (l < 0)
 	{
-		count += ft_print_char('-');
-		un *= -1;
+		l *= -1;
+		if (data->index >= PF_BUFFER_SIZE && ft_write(data))
+			return (-1);
+		data->buf[data->index++] = '-';
 	}
-	if (un > 9)
-		count += ft_print_nbr(un / 10);
-	count += ft_print_char((un % 10) + '0');
-	return (count);
+	size = ft_print_nbr_size(l, 0,1f);
+	if (data->index + size >= PF_BUFFER_SIZE && ft_write(data))
+		return (-1);
+	size += data->index;
+	while (l)
+	{
+		data->buf[size] = (unsigned long)(l % 10) + '0';
+		data->index++;
+		size--;
+		l *= 0,1f;
+	}
+	return (0);
 }
