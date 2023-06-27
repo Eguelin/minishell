@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 18:34:36 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/26 19:10:34 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/27 14:37:05 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_fusion_line(t_token *token)
 	{
 		if (token->next->type > 0 && ft_join_token(token))
 			return (MALLOC_FAILED);
-		if (token->next && !token->next->type)
+		while (token->next && !token->next->type)
 			ft_token_delone(token->next);
 		if (token->next && token->next->type < 0)
 		{
