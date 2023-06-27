@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/24 13:16:29 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/27 14:16:43 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,26 @@ static int	unset_check(char *cmd)
 	int	i;
 
 	i = 1;
-	if (cmd[0] == '_' && (!cmd[1] || cmd[1] == '='))
+	if (ft_strlen(cmd) == 0 || cmd[1] == '=')
 		return (1);
-	if (!ft_isalpha(cmd[0]))
+	if (cmd[0] == '-')
 	{
-		ft_printf_error("%s: unset: %s: No numeric arguements\n", \
-		ft_get_data(NULL)->name, cmd);
-		return (1);
+		ft_printf_error("%s: unset: %s: invalid option\n", \
+			ft_get_data(NULL)->name, cmd);
+		return (3);
 	}
+	if (cmd[0] == '_')
+		return (2);
+	if (!ft_isalpha(cmd[0]) && cmd[0] != '_')
+		return (1);
 	while (cmd[i] && cmd[i] != '=')
 	{
-		if (!ft_isalnum(cmd[i]) && cmd[i] == '=')
-		{
-			ft_printf_error("%s: unset: %s: No numeric arguements\n", \
-			ft_get_data(NULL)->name, cmd);
+		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
 			return (1);
-		}
 		i++;
 	}
+	if (cmd[i] == '=')
+		return (1);
 	return (0);
 }
 
@@ -72,11 +74,21 @@ int	ft_unset(t_env **env, char **cmd)
 
 	error_value = 0;
 	i = 0;
-	while (cmd[i] && cmd[i][0] != '\0')
+	while (cmd[i])
 	{
 		error_value = unset_check(cmd[i]);
 		if (error_value == 0)
 			ft_remove(env, cmd[i]);
+		else if (error_value == 1)
+		{
+			ft_printf_error("%s: unset: %s: not a valid identifier\n", \
+			ft_get_data(NULL)->name, cmd[i]);
+			return (1);
+		}
+		else if (error_value == 2)
+			return (0);
+		else if (error_value == 3)
+			return (2);
 		i++;
 	}
 	return (error_value);

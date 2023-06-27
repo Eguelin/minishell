@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/22 14:03:53 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/27 14:20:47 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ static int	export_check(char *cmd)
 	int	i;
 
 	i = 1;
-	if (cmd[0] == '_' && (!cmd[1] || cmd[1] == '='))
-		return (0);
-	if (!ft_isalpha(cmd[0]) && cmd[0] != '_')
-	{
-		ft_printf_error("%s: export: %s No numeric arguements\n", \
-		ft_get_data(NULL)->name, cmd);
+	if (ft_strlen(cmd) == 0 || cmd[1] == '=')
 		return (1);
+	if (cmd[0] == '-')
+	{
+		ft_printf_error("%s: unset: %s: invalid option\n", \
+			ft_get_data(NULL)->name, cmd);
+		return (3);
 	}
+	if (cmd[0] == '_')
+		return (2);
+	if (!ft_isalpha(cmd[0]) && cmd[0] != '_')
+		return (1);
 	while (cmd[i] && cmd[i] != '=')
 	{
-		if (!ft_isalnum(cmd[i]) && cmd[i] == '=')
-		{
-			ft_printf_error("%s: export: %s No numeric arguements\n", \
-			ft_get_data(NULL)->name, cmd);
+		if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
 			return (1);
-		}
 		i++;
 	}
 	return (0);
@@ -113,6 +113,13 @@ int	ft_export(t_env **env, char **cmd)
 			add_env(env, cmd[i]);
 		else if (error_value == MALLOC_FAILED)
 			return (error_value);
+		else if (error_value == 1)
+			return (ft_printf_error("%s: export: %s: not a valid identifier\n", \
+			ft_get_data(NULL)->name, cmd[i]), 1);
+		else if (error_value == 2)
+			return (0);
+		else if (error_value == 3)
+			return (2);
 		i++;
 	}
 	if (i == 1)
