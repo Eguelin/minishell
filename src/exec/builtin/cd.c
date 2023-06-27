@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 13:48:25 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/24 13:10:27 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 16:52:18 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,14 @@ static int	ft_cd_move(t_minishell *data, char *dir)
 
 	if (ft_check_dir(data, dir))
 		return (1);
+	ft_bzero(oldcwd, PATH_MAX);
+	ft_bzero(cwd, PATH_MAX);
 	oldpwd = ft_get_env(data->env, "OLDPWD");
 	pwd = ft_get_env(data->env, "PWD");
 	getcwd(oldcwd, sizeof(oldcwd));
+	if (!oldcwd[0] && dir[0] == '.' && !dir[1])
+		return (ft_printf_error("cd: error retrieving current directory\n", \
+		data->name, dir), 1);
 	if (oldpwd && (oldpwd->content == dir))
 		ft_printf_fd(ft_get_data(NULL)->out, "%s\n", dir);
 	chdir(dir);

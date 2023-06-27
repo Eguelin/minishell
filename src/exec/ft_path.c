@@ -6,11 +6,14 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 14:34:40 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/23 14:39:02 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/24 19:15:00 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*ft_check_absolute_path(t_minishell *data);
+static char	*ft_check_relative_path(t_minishell *data);
 
 int	ft_get_path(t_minishell *data)
 {
@@ -18,10 +21,25 @@ int	ft_get_path(t_minishell *data)
 
 	ft_free_split(data->path);
 	path = ft_get_env(data->env, "PATH");
-	data->path = ft_split(path->content, ':');
-	if (!data->path)
-		return (MALLOC_FAILED);
+	if (path)
+	{
+		data->path = ft_split(path->content, ':');
+		if (!data->path)
+			return (MALLOC_FAILED);
+	}
+	else
+		data->path = NULL;
 	return (0);
+}
+
+char	*ft_check_cmd(t_minishell *data)
+{
+	char	*path;
+
+	path = ft_check_absolute_path(data);
+	if (!path)
+		path = ft_check_relative_path(data);
+	return (path);
 }
 
 static char	*ft_check_absolute_path(t_minishell *data)
@@ -76,14 +94,4 @@ static char	*ft_check_relative_path(t_minishell *data)
 	ft_printf_error("%s: command not found\n", data->lcmd->cmd[0]);
 	ft_exit_minishell(data, 127);
 	return (NULL);
-}
-
-char	*ft_check_cmd(t_minishell *data)
-{
-	char	*path;
-
-	path = ft_check_absolute_path(data);
-	if (!path)
-		path = ft_check_relative_path(data);
-	return (path);
 }

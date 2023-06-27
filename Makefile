@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/24 13:11:45 by naterrie         ###   ########lyon.fr    #
+#    Updated: 2023/06/24 15:31:03 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ ALL_FILES		+= $(addprefix $(EXEC_DIR), $(EXEC_FILES))
 LST_DIR			= lst/
 
 ENV_DIR			= env/
-ENV_FILES		= ft_env_add_back.c ft_env_add_front.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_env_to_tab.c ft_get_env.c ft_pars_env_var.c ft_set_env.c
+ENV_FILES		= ft_env_add_back.c ft_env_clear.c ft_env_delone.c ft_env_first.c ft_env_last.c ft_env_new.c ft_env_size.c ft_env_to_tab.c ft_get_env.c ft_pars_env_var.c ft_set_env.c
 ALL_FILES		+= $(addprefix $(LST_DIR)$(ENV_DIR), $(ENV_FILES))
 
 LCMD_DIR		= lcmd/
@@ -61,7 +61,7 @@ LCMD_FILES		= ft_lcmd_add_back.c ft_lcmd_clear.c ft_lcmd_delone.c ft_lcmd_last.c
 ALL_FILES		+= $(addprefix $(LST_DIR)$(LCMD_DIR), $(LCMD_FILES))
 
 TOKEN_DIR		= token/
-TOKEN_FILES		= ft_token_add_back.c ft_token_add_front.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c ft_token_size.c
+TOKEN_FILES		= ft_token_add_back.c ft_token_clear.c ft_token_delone.c ft_token_first.c ft_token_last.c ft_token_new.c
 ALL_FILES		+= $(addprefix $(LST_DIR)$(TOKEN_DIR), $(TOKEN_FILES))
 
 PARS_DIR		= parsing/

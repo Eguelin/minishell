@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/24 11:53:07 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/26 19:10:01 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	child_process(t_minishell *data);
 
 int	ft_exec(t_minishell *data)
 {
+	g_error = 0;
 	if (!data->lcmd->next && data->lcmd->cmd && ft_isbuiltin(data))
 		return (g_error);
 	data->pid = fork();
@@ -58,7 +59,7 @@ static int	ft_isbuiltin(t_minishell *data)
 	return (i);
 }
 
-void	ft_pipe(t_minishell *data)
+static void	ft_pipe(t_minishell *data)
 {
 	int	error;
 
