@@ -6,11 +6,13 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:31:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/27 14:35:59 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/27 17:41:38 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	ft_atoi_exit(const char *str, t_minishell *data);
 
 static int	ft_check_exit_digit(t_minishell *data, char *cmd)
 {
@@ -37,7 +39,41 @@ static int	ft_check_exit_digit(t_minishell *data, char *cmd)
 		}
 		i++;
 	}
-	return (ft_atoi(data->lcmd->cmd[1]));
+	return (ft_atoi_exit(data->lcmd->cmd[1], data));
+}
+
+static void	check(t_minishell *data, const char *str)
+{
+	if (!ft_strncmp(str, "-9223372036854775808", 20))
+		ft_exit_minishell(data, 0);
+	ft_printf_error("%s: exit: %s: numeric argument required\n", \
+	data->name, data->lcmd->cmd[1]);
+	ft_exit_minishell(data, 2);
+}
+
+static int	ft_atoi_exit(const char *str, t_minishell *data)
+{
+	size_t	i;
+	long	somme;
+	int		neg;
+
+	i = 0;
+	neg = 1;
+	somme = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+		neg *= -1;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while ((str[i] >= 48 && str[i] <= 57))
+	{
+		if (somme != (somme * 10 + (str[i] - '0')) / 10)
+			return (check(data, str), 0);
+		somme = somme * 10 + (str[i] - '0');
+		i++;
+	}
+	return (somme * neg);
 }
 
 int	ft_exit(t_minishell *data)
@@ -56,7 +92,7 @@ int	ft_exit(t_minishell *data)
 		{
 			ft_printf_error("%s: exit: %s: numeric argument required\n", \
 			data->name, data->lcmd->cmd[1]);
-			error_value = 2;
+			ft_exit_minishell(data, 2);
 		}
 		error_value = ft_check_exit_digit(data, data->lcmd->cmd[1] + i);
 		if (data->lcmd->cmd[2])

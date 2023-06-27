@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 15:37:50 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/27 14:24:51 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/27 17:02:15 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,18 @@
 
 static void	ft_remove(t_env **env, char *cmd)
 {
-	t_env	*tmp;
-
-	tmp = *env;
-	while (tmp)
+	if (!ft_strncmp((*env)->name, cmd, ft_strlen(cmd)))
 	{
-		if (!ft_strncmp((*env)->name, cmd, ft_strlen(cmd)))
-		{
-			if (!(*env)->next)
-				ft_env_clear(env);
-			else
-			{
-				*env = (*env)->next;
-				ft_env_delone((*env)->previous);
-			}
-		}
+		if (!(*env)->next)
+			ft_env_clear(env);
 		else
 		{
-			ft_env_delone(ft_get_env(tmp, cmd));
+			*env = (*env)->next;
+			ft_env_delone((*env)->previous);
 		}
-		tmp = tmp->next;
 	}
+	else
+		ft_env_delone(ft_get_env(*env, cmd));
 }
 
 static int	unset_check(char *cmd)

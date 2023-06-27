@@ -6,7 +6,7 @@
 /*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:05:31 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/27 14:20:47 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/27 17:03:45 by naterrie         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	export_check(char *cmd)
 	int	i;
 
 	i = 1;
-	if (ft_strlen(cmd) == 0 || cmd[1] == '=')
+	if (ft_strlen(cmd) == 0 || cmd[0] == '=')
 		return (1);
 	if (cmd[0] == '-')
 	{
