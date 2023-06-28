@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/26 19:10:01 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/28 14:02:07 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	ft_isbuiltin(t_minishell *data)
 	else if (!ft_strncmp(data->lcmd->cmd[0], "exit", 5) && ++i && \
 	!ft_file(data))
 		g_error = ft_exit(data);
+	if (data->out > 1)
+		close(data->out);
 	data->out = 1;
 	return (i);
 }
