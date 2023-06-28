@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:01:41 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/27 13:55:45 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/28 16:38:36 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_file(t_minishell *data)
 	}
 	if (in >= 0)
 		ft_dup(in, STDIN_FILENO, data);
-	if (out > 0)
+	if (out > 0 && data->pid)
 		data->out = out;
 	if (out >= 0 && !data->pid)
 		ft_dup(out, STDOUT_FILENO, data);
@@ -56,8 +56,8 @@ static int	ft_check_file(t_minishell *data, t_token *file, int *in, int *out)
 				data->name, file->content), 1);
 			else
 				if (ft_open_file(file, in, out))
-					return (ft_printf("%s: %s: Permission denied\n", data->name, \
-					file->content), 1);
+					return (ft_printf_error("%s: %s: Permission denied\n", \
+					data->name, file->content), 1);
 		}
 		else
 		{
@@ -83,9 +83,9 @@ static int	ft_open_file(t_token *file, int *in, int *out)
 	{
 		ft_close(out);
 		if (file->type == APP_END)
-			*out = open(file->content, O_CREAT | O_WRONLY | O_APPEND, 0755);
+			*out = open(file->content, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else
-			*out = open(file->content, O_CREAT | O_WRONLY | O_TRUNC, 0755);
+			*out = open(file->content, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (*out == -1)
 			return (1);
 	}
