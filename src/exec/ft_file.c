@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:01:41 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/29 11:46:16 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/29 12:18:46 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,29 +95,12 @@ static int	ft_open_file(t_token *file, int *in, int *out)
 
 static int	ft_print_heredoc(t_token *file, int *in)
 {
-	char	*name;
-	char	*nbr;
-
-	nbr = ft_itoa(file->type);
-	if (!nbr)
-		return (MALLOC_FAILED);
-	name = ft_strjoin("/var/tmp/herdoc", nbr);
-	if (!name)
-		return (free(nbr), MALLOC_FAILED);
-	free(nbr);
-	*in = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	*in = open(file->content, O_RDONLY);
 	if (*in == -1)
 		return (ft_printf_error("%s: Error opening temporary file\n", \
-		ft_get_data(NULL)->name), free(name), 1);
-	ft_printf_fd(*in, "%s", file->content);
-	close(*in);
-	*in = open(name, O_RDONLY);
-	if (*in == -1)
-		return (ft_printf_error("%s: Error opening temporary file\n", \
-		ft_get_data(NULL)->name), unlink(name), free(name), 1);
+		ft_get_data(NULL)->name), unlink(file->content), 1);
 	ft_dup(*in, STDIN_FILENO, ft_get_data(NULL));
-	unlink(name);
-	free(name);
+	unlink(file->content);
 	*in = -1;
 	return (0);
 }
