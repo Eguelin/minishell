@@ -6,7 +6,7 @@
 #    By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/27 14:20:28 by eguelin           #+#    #+#              #
-#    Updated: 2023/06/24 15:31:03 by eguelin          ###   ########lyon.fr    #
+#    Updated: 2023/06/29 17:34:08 by eguelin          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ EXPANDS_FILES	= ft_expands_classic.c ft_expands_global.c ft_expands_quote.c ft_e
 ALL_FILES		+= $(addprefix  $(PARS_DIR)$(LEXER_DIR)$(TOKEN_P_DIR)$(EXPANDS_DIR), $(EXPANDS_FILES))
 
 UTILS_DIR		= utils/
-UTILS_FILES		= ft_close.c ft_dup.c ft_error.c ft_exit_minishell.c ft_get_data.c ft_init_minishell.c ft_prompt.c
+UTILS_FILES		= ft_close.c ft_dup.c ft_error.c ft_exit_minishell.c ft_get_data.c ft_init_minishell.c ft_open_heredoc.c ft_prompt.c
 ALL_FILES		+= $(addprefix $(UTILS_DIR), $(UTILS_FILES))
 
 SIGNAL_DIR		= signal/
