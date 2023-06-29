@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 12:39:05 by naterrie          #+#    #+#             */
-/*   Updated: 2023/06/28 14:02:07 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/29 11:42:25 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static void	ft_pipe(t_minishell *data)
 	waitpid(data->pid, &g_error, 0);
 	while (waitpid(-1, &error, 0) != -1)
 	{
-		if (WEXITSTATUS(error) == MALLOC_FAILED)
+		if (WEXITSTATUS(error) >= MALLOC_FAILED && \
+		WEXITSTATUS(error) <= OPEN_FAILED)
 			g_error = error;
 	}
 	if (!WIFSIGNALED(g_error))

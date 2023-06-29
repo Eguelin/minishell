@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:38:37 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/27 14:21:32 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/29 11:45:02 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_dup(int fd, int fd2, t_minishell *data)
 			data->pipefd[1] = -1;
 		while (waitpid(-1, NULL, 0) != -1)
 			;
-		ft_error(data, OPEN_FAILED);
+		ft_exit_minishell(data, OPEN_FAILED);
 	}
 	close(fd);
 	if (fd == data->pipefd[0])

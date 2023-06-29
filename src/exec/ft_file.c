@@ -6,7 +6,7 @@
 /*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:01:41 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/28 16:38:36 by eguelin          ###   ########lyon.fr   */
+/*   Updated: 2023/06/29 11:46:16 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	ft_check_file(t_minishell *data, t_token *file, int *in, int *out);
 static int	ft_open_file(t_token *file, int *in, int *out);
+static int	ft_print_heredoc(t_token *file, int *in);
 
 int	ft_file(t_minishell *data)
 {
@@ -47,9 +48,9 @@ static int	ft_check_file(t_minishell *data, t_token *file, int *in, int *out)
 {
 	while (file)
 	{
-		if (file->type < HERE_DOC_NO && !(file->type % 2))
+		if (file->type < HERE_DOC_EX && !(file->type % 2))
 			return (ft_printf_error("%s: ambiguous redirect\n", data->name), 1);
-		else if (file->type < HERE_DOC_NO)
+		else if (file->type < HERE_DOC_EX)
 		{
 			if (file->type == IN && access(file->content, F_OK))
 				return (ft_printf_error("%s: %s: No such file or directory\n", \
@@ -59,11 +60,11 @@ static int	ft_check_file(t_minishell *data, t_token *file, int *in, int *out)
 					return (ft_printf_error("%s: %s: Permission denied\n", \
 					data->name, file->content), 1);
 		}
-		else
+		else if (!data->pid)
 		{
 			ft_close(in);
-			file->type = file->type - HERE_DOC_NO;
-			*in = file->type;
+			if (ft_print_heredoc(file, in))
+				return (1);
 		}
 		file = file->next;
 	}
@@ -89,5 +90,34 @@ static int	ft_open_file(t_token *file, int *in, int *out)
 		if (*out == -1)
 			return (1);
 	}
+	return (0);
+}
+
+static int	ft_print_heredoc(t_token *file, int *in)
+{
+	char	*name;
+	char	*nbr;
+
+	nbr = ft_itoa(file->type);
+	if (!nbr)
+		return (MALLOC_FAILED);
+	name = ft_strjoin("/var/tmp/herdoc", nbr);
+	if (!name)
+		return (free(nbr), MALLOC_FAILED);
+	free(nbr);
+	*in = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (*in == -1)
+		return (ft_printf_error("%s: Error opening temporary file\n", \
+		ft_get_data(NULL)->name), free(name), 1);
+	ft_printf_fd(*in, "%s", file->content);
+	close(*in);
+	*in = open(name, O_RDONLY);
+	if (*in == -1)
+		return (ft_printf_error("%s: Error opening temporary file\n", \
+		ft_get_data(NULL)->name), unlink(name), free(name), 1);
+	ft_dup(*in, STDIN_FILENO, ft_get_data(NULL));
+	unlink(name);
+	free(name);
+	*in = -1;
 	return (0);
 }
