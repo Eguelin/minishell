@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token_delone.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: naterrie <naterrie@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: eguelin <eguelin@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 21:03:04 by eguelin           #+#    #+#             */
-/*   Updated: 2023/06/29 13:32:50 by naterrie         ###   ########lyon.fr   */
+/*   Updated: 2023/06/29 16:22:05 by eguelin          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	ft_token_delone(t_token *token)
 		token->next->previous = token->previous;
 	if (token->type > HERE_DOC_NO)
 		close(token->type - HERE_DOC_NO);
-	if (token->content && !ft_strncmp(token->content, "/var/tmp/herdoc", 15))
-		unlink(token->content);
 	free(token->content);
 	free(token);
 }
